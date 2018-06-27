@@ -73,6 +73,7 @@ class PhotoGridViewController: UICollectionViewController, UICollectionViewDeleg
         
         // To show photos, I have taken a UICollectionView
         self.collectionView?.reloadData()
+
     }
 
 }
