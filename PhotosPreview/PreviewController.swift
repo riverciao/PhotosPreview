@@ -12,24 +12,41 @@ import Photos
 class PreviewController: UIViewController {
 
     var images = [PHAsset]()
+    let imageManager = PHImageManager.default()
+    @IBOutlet weak var displayImageView: UIImageView!
     @IBOutlet weak var previewButton: UIButton!
     @IBOutlet weak var previewView: UIView!
     @IBAction func openPreviewView(_ sender: UIButton) {
-        openView(targetView: previewView, hidden: true)
-        photoGridButton.backgroundColor = .red
-        print("OOOOO\(photoGridButton.frame)")
+        openView(targetView: previewView)
     }
     
     @IBOutlet weak var photoGridButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // MARK: View life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getImages()
+        setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        photoGridButton.isHidden = true
+    }
+    
+    // MARK: Setup
+    
+    private func setup() {
+        // MARK: CollectionView
         collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInsetAdjustmentBehavior = .never
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
+        view.addGestureRecognizer(tap)
     }
     
     // MARK: Action
@@ -49,11 +66,26 @@ class PreviewController: UIViewController {
         
     }
 
-    func openView(targetView: UIView, hidden: Bool) {
-        UIView.transition(with: view, duration: 0.5, options: .curveEaseInOut, animations: {
-            targetView.frame.origin.y = self.view.frame.height - targetView.bounds.height + 6
-            self.previewButton.frame.origin.y = targetView.frame.minY - self.previewButton.frame.height - 8
-        })
+    func openView(targetView: UIView) {
+        let isPreviewViewClosed = previewView.frame.minY == view.frame.maxY
+        if isPreviewViewClosed {
+            UIView.animate(withDuration: 0.5) {
+                self.previewView.frame.origin.y -= self.previewView.frame.height - 6
+                self.previewButton.frame.origin.y -= self.previewView.frame.height - 6
+            }
+            photoGridButton.isHidden = false
+        }
+    }
+    
+    @objc private func closePreviewView(_ sender: UITapGestureRecognizer) {
+        let isPreviewViewOpened = previewView.frame.maxY - 6 == view.frame.maxY
+        if isPreviewViewOpened {
+            UIView.animate(withDuration: 0.5) {
+                self.previewView.frame.origin.y += self.previewView.frame.height - 6
+                self.previewButton.frame.origin.y += self.previewView.frame.height - 6
+            }
+            photoGridButton.isHidden = true
+        }
     }
 }
 
@@ -67,18 +99,28 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = images[indexPath.row]
-        let manager = PHImageManager.default()
+        
         if cell.tag != 0 {
-            manager.cancelImageRequest(PHImageRequestID(cell.tag))
+            imageManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
-        cell.tag = Int(manager.requestImage(for: asset,
-                                            targetSize: CGSize(width: 120.0, height: 120.0),
+        cell.tag = Int(imageManager.requestImage(for: asset,
+                                            targetSize: CGSize(width: 150, height: 150),
                                             contentMode: .aspectFill,
                                             options: nil) { (result, _) in
                                                 cell.imageView.image = result
                                                 
         })
         return cell
+    }
+    
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let asset = images[indexPath.row]
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
+            self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            self.displayImageView.image = image
+        }
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

@@ -29,15 +29,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVa-th-5pE">
                                 <rect key="frame" x="0.0" y="667" width="375" height="150"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-TL-r6l">
-                                        <rect key="frame" x="8" y="112" width="69" height="30"/>
-                                        <state key="normal" title="photoGrid">
-                                            <color key="titleColor" red="0.58105844259999995" green="0.12855249639999999" blue="0.57453137639999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="Vo0-tA-S0J" kind="presentation" id="hPI-Hq-X7g"/>
-                                        </connections>
-                                    </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="J43-S2-0fZ">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -61,23 +52,44 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="D3Q-TL-r6l" secondAttribute="trailing" id="1RI-HU-JAO"/>
                                     <constraint firstAttribute="trailing" secondItem="J43-S2-0fZ" secondAttribute="trailing" id="4fF-os-9c3"/>
-                                    <constraint firstAttribute="bottom" secondItem="D3Q-TL-r6l" secondAttribute="bottom" constant="8" id="Fxi-zd-9Ut"/>
                                     <constraint firstItem="J43-S2-0fZ" firstAttribute="leading" secondItem="EVa-th-5pE" secondAttribute="leading" id="NLM-Bg-ste"/>
                                     <constraint firstAttribute="bottom" secondItem="J43-S2-0fZ" secondAttribute="bottom" id="cdo-7c-inI"/>
                                     <constraint firstAttribute="height" constant="150" id="j13-Tj-lBT"/>
-                                    <constraint firstItem="D3Q-TL-r6l" firstAttribute="leading" secondItem="EVa-th-5pE" secondAttribute="leading" constant="8" id="ndD-V0-EJG"/>
                                     <constraint firstItem="J43-S2-0fZ" firstAttribute="top" secondItem="EVa-th-5pE" secondAttribute="top" id="tam-Dz-RXX"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-TL-r6l">
+                                <rect key="frame" x="289" y="626" width="78" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="78" id="sd8-nt-mMO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="PhotoGrid">
+                                    <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="xoo-kD-9B2" kind="presentation" id="IhR-Tu-lpW"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m7q-Lv-4QO">
+                                <rect key="frame" x="0.0" y="208.5" width="375" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="xd6-kA-d1t"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="D3Q-TL-r6l" secondAttribute="bottom" constant="8" id="2LA-ms-UZZ"/>
                             <constraint firstAttribute="trailing" secondItem="EVa-th-5pE" secondAttribute="trailing" id="63z-B3-f6k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZeE-Ia-lqG" secondAttribute="trailing" constant="306" id="Dv2-XQ-dnj"/>
                             <constraint firstItem="ZeE-Ia-lqG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Ot8-Ah-N2R"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m7q-Lv-4QO" secondAttribute="trailing" id="UpO-Z2-WUz"/>
+                            <constraint firstItem="m7q-Lv-4QO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XoG-al-ocb"/>
                             <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="fN7-kH-vCc"/>
+                            <constraint firstItem="m7q-Lv-4QO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lG7-JT-hJW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="D3Q-TL-r6l" secondAttribute="trailing" constant="8" id="vi6-aC-jTx"/>
                             <constraint firstItem="EVa-th-5pE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yCc-KY-90r"/>
                             <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="ZeE-Ia-lqG" secondAttribute="bottom" constant="8" id="zuo-0v-h0x"/>
                         </constraints>
@@ -85,6 +97,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="J43-S2-0fZ" id="87w-vH-SqQ"/>
+                        <outlet property="displayImageView" destination="m7q-Lv-4QO" id="ei6-zI-axy"/>
                         <outlet property="photoGridButton" destination="D3Q-TL-r6l" id="ZsE-8F-cVo"/>
                         <outlet property="previewButton" destination="ZeE-Ia-lqG" id="PnL-Vj-Dk9"/>
                         <outlet property="previewView" destination="EVa-th-5pE" id="nOV-4i-xbx"/>
@@ -93,6 +106,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="149.59999999999999" y="115.59220389805098"/>
+        </scene>
+        <!--Photo Grid View Controller-->
+        <scene sceneID="FTU-b9-9Uk">
+            <objects>
+                <viewController id="xoo-kD-9B2" customClass="PhotoGridViewController" customModule="PhotosPreview" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KVd-O1-JUE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51V-2Y-Fl1">
+                                <rect key="frame" x="8" y="20" width="39" height="30"/>
+                                <state key="normal" title="Close"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-EC-Qvm">
+                                <rect key="frame" x="153" y="20" width="69" height="30"/>
+                                <state key="normal" title="All Photos"/>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wk6-d3-uJ6">
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4ae-H5-PrV">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoGridCell" id="RtD-37-kMx" customClass="PhotoGridCell" customModule="PhotosPreview" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FdX-MS-7jN" firstAttribute="bottom" secondItem="wk6-d3-uJ6" secondAttribute="bottom" id="9vd-TF-HmK"/>
+                            <constraint firstItem="wk6-d3-uJ6" firstAttribute="top" secondItem="51V-2Y-Fl1" secondAttribute="bottom" constant="10" id="B9g-jj-63D"/>
+                            <constraint firstItem="51V-2Y-Fl1" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="LfN-wn-umx"/>
+                            <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="MRk-e0-zZs"/>
+                            <constraint firstItem="FdX-MS-7jN" firstAttribute="trailing" secondItem="wk6-d3-uJ6" secondAttribute="trailing" id="Pzl-nf-6eQ"/>
+                            <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerX" secondItem="KVd-O1-JUE" secondAttribute="centerX" id="bfU-Q1-0Il"/>
+                            <constraint firstItem="B1j-EC-Qvm" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="bzs-Lp-jCP"/>
+                            <constraint firstItem="51V-2Y-Fl1" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" constant="8" id="hOM-0v-jgj"/>
+                            <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="zZr-Mc-4MU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FdX-MS-7jN"/>
+                    </view>
+                    <connections>
+                        <outlet property="albumButton" destination="B1j-EC-Qvm" id="8Kj-VM-VH0"/>
+                        <outlet property="closeButton" destination="51V-2Y-Fl1" id="wdM-VS-vhe"/>
+                        <outlet property="collectionView" destination="wk6-d3-uJ6" id="XQo-Dc-Qyo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3bt-9V-ClA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="993" y="116"/>
         </scene>
         <!--Photo Grid View Controller-->
         <scene sceneID="1kJ-MQ-0JR">
@@ -130,7 +204,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wn6-qI-JbP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="117"/>
+            <point key="canvasLocation" x="994" y="942"/>
         </scene>
     </scenes>
 </document>

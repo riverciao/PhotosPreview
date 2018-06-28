@@ -9,30 +9,44 @@
 import UIKit
 import Photos
 
-class PhotoGridViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var images = [PHAsset]()
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var albumButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Register cell classes
-        collectionView?.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
+        setup()
         getImages()
+    }
+    
+    // MARK: Setup
+    
+    private func setup() {
+        
+        // MARK: CollectionView
+        collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        // MARK: CloseButton
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
     }
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = images[indexPath.row]
         let manager = PHImageManager.default()
@@ -61,6 +75,10 @@ class PhotoGridViewController: UICollectionViewController, UICollectionViewDeleg
 
     // MARK: Action
     
+    @objc private func close(_ sender: UIButton) {
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     func getImages() {
         let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
         assets.enumerateObjects({ (object, count, stop) in
@@ -73,7 +91,6 @@ class PhotoGridViewController: UICollectionViewController, UICollectionViewDeleg
         
         // To show photos, I have taken a UICollectionView
         self.collectionView?.reloadData()
-
     }
 
 }
