@@ -19,7 +19,6 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-//        getImages()
     }
     
     // MARK: Setup
@@ -78,20 +77,4 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     @objc private func close(_ sender: UIButton) {
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
-    
-    func getImages() {
-        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
-        assets.enumerateObjects({ (object, count, stop) in
-            // self.cameraAssets.add(object)
-            self.images.append(object)
-            //In order to get latest image first, we just reverse the array
-        })
-        
-        self.images.reverse()
-        
-        // To show photos, I have taken a UICollectionView
-        self.collectionView?.reloadData()
-    }
-
 }
