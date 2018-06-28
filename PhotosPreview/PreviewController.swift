@@ -65,6 +65,14 @@ class PreviewController: UIViewController {
         self.collectionView.reloadData()
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToPhotoGrid" {
+            if let photoGridViewController = segue.destination as? PhotoGridViewController {
+                photoGridViewController.images = self.images
+            }
+        }
+    }
 
     func openView(targetView: UIView) {
         let isPreviewViewClosed = previewView.frame.minY == view.frame.maxY
