@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,9 +62,6 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-TL-r6l">
                                 <rect key="frame" x="289" y="626" width="78" height="33"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="78" id="sd8-nt-mMO"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="PhotoGrid">
                                     <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,12 +73,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m7q-Lv-4QO">
                                 <rect key="frame" x="0.0" y="208.5" width="375" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="xd6-kA-d1t"/>
+                                    <constraint firstAttribute="width" secondItem="m7q-Lv-4QO" secondAttribute="height" multiplier="3:2" id="qpE-6Z-euV"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="D3Q-TL-r6l" firstAttribute="leading" secondItem="ZeE-Ia-lqG" secondAttribute="trailing" constant="220" id="1yO-5N-TPO"/>
                             <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="D3Q-TL-r6l" secondAttribute="bottom" constant="8" id="2LA-ms-UZZ"/>
                             <constraint firstAttribute="trailing" secondItem="EVa-th-5pE" secondAttribute="trailing" id="63z-B3-f6k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZeE-Ia-lqG" secondAttribute="trailing" constant="306" id="Dv2-XQ-dnj"/>
@@ -98,6 +97,7 @@
                     <connections>
                         <outlet property="collectionView" destination="J43-S2-0fZ" id="87w-vH-SqQ"/>
                         <outlet property="displayImageView" destination="m7q-Lv-4QO" id="ei6-zI-axy"/>
+                        <outlet property="displayImageViewAspectRatio" destination="qpE-6Z-euV" id="CCi-gY-v6W"/>
                         <outlet property="photoGridButton" destination="D3Q-TL-r6l" id="ZsE-8F-cVo"/>
                         <outlet property="previewButton" destination="ZeE-Ia-lqG" id="PnL-Vj-Dk9"/>
                         <outlet property="previewView" destination="EVa-th-5pE" id="nOV-4i-xbx"/>
@@ -159,6 +159,7 @@
                         <constraints>
                             <constraint firstItem="FdX-MS-7jN" firstAttribute="bottom" secondItem="wk6-d3-uJ6" secondAttribute="bottom" id="9vd-TF-HmK"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="top" secondItem="51V-2Y-Fl1" secondAttribute="bottom" constant="10" id="B9g-jj-63D"/>
+                            <constraint firstItem="B1j-EC-Qvm" firstAttribute="leading" secondItem="51V-2Y-Fl1" secondAttribute="trailing" constant="106" id="CWG-Cr-nSi"/>
                             <constraint firstItem="51V-2Y-Fl1" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="LfN-wn-umx"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="MRk-e0-zZs"/>
                             <constraint firstItem="FdX-MS-7jN" firstAttribute="trailing" secondItem="wk6-d3-uJ6" secondAttribute="trailing" id="Pzl-nf-6eQ"/>

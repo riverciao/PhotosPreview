@@ -22,6 +22,7 @@ class PreviewController: UIViewController {
     
     @IBOutlet weak var photoGridButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var displayImageViewAspectRatio: NSLayoutConstraint!
     
     // MARK: View life cycle
     
@@ -58,8 +59,24 @@ class PreviewController: UIViewController {
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
                 self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 self.displayImageView.image = image
+                self.updateImageAspectRatio()
             }
         }
+    }
+    
+    private func updateImageAspectRatio() {
+        guard let image = displayImageView.image else { return }
+        displayImageView.removeConstraint(displayImageViewAspectRatio)
+        displayImageViewAspectRatio = NSLayoutConstraint(
+            item: displayImageView,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: displayImageView,
+            attribute: .height,
+            multiplier: image.size.width / image.size.height,
+            constant: 0
+        )
+        displayImageView.addConstraint(displayImageViewAspectRatio)
     }
     
     func getImages() {
@@ -140,6 +157,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
             self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             self.displayImageView.image = image
+            self.updateImageAspectRatio()
         }
     }
     
