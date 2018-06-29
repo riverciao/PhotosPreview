@@ -13,7 +13,7 @@ extension UIColor {
         self.init(red: r / 255, green: g / 255, blue: b / 255, alpha: 1)
     }
     
-    static let photoGridButtonBackgroundColor = UIColor.black.withAlphaComponent(0.75)
+    static let photoGridButtonBackgroundColor = UIColor.black.withAlphaComponent(0.5)
     static let photoGridButtonTintColor = UIColor.white
     static let selectedButtonBackgroundColor = UIColor(r: 50, g: 101, b: 254)
     static let selectedButtonTintColor = UIColor.white
