@@ -144,8 +144,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="wpz-zP-HYL" kind="unwind" unwindAction="backFrom:" id="g75-AB-bUc"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="xoo-kD-9B2" id="P2X-j0-uwQ"/>
+                                    <outlet property="delegate" destination="xoo-kD-9B2" id="bzS-My-6zB"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -169,46 +176,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3bt-9V-ClA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="wpz-zP-HYL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="993" y="116"/>
-        </scene>
-        <!--Photo Grid View Controller-->
-        <scene sceneID="1kJ-MQ-0JR">
-            <objects>
-                <collectionViewController id="Vo0-tA-S0J" customClass="PhotoGridViewController" customModule="PhotosPreview" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="i8C-O0-Vjp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <inset key="scrollIndicatorInsets" minX="1" minY="0.0" maxX="1" maxY="0.0"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="x7C-YQ-b8W">
-                            <size key="itemSize" width="100" height="100"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoGridCell" id="jMy-8L-mdI">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                                <connections>
-                                    <outlet property="backgroundView" destination="i8C-O0-Vjp" id="Jqw-ye-DqP"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="Vo0-tA-S0J" id="e0C-02-bsq"/>
-                            <outlet property="delegate" destination="Vo0-tA-S0J" id="8v5-bO-3lT"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wn6-qI-JbP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="994" y="942"/>
+            <point key="canvasLocation" x="881" y="116"/>
         </scene>
     </scenes>
 </document>

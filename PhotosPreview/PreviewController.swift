@@ -47,9 +47,20 @@ class PreviewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
         view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadImage), name: Notification.Name("image"), object: nil)
     }
     
     // MARK: Action
+    
+    @objc private func loadImage(_ sender: Notification) {
+        if let asset = sender.object as? PHAsset {
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
+                self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+                self.displayImageView.image = image
+            }
+        }
+    }
     
     func getImages() {
         let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
@@ -65,7 +76,7 @@ class PreviewController: UIViewController {
         self.collectionView.reloadData()
         
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToPhotoGrid" {
             if let photoGridViewController = segue.destination as? PhotoGridViewController {
@@ -73,6 +84,7 @@ class PreviewController: UIViewController {
             }
         }
     }
+    
 
     func openView(targetView: UIView) {
         let isPreviewViewClosed = previewView.frame.minY == view.frame.maxY

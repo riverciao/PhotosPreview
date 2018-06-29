@@ -64,6 +64,14 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     
     // MARK: UICollectionViewDelegate
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let asset = images[indexPath.row]
+        NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenWidth = UIScreen.main.bounds.width
         let width = screenWidth / 3
