@@ -11,13 +11,20 @@ import Photos
 
 class PreviewController: UIViewController {
 
+    // MARK: Properties
+    
     var images = [PHAsset]()
     let imageManager = PHImageManager.default()
     @IBOutlet weak var displayImageView: UIImageView!
     @IBOutlet weak var previewButton: UIButton!
     @IBOutlet weak var previewView: UIView!
+    var isPreviewOpened = false
     @IBAction func openPreviewView(_ sender: UIButton) {
-        openView(targetView: previewView)
+        if !isPreviewOpened {
+            openView(targetView: previewView)
+        } else {
+            closePreviewView()
+        }
     }
     
     @IBOutlet weak var photoGridButton: UIButton!
@@ -46,10 +53,25 @@ class PreviewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInsetAdjustmentBehavior = .never
         
+        // MARK: Button
+        photoGridButton.setupButtonUI(with: #imageLiteral(resourceName: "icon-grid"), backgroundColor: .buttonBackgroundColor, tintColor: .buttonTintColor, conerRadius: photoGridButton.bounds.width / 2)
+        previewButton.setupButtonUI(with: #imageLiteral(resourceName: "icon-photo"), backgroundColor: .white, tintColor: .lightGray, conerRadius: 5)
+        
+        // MARK: TapGesture
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
         view.addGestureRecognizer(tap)
         
+        // MARK: Notification
         NotificationCenter.default.addObserver(self, selector: #selector(loadImage), name: Notification.Name("image"), object: nil)
+    }
+    
+    private func setupButton(with image: UIImage) {
+        photoGridButton.setImage(#imageLiteral(resourceName: "icon-grid").withRenderingMode(.alwaysTemplate), for: .normal)
+        photoGridButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        photoGridButton.backgroundColor = .buttonBackgroundColor
+        photoGridButton.tintColor = .buttonTintColor
+        photoGridButton.layer.cornerRadius = photoGridButton.bounds.width / 2
+        photoGridButton.clipsToBounds = true
     }
     
     // MARK: Action
@@ -79,12 +101,24 @@ class PreviewController: UIViewController {
         displayImageView.addConstraint(displayImageViewAspectRatio)
     }
     
+    private func updateUI() {
+        if isPreviewOpened {
+            isPreviewOpened = false
+            previewButton.backgroundColor = .white
+            previewButton.tintColor = .lightGray
+            photoGridButton.isHidden = true
+        } else {
+            isPreviewOpened = true
+            previewButton.backgroundColor = .blue
+            previewButton.tintColor = .white
+            photoGridButton.isHidden = false
+        }
+    }
+    
     func getImages() {
         let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
         assets.enumerateObjects({ (object, count, stop) in
-            // self.cameraAssets.add(object)
             self.images.append(object)
-            //In order to get latest image first, we just reverse the array
         })
         
         self.images.reverse()
@@ -104,24 +138,24 @@ class PreviewController: UIViewController {
     
 
     func openView(targetView: UIView) {
-        let isPreviewViewClosed = previewView.frame.minY == view.frame.maxY
-        if isPreviewViewClosed {
-            UIView.animate(withDuration: 0.5) {
+        isPreviewOpened = previewView.frame.minY != view.frame.maxY
+        if !isPreviewOpened {
+            UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y -= self.previewView.frame.height - 6
                 self.previewButton.frame.origin.y -= self.previewView.frame.height - 6
             }
-            photoGridButton.isHidden = false
+            updateUI()
         }
     }
     
-    @objc private func closePreviewView(_ sender: UITapGestureRecognizer) {
-        let isPreviewViewOpened = previewView.frame.maxY - 6 == view.frame.maxY
-        if isPreviewViewOpened {
-            UIView.animate(withDuration: 0.5) {
+    @objc private func closePreviewView(_ sender: UITapGestureRecognizer? = nil) {
+        isPreviewOpened = previewView.frame.maxY - 6 == view.frame.maxY
+        if isPreviewOpened {
+            UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y += self.previewView.frame.height - 6
                 self.previewButton.frame.origin.y += self.previewView.frame.height - 6
             }
-            photoGridButton.isHidden = true
+            updateUI()
         }
     }
 }
