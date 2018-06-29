@@ -140,20 +140,19 @@ class PreviewController: UIViewController {
         isPreviewOpened = previewView.frame.minY != view.frame.maxY
         if !isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
-                self.previewView.frame.origin.y -= self.previewView.frame.height - 6
-                self.previewButton.frame.origin.y -= self.previewView.frame.height - 6
-            }
+                self.previewView.frame.origin.y -= self.previewView.frame.height
+                self.previewButton.frame.origin.y -= self.previewView.frame.height            }
             isPreviewOpened = true
             updateUI()
         }
     }
     
     @objc private func closePreviewView(_ sender: UITapGestureRecognizer? = nil) {
-        isPreviewOpened = previewView.frame.maxY - 6 == view.frame.maxY
+        isPreviewOpened = previewView.frame.maxY == view.frame.maxY
         if isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
-                self.previewView.frame.origin.y += self.previewView.frame.height - 6
-                self.previewButton.frame.origin.y += self.previewView.frame.height - 6
+                self.previewView.frame.origin.y += self.previewView.frame.height
+                self.previewButton.frame.origin.y += self.previewView.frame.height
             }
             isPreviewOpened = false
             updateUI()
@@ -201,6 +200,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width / 3
         let height = width
+        
         return CGSize(width: width, height: height)
     }
     
