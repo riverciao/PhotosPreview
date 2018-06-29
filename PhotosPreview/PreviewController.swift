@@ -57,13 +57,13 @@ class PreviewController: UIViewController {
         // MARK: Button
         photoGridButton.setupButtonUI(
             with: #imageLiteral(resourceName: "icon-grid"),
-            backgroundColor: .buttonBackgroundColor,
-            tintColor: .buttonTintColor,
+            backgroundColor: .photoGridButtonBackgroundColor,
+            tintColor: .photoGridButtonTintColor,
             conerRadius: photoGridButton.bounds.width / 2
         )
         previewButton.setupButtonUI(
-            with: #imageLiteral(resourceName: "icon-photo"), backgroundColor: .white,
-            tintColor: .lightGray,
+            with: #imageLiteral(resourceName: "icon-photo"), backgroundColor: .unselectButtonBackgroundColor,
+            tintColor: .unselectButtonTintColor,
             conerRadius: 5
         )
         
@@ -104,12 +104,12 @@ class PreviewController: UIViewController {
     
     private func updateUI() {
         if isPreviewOpened {
-            previewButton.backgroundColor = .blue
-            previewButton.tintColor = .white
+            previewButton.backgroundColor = .selectedButtonBackgroundColor
+            previewButton.tintColor = .selectedButtonTintColor
             photoGridButton.isHidden = false
         } else {
-            previewButton.backgroundColor = .white
-            previewButton.tintColor = .lightGray
+            previewButton.backgroundColor = .unselectButtonBackgroundColor
+            previewButton.tintColor = .unselectButtonTintColor
             photoGridButton.isHidden = true
         }
     }

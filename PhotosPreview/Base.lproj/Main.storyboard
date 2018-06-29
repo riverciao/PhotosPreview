@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Ia-lqG">
-                                <rect key="frame" x="8" y="629" width="40" height="30"/>
+                                <rect key="frame" x="8" y="624" width="44" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="59f-et-VIc"/>
-                                    <constraint firstAttribute="width" constant="40" id="Xh6-Wg-xTT"/>
+                                    <constraint firstAttribute="height" constant="35" id="59f-et-VIc"/>
+                                    <constraint firstAttribute="width" constant="44" id="Xh6-Wg-xTT"/>
                                 </constraints>
                                 <state key="normal" image="icon-photo"/>
                                 <connections>
@@ -192,6 +192,6 @@
     </scenes>
     <resources>
         <image name="icon-grid" width="25" height="25"/>
-        <image name="icon-photo" width="44" height="44"/>
+        <image name="icon-photo" width="44" height="36"/>
     </resources>
 </document>

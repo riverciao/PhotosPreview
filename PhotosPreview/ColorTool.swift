@@ -13,7 +13,11 @@ extension UIColor {
         self.init(red: r / 255, green: g / 255, blue: b / 255, alpha: 1)
     }
     
-    static let buttonBackgroundColor = UIColor.black.withAlphaComponent(0.75)
-    static let buttonTintColor = UIColor.white
+    static let photoGridButtonBackgroundColor = UIColor.black.withAlphaComponent(0.75)
+    static let photoGridButtonTintColor = UIColor.white
+    static let selectedButtonBackgroundColor = UIColor(r: 50, g: 101, b: 254)
+    static let selectedButtonTintColor = UIColor.white
+    static let unselectButtonBackgroundColor = UIColor.white
+    static let unselectButtonTintColor = UIColor.lightGray
 }
 
