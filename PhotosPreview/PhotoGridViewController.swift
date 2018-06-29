@@ -26,7 +26,10 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     private func setup() {
         
         // MARK: CollectionView
-        collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
+        collectionView.register(
+            UINib(nibName: PhotoGridCell.identifier, bundle: nil),
+            forCellWithReuseIdentifier: PhotoGridCell.identifier
+        )
         collectionView.delegate = self
         collectionView.dataSource = self
         

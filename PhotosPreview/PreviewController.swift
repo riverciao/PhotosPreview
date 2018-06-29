@@ -40,7 +40,8 @@ class PreviewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        photoGridButton.isHidden = true
+        isPreviewOpened = false
+        updateUI()
     }
     
     // MARK: Setup
@@ -54,8 +55,17 @@ class PreviewController: UIViewController {
         collectionView.contentInsetAdjustmentBehavior = .never
         
         // MARK: Button
-        photoGridButton.setupButtonUI(with: #imageLiteral(resourceName: "icon-grid"), backgroundColor: .buttonBackgroundColor, tintColor: .buttonTintColor, conerRadius: photoGridButton.bounds.width / 2)
-        previewButton.setupButtonUI(with: #imageLiteral(resourceName: "icon-photo"), backgroundColor: .white, tintColor: .lightGray, conerRadius: 5)
+        photoGridButton.setupButtonUI(
+            with: #imageLiteral(resourceName: "icon-grid"),
+            backgroundColor: .buttonBackgroundColor,
+            tintColor: .buttonTintColor,
+            conerRadius: photoGridButton.bounds.width / 2
+        )
+        previewButton.setupButtonUI(
+            with: #imageLiteral(resourceName: "icon-photo"), backgroundColor: .white,
+            tintColor: .lightGray,
+            conerRadius: 5
+        )
         
         // MARK: TapGesture
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
@@ -63,15 +73,6 @@ class PreviewController: UIViewController {
         
         // MARK: Notification
         NotificationCenter.default.addObserver(self, selector: #selector(loadImage), name: Notification.Name("image"), object: nil)
-    }
-    
-    private func setupButton(with image: UIImage) {
-        photoGridButton.setImage(#imageLiteral(resourceName: "icon-grid").withRenderingMode(.alwaysTemplate), for: .normal)
-        photoGridButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        photoGridButton.backgroundColor = .buttonBackgroundColor
-        photoGridButton.tintColor = .buttonTintColor
-        photoGridButton.layer.cornerRadius = photoGridButton.bounds.width / 2
-        photoGridButton.clipsToBounds = true
     }
     
     // MARK: Action
@@ -103,15 +104,13 @@ class PreviewController: UIViewController {
     
     private func updateUI() {
         if isPreviewOpened {
-            isPreviewOpened = false
-            previewButton.backgroundColor = .white
-            previewButton.tintColor = .lightGray
-            photoGridButton.isHidden = true
-        } else {
-            isPreviewOpened = true
             previewButton.backgroundColor = .blue
             previewButton.tintColor = .white
             photoGridButton.isHidden = false
+        } else {
+            previewButton.backgroundColor = .white
+            previewButton.tintColor = .lightGray
+            photoGridButton.isHidden = true
         }
     }
     
@@ -144,6 +143,7 @@ class PreviewController: UIViewController {
                 self.previewView.frame.origin.y -= self.previewView.frame.height - 6
                 self.previewButton.frame.origin.y -= self.previewView.frame.height - 6
             }
+            isPreviewOpened = true
             updateUI()
         }
     }
@@ -155,6 +155,7 @@ class PreviewController: UIViewController {
                 self.previewView.frame.origin.y += self.previewView.frame.height - 6
                 self.previewButton.frame.origin.y += self.previewView.frame.height - 6
             }
+            isPreviewOpened = false
             updateUI()
         }
     }
