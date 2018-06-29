@@ -29,6 +29,7 @@ class PreviewController: UIViewController {
     
     @IBOutlet weak var photoGridButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var imagePlaceholderImageView: UIImageView!
     @IBOutlet weak var displayImageViewAspectRatio: NSLayoutConstraint!
     
     // MARK: View life cycle
@@ -67,12 +68,20 @@ class PreviewController: UIViewController {
             conerRadius: 5
         )
         
+        // MARK: ImageView
+        imagePlaceholderImageView.image = #imageLiteral(resourceName: "icon-photo").withRenderingMode(.alwaysTemplate)
+        imagePlaceholderImageView.tintColor = .white
+        
         // MARK: TapGesture
         let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
         view.addGestureRecognizer(tap)
         
         // MARK: Notification
         NotificationCenter.default.addObserver(self, selector: #selector(loadImage), name: Notification.Name("image"), object: nil)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: Action
@@ -82,7 +91,7 @@ class PreviewController: UIViewController {
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
                 self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 self.displayImageView.image = image
-                self.updateImageAspectRatio()
+//                self.updateImageAspectRatio()
             }
         }
     }
