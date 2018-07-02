@@ -141,9 +141,6 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51V-2Y-Fl1">
                                 <rect key="frame" x="8" y="20" width="39" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="39" id="mmf-hQ-EDa"/>
-                                </constraints>
                                 <state key="normal" title="Close">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -192,6 +189,7 @@
                             <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerX" secondItem="KVd-O1-JUE" secondAttribute="centerX" id="bfU-Q1-0Il"/>
                             <constraint firstItem="B1j-EC-Qvm" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="bzs-Lp-jCP"/>
                             <constraint firstItem="51V-2Y-Fl1" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" constant="8" id="hOM-0v-jgj"/>
+                            <constraint firstItem="B1j-EC-Qvm" firstAttribute="leading" secondItem="51V-2Y-Fl1" secondAttribute="trailing" priority="750" constant="106" id="pXz-pb-Zbe"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="zZr-Mc-4MU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FdX-MS-7jN"/>

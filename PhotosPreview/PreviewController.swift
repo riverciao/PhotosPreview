@@ -21,9 +21,9 @@ class PreviewController: UIViewController {
     var isPreviewOpened = false
     @IBAction func openPreviewView(_ sender: UIButton) {
         if !isPreviewOpened {
-            openView(targetView: previewView)
+            openPreview()
         } else {
-            closePreviewView()
+            closePreview()
         }
     }
     
@@ -129,7 +129,7 @@ class PreviewController: UIViewController {
     }
     
 
-    func openView(targetView: UIView) {
+    func openPreview() {
         isPreviewOpened = previewView.frame.minY != view.frame.maxY
         if !isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
@@ -141,7 +141,7 @@ class PreviewController: UIViewController {
         }
     }
     
-    @objc private func closePreviewView(_ sender: UITapGestureRecognizer? = nil) {
+    @objc private func closePreview(_ sender: UITapGestureRecognizer? = nil) {
         isPreviewOpened = previewView.frame.maxY == view.frame.maxY
         if isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
@@ -185,7 +185,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
             self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             self.displayImageView.image = image
-            self.closePreviewView()
+            self.closePreview()
         }
     }
     
