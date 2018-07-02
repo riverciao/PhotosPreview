@@ -73,8 +73,8 @@ class PreviewController: UIViewController {
         imagePlaceholderImageView.tintColor = .white
         
         // MARK: TapGesture
-        let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
-        view.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
+//        view.addGestureRecognizer(tap)
         
         // MARK: Notification
         NotificationCenter.default.addObserver(self, selector: #selector(loadImage), name: Notification.Name("image"), object: nil)
@@ -91,24 +91,8 @@ class PreviewController: UIViewController {
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
                 self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 self.displayImageView.image = image
-//                self.updateImageAspectRatio()
             }
         }
-    }
-    
-    private func updateImageAspectRatio() {
-        guard let image = displayImageView.image else { return }
-        displayImageView.removeConstraint(displayImageViewAspectRatio)
-        displayImageViewAspectRatio = NSLayoutConstraint(
-            item: displayImageView,
-            attribute: .width,
-            relatedBy: .equal,
-            toItem: displayImageView,
-            attribute: .height,
-            multiplier: image.size.width / image.size.height,
-            constant: 0
-        )
-        displayImageView.addConstraint(displayImageViewAspectRatio)
     }
     
     private func updateUI() {
@@ -150,7 +134,8 @@ class PreviewController: UIViewController {
         if !isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y -= self.previewView.frame.height
-                self.previewButton.frame.origin.y -= self.previewView.frame.height            }
+                self.previewButton.frame.origin.y -= self.previewView.frame.height
+            }
             isPreviewOpened = true
             updateUI()
         }
@@ -200,7 +185,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
             self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             self.displayImageView.image = image
-            self.updateImageAspectRatio()
+            self.closePreviewView()
         }
     }
     
