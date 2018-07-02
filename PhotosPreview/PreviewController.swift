@@ -15,6 +15,7 @@ class PreviewController: UIViewController {
     
     var images = [PHAsset]()
     let imageManager = PHImageManager.default()
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
     @IBOutlet weak var previewButton: UIButton!
     @IBOutlet weak var previewView: UIView!
@@ -44,6 +45,10 @@ class PreviewController: UIViewController {
         updateUI()
     }
     
+    override func viewDidLayoutSubviews() {
+        updateMinimumZoomScaleForSize()
+    }
+    
     // MARK: Setup
     
     private func setup() {
@@ -67,6 +72,12 @@ class PreviewController: UIViewController {
             conerRadius: 5
         )
         
+        // MARK: ScrollView
+        scrollView.delegate = self
+        scrollView.contentSize = displayImageView.bounds.size
+        scrollView.maximumZoomScale = 2.0
+        scrollView.contentInset = .zero
+        
         // MARK: ImageView
         imagePlaceholderImageView.image = #imageLiteral(resourceName: "icon-photo").withRenderingMode(.alwaysTemplate)
         imagePlaceholderImageView.tintColor = .white
@@ -88,10 +99,20 @@ class PreviewController: UIViewController {
     @objc private func loadImage(_ sender: Notification) {
         if let asset = sender.object as? PHAsset {
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
-                self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+//                self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 self.displayImageView.image = image
             }
         }
+    }
+    
+    private func updateMinimumZoomScaleForSize() {
+        let size = scrollView.bounds.size
+        let widthScale = size.width / displayImageView.bounds.width
+        let heightScale = size.height / displayImageView.bounds.height
+        let minimunScale = min(widthScale, heightScale)
+        
+        scrollView.minimumZoomScale = minimunScale
+        scrollView.zoomScale = minimunScale
     }
     
     private func updateUI() {
@@ -153,7 +174,7 @@ class PreviewController: UIViewController {
     }
 }
 
-extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
     // MARK: UICollectionViewDataSource
     
@@ -182,8 +203,11 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = images[indexPath.row]
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
-            self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            guard let image = image else { return }
+//            self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             self.displayImageView.image = image
+            self.displayImageView.frame = .init(origin: .zero, size: image.size)
+//                CGRect(origin: .zero, size: image.size)
             self.closePreview()
         }
     }
@@ -197,5 +221,20 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         return CGSize(width: width, height: height)
     }
     
+    
+    // MARK: UIScrollViewDelegate
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return displayImageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5 , 0.0)
+        let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5 , 0.0)
+//        displayImageView.center = CGPoint(
+//            x: scrollView.contentSize.width * 0.5 + offsetX,
+//            y: scrollView.contentSize.height * 0.5 + offsetY)
+//        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
+        scrollView.contentInset = .init(top: offsetY, left: offsetX, bottom: 0, right: 0)
+    }
 }
 
