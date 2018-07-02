@@ -30,7 +30,6 @@ class PreviewController: UIViewController {
     @IBOutlet weak var photoGridButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var imagePlaceholderImageView: UIImageView!
-    @IBOutlet weak var displayImageViewAspectRatio: NSLayoutConstraint!
     
     // MARK: View life cycle
     
