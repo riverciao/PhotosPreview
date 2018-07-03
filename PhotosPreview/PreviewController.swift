@@ -105,8 +105,19 @@ class PreviewController: UIViewController {
     
     @objc private func loadImage(_ sender: Notification) {
         if let asset = sender.object as? PHAsset {
-            imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
-                self.displayImageView.image = image
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, info) in
+                guard
+                    let image = image,
+                    let info = info,
+                    let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
+                    else { return }
+                
+                if !isLowQualified {
+                    self.displayImageView.image = image
+                }
+                self.closePreview()
+                self.isPreviewOpened = false
+                self.updateUI()
             }
         }
     }
