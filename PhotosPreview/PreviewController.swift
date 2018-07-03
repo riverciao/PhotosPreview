@@ -201,7 +201,9 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = images[indexPath.row]
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
+        let option = PHImageRequestOptions()
+        option.isSynchronous = true
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: option) { (image, _) in
             guard let image = image else { return }
             self.displayImageView.image = image
             self.displayImageView.frame = .init(origin: .zero, size: image.size)
@@ -231,7 +233,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
 //            x: scrollView.contentSize.width * 0.5 + offsetX,
 //            y: scrollView.contentSize.height * 0.5 + offsetY)
 //        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
-//        scrollView.contentInset = .init(top: offsetY, left: offsetX, bottom: 0, right: 0)
+        scrollView.contentInset = .init(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
 }
 
