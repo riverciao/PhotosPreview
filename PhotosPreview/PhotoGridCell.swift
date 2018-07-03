@@ -18,7 +18,7 @@ class PhotoGridCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imageView.contentMode = .scaleAspectFill
     }
 
 }
