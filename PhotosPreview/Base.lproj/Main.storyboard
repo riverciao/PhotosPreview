@@ -19,23 +19,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Ia-lqG">
-                                <rect key="frame" x="8" y="624" width="44" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="59f-et-VIc"/>
-                                    <constraint firstAttribute="width" constant="44" id="Xh6-Wg-xTT"/>
-                                </constraints>
-                                <state key="normal" image="icon-photo"/>
-                                <connections>
-                                    <action selector="openPreviewView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pur-8G-mUy"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVa-th-5pE">
-                                <rect key="frame" x="0.0" y="667" width="375" height="125"/>
+                                <rect key="frame" x="0.0" y="624" width="375" height="168"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Ia-lqG">
+                                        <rect key="frame" x="8" y="0.0" width="44" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="59f-et-VIc"/>
+                                            <constraint firstAttribute="width" constant="44" id="Xh6-Wg-xTT"/>
+                                        </constraints>
+                                        <state key="normal" image="icon-photo"/>
+                                        <connections>
+                                            <action selector="openPreviewView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pur-8G-mUy"/>
+                                        </connections>
+                                    </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="J43-S2-0fZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                                        <rect key="frame" x="0.0" y="43" width="375" height="125"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="J43-S2-0fZ" secondAttribute="height" multiplier="3:1" id="YL9-FG-4kr"/>
+                                        </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" sectionInsetReference="safeArea" id="xCS-bQ-bWz">
                                             <size key="itemSize" width="150" height="150"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -57,10 +60,9 @@
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="J43-S2-0fZ" secondAttribute="trailing" id="4fF-os-9c3"/>
+                                    <constraint firstAttribute="bottom" secondItem="J43-S2-0fZ" secondAttribute="bottom" id="5WH-fX-ZrX"/>
+                                    <constraint firstItem="ZeE-Ia-lqG" firstAttribute="leading" secondItem="EVa-th-5pE" secondAttribute="leading" constant="8" id="HJk-fT-kXm"/>
                                     <constraint firstItem="J43-S2-0fZ" firstAttribute="leading" secondItem="EVa-th-5pE" secondAttribute="leading" id="NLM-Bg-ste"/>
-                                    <constraint firstAttribute="height" secondItem="EVa-th-5pE" secondAttribute="width" multiplier="1:3" id="TqO-Xb-Khb"/>
-                                    <constraint firstAttribute="bottom" secondItem="J43-S2-0fZ" secondAttribute="bottom" id="cdo-7c-inI"/>
-                                    <constraint firstItem="J43-S2-0fZ" firstAttribute="top" secondItem="EVa-th-5pE" secondAttribute="top" id="tam-Dz-RXX"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-TL-r6l">
@@ -103,17 +105,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="D3Q-TL-r6l" secondAttribute="bottom" constant="8" id="2LA-ms-UZZ"/>
+                            <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="D3Q-TL-r6l" secondAttribute="bottom" constant="-35" id="2LA-ms-UZZ"/>
                             <constraint firstAttribute="top" secondItem="vd0-Ni-S87" secondAttribute="top" id="2kP-Ha-xYU"/>
                             <constraint firstAttribute="trailing" secondItem="EVa-th-5pE" secondAttribute="trailing" id="63z-B3-f6k"/>
                             <constraint firstItem="vd0-Ni-S87" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AC5-ka-DG1"/>
+                            <constraint firstItem="J43-S2-0fZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="E9j-uC-rq3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vd0-Ni-S87" secondAttribute="bottom" constant="200" id="Hu8-xc-yWU"/>
-                            <constraint firstItem="ZeE-Ia-lqG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Ot8-Ah-N2R"/>
-                            <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="fN7-kH-vCc"/>
+                            <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-43" id="fN7-kH-vCc"/>
+                            <constraint firstItem="ZeE-Ia-lqG" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-8" id="lCz-ep-Wym"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vd0-Ni-S87" secondAttribute="trailing" id="mvy-g0-A6n"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="D3Q-TL-r6l" secondAttribute="trailing" constant="8" id="vi6-aC-jTx"/>
                             <constraint firstItem="EVa-th-5pE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yCc-KY-90r"/>
-                            <constraint firstItem="EVa-th-5pE" firstAttribute="top" secondItem="ZeE-Ia-lqG" secondAttribute="bottom" constant="8" id="zuo-0v-h0x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

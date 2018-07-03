@@ -159,7 +159,6 @@ class PreviewController: UIViewController {
         if !isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height
-                self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height - self.previewButton.frame.height
             }
         }
     }
@@ -167,8 +166,7 @@ class PreviewController: UIViewController {
     @objc private func closePreview(_ sender: UITapGestureRecognizer? = nil) {
         if isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
-                self.previewView.frame.origin.y = self.view.bounds.maxY
-                self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewButton.frame.height
+                self.previewView.frame.origin.y = self.view.bounds.maxY - self.previewButton.frame.height - 8
             }
         }
     }
