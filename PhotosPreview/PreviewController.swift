@@ -231,7 +231,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
 //            x: scrollView.contentSize.width * 0.5 + offsetX,
 //            y: scrollView.contentSize.height * 0.5 + offsetY)
 //        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
-        scrollView.contentInset = .init(top: offsetY, left: offsetX, bottom: 0, right: 0)
+//        scrollView.contentInset = .init(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
 }
 
