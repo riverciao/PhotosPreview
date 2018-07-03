@@ -17,6 +17,7 @@
 		5F1B3B4520E0DA6C007C1D7A /* PhotoGridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4320E0DA6C007C1D7A /* PhotoGridCell.xib */; };
 		5F1B3B4C20E5FD4C007C1D7A /* ColorTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4B20E5FD4C007C1D7A /* ColorTool.swift */; };
 		5F1B3B4E20E602AD007C1D7A /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4D20E602AD007C1D7A /* UIButtonExtensions.swift */; };
+		5F1B3B5020EB796F007C1D7A /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4F20EB796F007C1D7A /* ImageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		5F1B3B4320E0DA6C007C1D7A /* PhotoGridCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGridCell.xib; sourceTree = "<group>"; };
 		5F1B3B4B20E5FD4C007C1D7A /* ColorTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTool.swift; sourceTree = "<group>"; };
 		5F1B3B4D20E602AD007C1D7A /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		5F1B3B4F20EB796F007C1D7A /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		5F1B3B2D20E0D823007C1D7A /* PhotosPreview */ = {
 			isa = PBXGroup;
 			children = (
+				5F1B3B5120EB7993007C1D7A /* ImageManager */,
 				5F1B3B2E20E0D823007C1D7A /* AppDelegate.swift */,
 				5F1B3B3020E0D823007C1D7A /* PreviewController.swift */,
 				5F1B3B4020E0D889007C1D7A /* PhotoGridViewController.swift */,
@@ -77,6 +80,14 @@
 				5F1B3B4D20E602AD007C1D7A /* UIButtonExtensions.swift */,
 			);
 			path = PhotosPreview;
+			sourceTree = "<group>";
+		};
+		5F1B3B5120EB7993007C1D7A /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				5F1B3B4F20EB796F007C1D7A /* ImageManager.swift */,
+			);
+			path = ImageManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +164,7 @@
 			files = (
 				5F1B3B4120E0D889007C1D7A /* PhotoGridViewController.swift in Sources */,
 				5F1B3B3120E0D823007C1D7A /* PreviewController.swift in Sources */,
+				5F1B3B5020EB796F007C1D7A /* ImageManager.swift in Sources */,
 				5F1B3B4420E0DA6C007C1D7A /* PhotoGridCell.swift in Sources */,
 				5F1B3B4E20E602AD007C1D7A /* UIButtonExtensions.swift in Sources */,
 				5F1B3B4C20E5FD4C007C1D7A /* ColorTool.swift in Sources */,
