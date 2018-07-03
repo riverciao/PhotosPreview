@@ -78,6 +78,8 @@ class PreviewController: UIViewController {
         scrollView.contentSize = displayImageView.bounds.size
         scrollView.maximumZoomScale = 2.0
         scrollView.contentInset = .zero
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
         
         // MARK: ImageView
         imagePlaceholderImageView.image = #imageLiteral(resourceName: "icon-photo").withRenderingMode(.alwaysTemplate)
