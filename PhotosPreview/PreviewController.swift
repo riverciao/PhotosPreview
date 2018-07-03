@@ -34,6 +34,7 @@ class PreviewController: UIViewController {
     @IBOutlet weak var photoGridButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var imagePlaceholderImageView: UIImageView!
+    @IBOutlet weak var previewViewTopConstraint: NSLayoutConstraint!
     
     // MARK: View life cycle
     
@@ -157,6 +158,7 @@ class PreviewController: UIViewController {
 
     func openPreview() {
         if !isPreviewOpened {
+            previewView.translatesAutoresizingMaskIntoConstraints = true
             UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height
                 self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height - self.previewButton.frame.height

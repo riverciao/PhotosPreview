@@ -124,6 +124,7 @@
                         <outlet property="photoGridButton" destination="D3Q-TL-r6l" id="ZsE-8F-cVo"/>
                         <outlet property="previewButton" destination="ZeE-Ia-lqG" id="PnL-Vj-Dk9"/>
                         <outlet property="previewView" destination="EVa-th-5pE" id="nOV-4i-xbx"/>
+                        <outlet property="previewViewTopConstraint" destination="fN7-kH-vCc" id="LGq-0n-zu2"/>
                         <outlet property="scrollView" destination="vd0-Ni-S87" id="B97-kw-oZc"/>
                     </connections>
                 </viewController>
