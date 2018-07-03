@@ -23,9 +23,12 @@ class PreviewController: UIViewController {
     @IBAction func openPreviewView(_ sender: UIButton) {
         if !isPreviewOpened {
             openPreview()
+            isPreviewOpened = true
         } else {
             closePreview()
+            isPreviewOpened = false
         }
+        updateUI()
     }
     
     @IBOutlet weak var photoGridButton: UIButton!
@@ -155,22 +158,18 @@ class PreviewController: UIViewController {
     func openPreview() {
         if !isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
-                self.previewView.frame.origin.y -= self.previewView.frame.height
-                self.previewButton.frame.origin.y -= self.previewView.frame.height
+                self.previewView.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height
+                self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height - self.previewButton.frame.height
             }
-            isPreviewOpened = true
-            updateUI()
         }
     }
     
     @objc private func closePreview(_ sender: UITapGestureRecognizer? = nil) {
         if isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
-                self.previewView.frame.origin.y += self.previewView.frame.height
-                self.previewButton.frame.origin.y += self.previewView.frame.height
+                self.previewView.frame.origin.y = self.view.bounds.maxY
+                self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewButton.frame.height
             }
-            isPreviewOpened = false
-            updateUI()
         }
     }
 }
@@ -216,13 +215,12 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
                 let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
                 else { return }
             
-            if isLowQualified {
-                return
-            } else {
+            if !isLowQualified {
                 self.displayImageView.image = image
                 self.closePreview()
+                self.isPreviewOpened = false
+                self.updateUI()
             }
-            
         }
     }
     
