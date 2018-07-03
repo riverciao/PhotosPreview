@@ -99,7 +99,6 @@ class PreviewController: UIViewController {
     @objc private func loadImage(_ sender: Notification) {
         if let asset = sender.object as? PHAsset {
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
-//                self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 self.displayImageView.image = image
             }
         }
@@ -204,10 +203,8 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         let asset = images[indexPath.row]
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, _) in
             guard let image = image else { return }
-//            self.displayImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             self.displayImageView.image = image
             self.displayImageView.frame = .init(origin: .zero, size: image.size)
-//                CGRect(origin: .zero, size: image.size)
             self.closePreview()
         }
     }
