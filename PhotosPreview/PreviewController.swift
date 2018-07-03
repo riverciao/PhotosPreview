@@ -46,6 +46,7 @@ class PreviewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         updateMinimumZoomScaleForSize()
     }
     
@@ -112,6 +113,7 @@ class PreviewController: UIViewController {
         
         scrollView.minimumZoomScale = minimunScale
         scrollView.zoomScale = minimunScale
+        
     }
     
     private func updateUI() {
@@ -149,7 +151,6 @@ class PreviewController: UIViewController {
     
 
     func openPreview() {
-        isPreviewOpened = previewView.frame.minY != view.frame.maxY
         if !isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y -= self.previewView.frame.height
@@ -161,7 +162,6 @@ class PreviewController: UIViewController {
     }
     
     @objc private func closePreview(_ sender: UITapGestureRecognizer? = nil) {
-        isPreviewOpened = previewView.frame.maxY == view.frame.maxY
         if isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y += self.previewView.frame.height
@@ -201,13 +201,26 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = images[indexPath.row]
-        let option = PHImageRequestOptions()
-        option.isSynchronous = true
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: option) { (image, _) in
-            guard let image = image else { return }
-            self.displayImageView.image = image
-            self.displayImageView.frame = .init(origin: .zero, size: image.size)
-            self.closePreview()
+        let size = CGSize(width: 700, height: 700)
+        imageManager.requestImage(
+            for: asset,
+            targetSize: size,
+            contentMode: .aspectFit,
+            options: nil
+        ) { (image, info) in
+            guard
+                let image = image,
+                let info = info,
+                let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
+                else { return }
+            
+            if isLowQualified {
+                return
+            } else {
+                self.displayImageView.image = image
+                self.closePreview()
+            }
+            
         }
     }
     
@@ -229,10 +242,6 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5 , 0.0)
         let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5 , 0.0)
-//        displayImageView.center = CGPoint(
-//            x: scrollView.contentSize.width * 0.5 + offsetX,
-//            y: scrollView.contentSize.height * 0.5 + offsetY)
-//        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
         scrollView.contentInset = .init(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
 }
