@@ -45,6 +45,7 @@ class PreviewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        closePreview()
         isPreviewOpened = false
         updateUI()
     }
@@ -146,24 +147,22 @@ class PreviewController: UIViewController {
     }
     
     func getImages() {
-        
-//        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
-//        assets.enumerateObjects({ (object, count, stop) in
-//            self.images.append(object)
-//        })
-//
-        let assets = PHAsset.fetchAssets(in: <#T##PHAssetCollection#>, options: <#T##PHFetchOptions?#>)
+        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+        assets.enumerateObjects({ (object, count, stop) in
+            self.images.append(object)
+        })
         self.images.reverse()
-        
-        // To show photos, I have taken a UICollectionView
         self.collectionView.reloadData()
-        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToPhotoGrid" {
             if let photoGridViewController = segue.destination as? PhotoGridViewController {
-                photoGridViewController.images = self.images
+//                photoGridViewController.images = self.images
+                let imageManager = ImageAPIManager()
+                imageManager.fetchAssetCollections()
+                imageManager.fetchAssetsInAlblum()
+                photoGridViewController.images = imageManager.assets
             }
         }
     }
@@ -179,7 +178,7 @@ class PreviewController: UIViewController {
         }
     }
     
-    @objc private func closePreview(_ sender: UITapGestureRecognizer? = nil) {
+    @objc func closePreview(_ sender: UITapGestureRecognizer? = nil) {
         if isPreviewOpened {
             UIView.animate(withDuration: 0.3) {
                 self.previewView.frame.origin.y = self.view.bounds.maxY

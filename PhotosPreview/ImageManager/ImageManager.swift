@@ -25,7 +25,7 @@ class ImageAPIManager: ImageManager {
 //        assets.enumerateObjects({ (object, count, stop) in
 //            self.assets.append(object)
 //        })
-        let assets = PHAsset.fetchAssets(in: assetCollections[0], options: nil)
+        let assets = PHAsset.fetchAssets(in: assetCollections[12], options: nil)
         assets.enumerateObjects { (object, index, stop) in
             self.assets.append(object)
         }
