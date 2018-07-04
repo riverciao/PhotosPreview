@@ -10,7 +10,8 @@ import Foundation
 import Photos
 
 protocol ImageManager {
-    func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
+    typealias RequestIDNumber = Int
+    func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
 }
 
 class ImageAPIManager: ImageManager {

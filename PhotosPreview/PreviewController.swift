@@ -14,8 +14,7 @@ class PreviewController: UIViewController {
     // MARK: Properties
     
     var assets = [PHAsset]()
-    let imageManager = PHImageManager.default()
-    let newImageManager = ImageAPIManager()
+    let imageManager = ImageAPIManager()
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
     @IBOutlet weak var previewButton: UIButton!
@@ -42,9 +41,9 @@ class PreviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        if let cameraRollAssetCollection =  newImageManager.cameraRollAssetCollection() {
-            newImageManager.fetchAssets(in: cameraRollAssetCollection)
-            self.assets = newImageManager.assets
+        if let cameraRollAssetCollection =  imageManager.cameraRollAssetCollection() {
+            imageManager.fetchAssets(in: cameraRollAssetCollection)
+            self.assets = imageManager.assets
         }
     }
     
@@ -110,7 +109,7 @@ class PreviewController: UIViewController {
     
     @objc private func loadImage(_ sender: Notification) {
         if let asset = sender.object as? PHAsset {
-            newImageManager.requsetImage(for: asset, targetSize: self.view.bounds.size) { (image) in
+            imageManager.requsetImage(for: asset, targetSize: self.view.bounds.size) { (image) in
             self.displayImageView.image = image
             self.closePreview()
             self.isPreviewOpened = false
@@ -145,7 +144,6 @@ class PreviewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToPhotoGrid" {
             if let photoGridViewController = segue.destination as? PhotoGridViewController {
-//                photoGridViewController.images = self.images
                 let imageManager = ImageAPIManager()
                 imageManager.fetchAssetCollections()
                 imageManager.fetchAssets(in: imageManager.assetCollections[12])
@@ -187,14 +185,10 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         let asset = assets[indexPath.row]
         
         if cell.tag != 0 {
-            newImageManager.cancelImageRequest(cell.tag)
+            imageManager.cancelImageRequest(cell.tag)
         }
-        cell.tag = Int(imageManager.requestImage(for: asset,
-                                            targetSize: CGSize(width: 150, height: 150),
-                                            contentMode: .aspectFill,
-                                            options: nil) { (result, _) in
-                                                cell.imageView.image = result
-                                                
+        cell.tag = imageManager.requsetImage(for: asset, targetSize: cell.bounds.size, resultHandler: { (image) in
+            cell.imageView.image = image
         })
         return cell
     }
@@ -203,25 +197,11 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = assets[indexPath.row]
-        let size = CGSize(width: 700, height: 700)
-        imageManager.requestImage(
-            for: asset,
-            targetSize: size,
-            contentMode: .aspectFit,
-            options: nil
-        ) { (image, info) in
-            guard
-                let image = image,
-                let info = info,
-                let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
-                else { return }
-
-            if !isLowQualified {
-                self.displayImageView.image = image
-                self.closePreview()
-                self.isPreviewOpened = false
-                self.updateUI()
-            }
+        imageManager.requsetImage(for: asset, targetSize: view.bounds.size) { (image) in
+            self.displayImageView.image = image
+            self.closePreview()
+            self.isPreviewOpened = false
+            self.updateUI()
         }
     }
     
