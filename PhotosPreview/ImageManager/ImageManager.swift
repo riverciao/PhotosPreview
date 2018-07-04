@@ -28,8 +28,11 @@ class ImageAPIManager: ImageManager {
         self.assets.reverse()
     }
     
-    func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
-        manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: nil) { (image, info) in
+    typealias RequestIDNumber = Int
+    
+    @discardableResult
+    func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber {
+        let requsetID = manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: nil) { (image, info) in
             guard
                 let image = image,
                 let info = info,
@@ -40,6 +43,7 @@ class ImageAPIManager: ImageManager {
                 resultHandler(image)
             }
         }
+        return Int(requsetID)
     }
     
     func fetchAssetCollections() {
@@ -57,5 +61,9 @@ class ImageAPIManager: ImageManager {
             assetCollection = object
         }
         return assetCollection
+    }
+    
+    func cancelImageRequest(_ requestIDNumber: Int) {
+        manager.cancelImageRequest(PHImageRequestID(requestIDNumber))
     }
 }

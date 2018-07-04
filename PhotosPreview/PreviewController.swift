@@ -187,7 +187,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         let asset = assets[indexPath.row]
         
         if cell.tag != 0 {
-            imageManager.cancelImageRequest(PHImageRequestID(cell.tag))
+            newImageManager.cancelImageRequest(cell.tag)
         }
         cell.tag = Int(imageManager.requestImage(for: asset,
                                             targetSize: CGSize(width: 150, height: 150),
