@@ -11,7 +11,7 @@ import Photos
 
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    var images = [PHAsset]()
+    var assets = [PHAsset]()
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
@@ -45,12 +45,12 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return assets.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = images[indexPath.row]
+        let asset = assets[indexPath.row]
         let manager = PHImageManager.default()
         if cell.tag != 0 {
             manager.cancelImageRequest(PHImageRequestID(cell.tag))
@@ -68,7 +68,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = images[indexPath.row]
+        let asset = assets[indexPath.row]
         NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
         presentingViewController?.dismiss(animated: true, completion: nil)
     }

@@ -144,7 +144,7 @@ class PreviewController: UIViewController {
                 let imageManager = ImageAPIManager()
                 imageManager.fetchAssetCollections()
                 imageManager.fetchAssets(in: imageManager.assetCollections[12])
-                photoGridViewController.images = imageManager.assets
+                photoGridViewController.assets = imageManager.assets
             }
         }
     }
