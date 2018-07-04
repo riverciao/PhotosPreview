@@ -80,24 +80,29 @@
                                     <constraint firstItem="D3Q-TL-r6l" firstAttribute="leading" secondItem="EVa-th-5pE" secondAttribute="leading" constant="8" id="vCi-b1-52S"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-photo" translatesAutoresizingMaskIntoConstraints="NO" id="Rey-rz-hzn">
-                                <rect key="frame" x="167" y="313" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vd0-Ni-S87">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="467"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-photo" translatesAutoresizingMaskIntoConstraints="NO" id="Rey-rz-hzn">
+                                        <rect key="frame" x="167" y="213" width="40" height="40"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="ZI9-TS-loc"/>
+                                            <constraint firstAttribute="width" constant="40" id="cvJ-oh-4zO"/>
+                                        </constraints>
+                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m7q-Lv-4QO">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="467"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="Rey-rz-hzn" firstAttribute="centerX" secondItem="vd0-Ni-S87" secondAttribute="centerX" id="4Gv-gR-82P"/>
                                     <constraint firstAttribute="bottom" secondItem="m7q-Lv-4QO" secondAttribute="bottom" id="8h6-TG-OkV"/>
                                     <constraint firstAttribute="trailing" secondItem="m7q-Lv-4QO" secondAttribute="trailing" id="IWZ-Su-Ved"/>
                                     <constraint firstItem="m7q-Lv-4QO" firstAttribute="leading" secondItem="vd0-Ni-S87" secondAttribute="leading" id="L4X-IZ-ylh"/>
                                     <constraint firstItem="m7q-Lv-4QO" firstAttribute="centerX" secondItem="vd0-Ni-S87" secondAttribute="centerX" id="bON-um-o5e"/>
+                                    <constraint firstItem="Rey-rz-hzn" firstAttribute="centerY" secondItem="vd0-Ni-S87" secondAttribute="centerY" id="j6I-rK-9OI"/>
                                     <constraint firstItem="m7q-Lv-4QO" firstAttribute="centerY" secondItem="vd0-Ni-S87" secondAttribute="centerY" id="rN8-Oq-W3D"/>
                                     <constraint firstItem="m7q-Lv-4QO" firstAttribute="top" secondItem="vd0-Ni-S87" secondAttribute="top" id="yKt-Ns-Bup"/>
                                 </constraints>
@@ -122,6 +127,7 @@
                         <outlet property="displayImageView" destination="m7q-Lv-4QO" id="ei6-zI-axy"/>
                         <outlet property="imagePlaceholderImageView" destination="Rey-rz-hzn" id="vEf-Vr-W6Y"/>
                         <outlet property="photoGridButton" destination="D3Q-TL-r6l" id="ZsE-8F-cVo"/>
+                        <outlet property="placeholderImageView" destination="Rey-rz-hzn" id="BG7-Mr-Bgf"/>
                         <outlet property="previewButton" destination="ZeE-Ia-lqG" id="PnL-Vj-Dk9"/>
                         <outlet property="previewView" destination="EVa-th-5pE" id="nOV-4i-xbx"/>
                         <outlet property="previewViewTopConstraint" destination="fN7-kH-vCc" id="LGq-0n-zu2"/>

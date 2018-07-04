@@ -12,6 +12,7 @@ import Photos
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var assets = [PHAsset]()
+    var imageManager = ImageAPIManager()
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
@@ -45,22 +46,17 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return assets.count
+        return imageManager.numberOfAssets()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = assets[indexPath.row]
-        let manager = PHImageManager.default()
+        let asset = imageManager.asset(at: indexPath)
         if cell.tag != 0 {
-            manager.cancelImageRequest(PHImageRequestID(cell.tag))
+            imageManager.cancelImageRequest(cell.tag)
         }
-        cell.tag = Int(manager.requestImage(for: asset,
-                                            targetSize: CGSize(width: 120.0, height: 120.0),
-                                            contentMode: .aspectFill,
-                                            options: nil) { (result, _) in
-                                                cell.imageView.image = result
-
+        cell.tag = imageManager.requsetImage(for: asset, targetSize: cell.bounds.size, resultHandler: { (image) in
+            cell.imageView.image = image
         })
         return cell
     }
@@ -68,7 +64,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = assets[indexPath.row]
+        let asset = imageManager.asset(at: indexPath)
         NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
         presentingViewController?.dismiss(animated: true, completion: nil)
     }

@@ -12,9 +12,10 @@ class PreviewController: UIViewController {
 
     // MARK: Properties
     
-    let imageManager = ImageAPIManager()
+    var imageManager = ImageAPIManager()
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
+    @IBOutlet weak var placeholderImageView: UIImageView!
     @IBOutlet weak var previewButton: UIButton!
     @IBOutlet weak var previewView: UIView!
     var isPreviewOpened = false
@@ -108,6 +109,7 @@ class PreviewController: UIViewController {
         if let asset = imageManager.asAsset(sender.object) {
             imageManager.requsetImage(for: asset, targetSize: self.view.bounds.size) { (image) in
                 self.displayImageView.image = image
+                self.placeholderImageView.image = nil
                 self.closePreview()
                 self.isPreviewOpened = false
                 self.updateUI()
@@ -144,7 +146,7 @@ class PreviewController: UIViewController {
                 let imageManager = ImageAPIManager()
                 imageManager.fetchAssetCollections()
                 imageManager.fetchAssets(in: imageManager.assetCollections[12])
-                photoGridViewController.assets = imageManager.assets
+                photoGridViewController.imageManager = imageManager
             }
         }
     }
@@ -196,6 +198,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         let asset = imageManager.asset(at: indexPath)
         imageManager.requsetImage(for: asset, targetSize: view.bounds.size) { (image) in
             self.displayImageView.image = image
+            self.placeholderImageView.image = nil
             self.closePreview()
             self.isPreviewOpened = false
             self.updateUI()
