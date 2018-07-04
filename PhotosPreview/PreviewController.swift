@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 
 class PreviewController: UIViewController {
 
@@ -106,12 +105,12 @@ class PreviewController: UIViewController {
     // MARK: Action
     
     @objc private func loadImage(_ sender: Notification) {
-        if let asset = sender.object as? PHAsset {
+        if let asset = imageManager.asAsset(sender.object) {
             imageManager.requsetImage(for: asset, targetSize: self.view.bounds.size) { (image) in
-            self.displayImageView.image = image
-            self.closePreview()
-            self.isPreviewOpened = false
-            self.updateUI()
+                self.displayImageView.image = image
+                self.closePreview()
+                self.isPreviewOpened = false
+                self.updateUI()
             }
         }
     }

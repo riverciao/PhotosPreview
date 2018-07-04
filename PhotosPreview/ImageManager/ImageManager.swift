@@ -75,4 +75,9 @@ class ImageAPIManager: ImageManager {
     func numberOfAssets() -> Int {
         return assets.count
     }
+    
+    func asAsset(_ object: Any?) -> PHAsset? {
+        guard let asset = object as? PHAsset else { return nil }
+        return asset
+    }
 }
