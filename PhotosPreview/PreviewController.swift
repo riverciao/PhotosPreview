@@ -15,6 +15,7 @@ class PreviewController: UIViewController {
     
     var images = [PHAsset]()
     let imageManager = PHImageManager.default()
+    let newImageManager = ImageAPIManager()
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
     @IBOutlet weak var previewButton: UIButton!
@@ -40,7 +41,12 @@ class PreviewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getImages()
+//        getImages()
+        if let cameraRollAssetCollection =  newImageManager.cameraRollAssetCollection() {
+            newImageManager.fetchAssets(in: cameraRollAssetCollection)
+            self.images = newImageManager.assets
+            collectionView.reloadData()
+        }
         setup()
     }
     
@@ -161,7 +167,7 @@ class PreviewController: UIViewController {
 //                photoGridViewController.images = self.images
                 let imageManager = ImageAPIManager()
                 imageManager.fetchAssetCollections()
-                imageManager.fetchAssetsInAlblum()
+                imageManager.fetchAssets(in: imageManager.assetCollections[12])
                 photoGridViewController.images = imageManager.assets
             }
         }

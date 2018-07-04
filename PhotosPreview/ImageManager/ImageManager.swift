@@ -20,12 +20,8 @@ class ImageAPIManager: ImageManager {
     var images = [UIImage]()
     var assetCollections = [PHAssetCollection]()
     
-    func fetchAssetsInAlblum() {
-//        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
-//        assets.enumerateObjects({ (object, count, stop) in
-//            self.assets.append(object)
-//        })
-        let assets = PHAsset.fetchAssets(in: assetCollections[12], options: nil)
+    func fetchAssets(in collection: PHAssetCollection) {
+        let assets = PHAsset.fetchAssets(in: collection, options: nil)
         assets.enumerateObjects { (object, index, stop) in
             self.assets.append(object)
         }
@@ -52,5 +48,14 @@ class ImageAPIManager: ImageManager {
             self.assetCollections.append(object)
         }
         self.assetCollections.reverse()
+    }
+    
+    func cameraRollAssetCollection() -> PHAssetCollection? {
+        var assetCollection: PHAssetCollection?
+        let assets = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
+        assets.enumerateObjects { (object, index, stop) in
+            assetCollection = object
+        }
+        return assetCollection
     }
 }
