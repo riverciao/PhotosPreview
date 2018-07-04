@@ -13,7 +13,6 @@ class PreviewController: UIViewController {
 
     // MARK: Properties
     
-    var assets = [PHAsset]()
     let imageManager = ImageAPIManager()
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
@@ -43,7 +42,6 @@ class PreviewController: UIViewController {
         setup()
         if let cameraRollAssetCollection =  imageManager.cameraRollAssetCollection() {
             imageManager.fetchAssets(in: cameraRollAssetCollection)
-            self.assets = imageManager.assets
         }
     }
     
@@ -178,11 +176,11 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     // MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return assets.count
+        return imageManager.numberOfAssets()
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = assets[indexPath.row]
+        let asset = imageManager.asset(at: indexPath)
         
         if cell.tag != 0 {
             imageManager.cancelImageRequest(cell.tag)
@@ -196,7 +194,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = assets[indexPath.row]
+        let asset = imageManager.asset(at: indexPath)
         imageManager.requsetImage(for: asset, targetSize: view.bounds.size) { (image) in
             self.displayImageView.image = image
             self.closePreview()

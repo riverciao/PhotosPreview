@@ -67,4 +67,12 @@ class ImageAPIManager: ImageManager {
     func cancelImageRequest(_ requestIDNumber: Int) {
         manager.cancelImageRequest(PHImageRequestID(requestIDNumber))
     }
+    
+    func asset(at indexPath: IndexPath) -> PHAsset {
+        return assets[indexPath.row]
+    }
+    
+    func numberOfAssets() -> Int {
+        return assets.count
+    }
 }
