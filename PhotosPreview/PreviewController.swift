@@ -13,7 +13,7 @@ class PreviewController: UIViewController {
 
     // MARK: Properties
     
-    var images = [PHAsset]()
+    var assets = [PHAsset]()
     let imageManager = PHImageManager.default()
     let newImageManager = ImageAPIManager()
     @IBOutlet weak var scrollView: UIScrollView!
@@ -41,13 +41,11 @@ class PreviewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        getImages()
+        setup()
         if let cameraRollAssetCollection =  newImageManager.cameraRollAssetCollection() {
             newImageManager.fetchAssets(in: cameraRollAssetCollection)
-            self.images = newImageManager.assets
-            collectionView.reloadData()
+            self.assets = newImageManager.assets
         }
-        setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,19 +110,11 @@ class PreviewController: UIViewController {
     
     @objc private func loadImage(_ sender: Notification) {
         if let asset = sender.object as? PHAsset {
-            imageManager.requestImage(for: asset, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: nil) { (image, info) in
-                guard
-                    let image = image,
-                    let info = info,
-                    let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
-                    else { return }
-                
-                if !isLowQualified {
-                    self.displayImageView.image = image
-                }
-                self.closePreview()
-                self.isPreviewOpened = false
-                self.updateUI()
+            newImageManager.requsetImage(for: asset, targetSize: self.view.bounds.size) { (image) in
+            self.displayImageView.image = image
+            self.closePreview()
+            self.isPreviewOpened = false
+            self.updateUI()
             }
         }
     }
@@ -150,15 +140,6 @@ class PreviewController: UIViewController {
             previewButton.tintColor = .unselectButtonTintColor
             photoGridButton.isHidden = true
         }
-    }
-    
-    func getImages() {
-        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
-        assets.enumerateObjects({ (object, count, stop) in
-            self.images.append(object)
-        })
-        self.images.reverse()
-        self.collectionView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -199,11 +180,11 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     // MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return assets.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = images[indexPath.row]
+        let asset = assets[indexPath.row]
         
         if cell.tag != 0 {
             imageManager.cancelImageRequest(PHImageRequestID(cell.tag))
@@ -221,7 +202,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = images[indexPath.row]
+        let asset = assets[indexPath.row]
         let size = CGSize(width: 700, height: 700)
         imageManager.requestImage(
             for: asset,

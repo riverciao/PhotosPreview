@@ -10,7 +10,7 @@ import Foundation
 import Photos
 
 protocol ImageManager {
-    func fetch(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
+    func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
 }
 
 class ImageAPIManager: ImageManager {
@@ -28,7 +28,7 @@ class ImageAPIManager: ImageManager {
         self.assets.reverse()
     }
     
-    func fetch(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
+    func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
         manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: nil) { (image, info) in
             guard
                 let image = image,
