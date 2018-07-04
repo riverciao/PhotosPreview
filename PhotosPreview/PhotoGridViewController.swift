@@ -37,6 +37,10 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         // MARK: CloseButton
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         albumButton.addTarget(self, action: #selector(selectAlbum), for: .touchUpInside)
+        
+        // MARK: AlbumTableView
+        albumTableView.dataSource = self
+        albumTableView.delegate = self
     }
 
     // MARK: UICollectionViewDataSource
@@ -78,7 +82,6 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         let height = width
         return CGSize(width: width, height: height)
     }
-    
 
     // MARK: Action
     
@@ -91,5 +94,16 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         UIView.animate(withDuration: 0.3) {
             self.albumTableView.frame.origin.y = self.collectionView.frame.minY
         }
+    }
+}
+
+extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return imageManager.assetCollections.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        return cell
     }
 }
