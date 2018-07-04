@@ -16,7 +16,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
-    
+    @IBOutlet weak var albumTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -36,6 +36,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         
         // MARK: CloseButton
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        albumButton.addTarget(self, action: #selector(selectAlbum), for: .touchUpInside)
     }
 
     // MARK: UICollectionViewDataSource
@@ -83,5 +84,12 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     
     @objc private func close(_ sender: UIButton) {
         presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func selectAlbum(_ sender: UIButton) {
+        albumTableView.translatesAutoresizingMaskIntoConstraints = true
+        UIView.animate(withDuration: 0.3) {
+            self.albumTableView.frame.origin.y = self.collectionView.frame.minY
+        }
     }
 }

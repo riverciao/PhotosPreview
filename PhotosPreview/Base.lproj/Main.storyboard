@@ -185,24 +185,33 @@
                                     <outlet property="delegate" destination="xoo-kD-9B2" id="bzS-My-6zB"/>
                                 </connections>
                             </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="itP-Mf-vLq">
+                                <rect key="frame" x="0.0" y="667" width="375" height="607"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="itP-Mf-vLq" firstAttribute="leading" secondItem="wk6-d3-uJ6" secondAttribute="leading" id="3Q7-qI-enV"/>
                             <constraint firstItem="FdX-MS-7jN" firstAttribute="bottom" secondItem="wk6-d3-uJ6" secondAttribute="bottom" id="9vd-TF-HmK"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="top" secondItem="51V-2Y-Fl1" secondAttribute="bottom" constant="10" id="B9g-jj-63D"/>
                             <constraint firstItem="51V-2Y-Fl1" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="LfN-wn-umx"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="MRk-e0-zZs"/>
                             <constraint firstItem="FdX-MS-7jN" firstAttribute="trailing" secondItem="wk6-d3-uJ6" secondAttribute="trailing" id="Pzl-nf-6eQ"/>
+                            <constraint firstItem="itP-Mf-vLq" firstAttribute="height" secondItem="wk6-d3-uJ6" secondAttribute="height" id="Q3q-Ke-l8M"/>
                             <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerX" secondItem="KVd-O1-JUE" secondAttribute="centerX" id="bfU-Q1-0Il"/>
                             <constraint firstItem="B1j-EC-Qvm" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="bzs-Lp-jCP"/>
+                            <constraint firstItem="itP-Mf-vLq" firstAttribute="trailing" secondItem="wk6-d3-uJ6" secondAttribute="trailing" id="f7C-lT-CkH"/>
                             <constraint firstItem="51V-2Y-Fl1" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" constant="8" id="hOM-0v-jgj"/>
                             <constraint firstItem="B1j-EC-Qvm" firstAttribute="leading" secondItem="51V-2Y-Fl1" secondAttribute="trailing" priority="750" constant="106" id="pXz-pb-Zbe"/>
+                            <constraint firstItem="itP-Mf-vLq" firstAttribute="top" secondItem="wk6-d3-uJ6" secondAttribute="bottom" id="roA-F0-edv"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="zZr-Mc-4MU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FdX-MS-7jN"/>
                     </view>
                     <connections>
                         <outlet property="albumButton" destination="B1j-EC-Qvm" id="8Kj-VM-VH0"/>
+                        <outlet property="albumTableView" destination="itP-Mf-vLq" id="nlF-1e-WsT"/>
                         <outlet property="closeButton" destination="51V-2Y-Fl1" id="wdM-VS-vhe"/>
                         <outlet property="collectionView" destination="wk6-d3-uJ6" id="XQo-Dc-Qyo"/>
                     </connections>
