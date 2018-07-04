@@ -10,14 +10,30 @@ import Foundation
 import Photos
 
 protocol ImageManager {
-    func fetch(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, resultHandler: @escaping (UIImage) -> Void)
+    func fetch(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
 }
 
-struct ImageManagerAPI: ImageManager {
-    let manager = PHImageManager.default()
+class ImageAPIManager: ImageManager {
     
-    func fetch(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, resultHandler: @escaping (UIImage) -> Void) {
-        manager.requestImage(for: asset, targetSize: targetSize, contentMode: contentMode, options: nil) { (image, info) in
+    let manager = PHImageManager.default()
+    var assets = [PHAsset]()
+    var images = [UIImage]()
+    var assetCollections = [PHAssetCollection]()
+    
+    func fetchAssetsInAlblum() {
+//        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+//        assets.enumerateObjects({ (object, count, stop) in
+//            self.assets.append(object)
+//        })
+        let assets = PHAsset.fetchAssets(in: assetCollections[0], options: nil)
+        assets.enumerateObjects { (object, index, stop) in
+            self.assets.append(object)
+        }
+        self.assets.reverse()
+    }
+    
+    func fetch(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
+        manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: nil) { (image, info) in
             guard
                 let image = image,
                 let info = info,
@@ -30,5 +46,11 @@ struct ImageManagerAPI: ImageManager {
         }
     }
     
-    
+    func fetchAssetCollections() {
+        let assetCollections = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        assetCollections.enumerateObjects { (object, index, stop) in
+            self.assetCollections.append(object)
+        }
+        self.assetCollections.reverse()
+    }
 }

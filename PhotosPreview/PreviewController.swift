@@ -146,11 +146,13 @@ class PreviewController: UIViewController {
     }
     
     func getImages() {
-        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
-        assets.enumerateObjects({ (object, count, stop) in
-            self.images.append(object)
-        })
         
+//        let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+//        assets.enumerateObjects({ (object, count, stop) in
+//            self.images.append(object)
+//        })
+//
+        let assets = PHAsset.fetchAssets(in: <#T##PHAssetCollection#>, options: <#T##PHFetchOptions?#>)
         self.images.reverse()
         
         // To show photos, I have taken a UICollectionView
@@ -227,7 +229,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
                 let info = info,
                 let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
                 else { return }
-            
+
             if !isLowQualified {
                 self.displayImageView.image = image
                 self.closePreview()
@@ -242,12 +244,12 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width / 3
         let height = width
-        
         return CGSize(width: width, height: height)
     }
     
     
     // MARK: UIScrollViewDelegate
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return displayImageView
     }
