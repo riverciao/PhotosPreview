@@ -48,7 +48,15 @@ class ImageAPIManager: ImageManager {
     }
     
     func fetchAssetCollections() {
-        let assetCollections = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        let assetCollections = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: nil)
+        
+//        let topLevelOptions = PHFetchOptions()
+//        let topLevelUserCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+//
+//        topLevelUserCollections.enumerateObjects { (object, index, stop) in
+//            print("ALL Collection: \(object)")
+//        }
+        
         assetCollections.enumerateObjects { (object, index, stop) in
             self.assetCollections.append(object)
         }

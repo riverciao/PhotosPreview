@@ -106,8 +106,9 @@ class PreviewController: UIViewController {
     // MARK: Action
     
     @objc private func loadImage(_ sender: Notification) {
+        let size = CGSize(width: displayImageView.bounds.width * 2, height: displayImageView.bounds.height * 2)
         if let asset = imageManager.asAsset(sender.object) {
-            imageManager.requsetImage(for: asset, targetSize: self.view.bounds.size) { (image) in
+            imageManager.requsetImage(for: asset, targetSize: size) { (image) in
                 self.displayImageView.image = image
                 self.placeholderImageView.image = nil
                 self.closePreview()
@@ -143,9 +144,7 @@ class PreviewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToPhotoGrid" {
             if let photoGridViewController = segue.destination as? PhotoGridViewController {
-                let imageManager = ImageAPIManager()
                 imageManager.fetchAssetCollections()
-                imageManager.fetchAssets(in: imageManager.assetCollections[12])
                 photoGridViewController.imageManager = imageManager
             }
         }
@@ -186,7 +185,8 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
         if cell.tag != 0 {
             imageManager.cancelImageRequest(cell.tag)
         }
-        cell.tag = imageManager.requsetImage(for: asset, targetSize: cell.bounds.size, resultHandler: { (image) in
+        let size = CGSize(width: cell.bounds.width * 2, height: cell.bounds.height * 2)
+        cell.tag = imageManager.requsetImage(for: asset, targetSize: size, resultHandler: { (image) in
             cell.imageView.image = image
         })
         return cell
@@ -196,7 +196,8 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = imageManager.asset(at: indexPath)
-        imageManager.requsetImage(for: asset, targetSize: view.bounds.size) { (image) in
+        let size = CGSize(width: displayImageView.bounds.width * 2, height: displayImageView.bounds.height * 2)
+        imageManager.requsetImage(for: asset, targetSize: size) { (image) in
             self.displayImageView.image = image
             self.placeholderImageView.image = nil
             self.closePreview()

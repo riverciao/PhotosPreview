@@ -39,6 +39,10 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         albumButton.addTarget(self, action: #selector(selectAlbum), for: .touchUpInside)
         
         // MARK: AlbumTableView
+        albumTableView.register(
+            UINib(nibName: AlbumCell.identifier, bundle: nil),
+            forCellReuseIdentifier: AlbumCell.identifier
+        )
         albumTableView.dataSource = self
         albumTableView.delegate = self
     }
@@ -103,7 +107,14 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
+        let assetCollection = imageManager.assetCollections[indexPath.row]
+        cell.albumNameLabel.text = assetCollection.localizedTitle
+        cell.albumAssetNumberLabel.text = String(assetCollection.estimatedAssetCount)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }

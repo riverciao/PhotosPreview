@@ -10,15 +10,15 @@ import UIKit
 
 class AlbumCell: UITableViewCell {
 
+    class var identifier: String { return String(describing: self) }
+    
+    @IBOutlet weak var albumImageView: UIImageView!
+    @IBOutlet weak var albumNameLabel: UILabel!
+    @IBOutlet weak var albumAssetNumberLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
     }
     
 }
