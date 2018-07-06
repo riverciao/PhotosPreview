@@ -48,14 +48,33 @@ class ImageAPIManager: ImageManager {
     }
     
     func fetchAssetCollections() {
-        let assetCollections = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        let customAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
         
-        assetCollections.enumerateObjects { (object, index, stop) in
+        let albums = smartAlbums([.smartAlbumUserLibrary, .smartAlbumFavorites, .smartAlbumVideos, .smartAlbumScreenshots, .smartAlbumSelfPortraits])
+        
+        for smartAlbum in albums {
+            smartAlbum.enumerateObjects { (object, index, stop) in
+                if object.photosCount > 0 {
+                    self.assetCollections.append(object)
+                }
+            }
+        }
+        
+        
+        customAlbums.enumerateObjects { (object, index, stop) in
             if object.photosCount > 0 {
                 self.assetCollections.append(object)
             }
         }
-        self.assetCollections.reverse()
+    }
+    
+    private func smartAlbums(_ subtypes: [PHAssetCollectionSubtype]) -> [PHFetchResult<PHAssetCollection>] {
+        var smartAlbums = [PHFetchResult<PHAssetCollection>]()
+        for subtype in subtypes {
+            let album = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: subtype, options: nil)
+            smartAlbums.append(album)
+        }
+        return smartAlbums
     }
     
     func cameraRollAssetCollection() -> PHAssetCollection? {
