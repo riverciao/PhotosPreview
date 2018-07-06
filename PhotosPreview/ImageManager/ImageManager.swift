@@ -48,17 +48,12 @@ class ImageAPIManager: ImageManager {
     }
     
     func fetchAssetCollections() {
-        let assetCollections = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: nil)
-        
-//        let topLevelOptions = PHFetchOptions()
-//        let topLevelUserCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-//
-//        topLevelUserCollections.enumerateObjects { (object, index, stop) in
-//            print("ALL Collection: \(object)")
-//        }
+        let assetCollections = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
         
         assetCollections.enumerateObjects { (object, index, stop) in
-            self.assetCollections.append(object)
+            if object.photosCount > 0 {
+                self.assetCollections.append(object)
+            }
         }
         self.assetCollections.reverse()
     }
@@ -87,5 +82,12 @@ class ImageAPIManager: ImageManager {
     func asAsset(_ object: Any?) -> PHAsset? {
         guard let asset = object as? PHAsset else { return nil }
         return asset
+    }
+}
+
+extension PHAssetCollection {
+    var photosCount: Int {
+        let result = PHAsset.fetchAssets(in: self, options: nil)
+        return result.count
     }
 }

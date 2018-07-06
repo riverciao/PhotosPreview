@@ -110,7 +110,7 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
         let assetCollection = imageManager.assetCollections[indexPath.row]
         cell.albumNameLabel.text = assetCollection.localizedTitle
-        cell.albumAssetNumberLabel.text = String(assetCollection.estimatedAssetCount)
+        cell.albumAssetNumberLabel.text = String(assetCollection.photosCount)
         return cell
     }
     
