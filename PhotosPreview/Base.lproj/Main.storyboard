@@ -191,7 +191,10 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-EC-Qvm">
-                                        <rect key="frame" x="153" y="8" width="69" height="30"/>
+                                        <rect key="frame" x="112.5" y="15" width="150" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="Mt4-b5-YOl"/>
+                                        </constraints>
                                         <state key="normal" title="All Photos">
                                             <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -199,10 +202,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="51V-2Y-Fl1" firstAttribute="top" secondItem="EsY-HP-3up" secondAttribute="top" constant="8" id="0sW-Lu-XyM"/>
+                                    <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerY" secondItem="EsY-HP-3up" secondAttribute="centerY" id="8yd-dd-ybL"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="51V-2Y-Fl1" secondAttribute="trailing" constant="20" symbolic="YES" id="Vbi-Fg-7Tk"/>
                                     <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerX" secondItem="EsY-HP-3up" secondAttribute="centerX" id="ekU-lJ-4en"/>
                                     <constraint firstItem="51V-2Y-Fl1" firstAttribute="leading" secondItem="EsY-HP-3up" secondAttribute="leading" constant="8" id="prO-Ac-JTZ"/>
-                                    <constraint firstItem="B1j-EC-Qvm" firstAttribute="top" secondItem="51V-2Y-Fl1" secondAttribute="top" id="uGv-Ce-b2q"/>
                                     <constraint firstAttribute="height" constant="60" id="whw-8Y-EbN"/>
                                 </constraints>
                             </view>

@@ -48,6 +48,10 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         albumButton.addTarget(self, action: #selector(selectAlbum), for: .touchUpInside)
         
+        // MARK: AlbumButton
+        albumButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        albumButton.titleLabel?.numberOfLines = 0
+        
         // MARK: AlbumTableView
         albumTableView.register(
             UINib(nibName: AlbumCell.identifier, bundle: nil),
@@ -172,6 +176,8 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
         let colletcion = imageManager.assetCollections[indexPath.row]
         imageManager.fetchAssets(in: colletcion)
         collectionView.reloadData()
+        let assetCollection = imageManager.assetCollections[indexPath.row]
+        albumButton.setTitle(assetCollection.localizedTitle, for: .normal)
         isAlbumSelected = false
         closeAlbumView()
     }
