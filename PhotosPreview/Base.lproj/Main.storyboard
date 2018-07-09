@@ -185,10 +185,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51V-2Y-Fl1">
-                                        <rect key="frame" x="8" y="8" width="39" height="30"/>
-                                        <state key="normal" title="Close">
-                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
+                                        <rect key="frame" x="8" y="20" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="Qua-T7-qgK"/>
+                                            <constraint firstAttribute="height" constant="20" id="VOo-LM-n8j"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="button-close"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-EC-Qvm">
                                         <rect key="frame" x="112.5" y="15" width="150" height="30"/>
@@ -201,9 +204,8 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="51V-2Y-Fl1" firstAttribute="top" secondItem="EsY-HP-3up" secondAttribute="top" constant="8" id="0sW-Lu-XyM"/>
+                                    <constraint firstItem="51V-2Y-Fl1" firstAttribute="centerY" secondItem="EsY-HP-3up" secondAttribute="centerY" id="24h-CO-4U0"/>
                                     <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerY" secondItem="EsY-HP-3up" secondAttribute="centerY" id="8yd-dd-ybL"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="51V-2Y-Fl1" secondAttribute="trailing" constant="20" symbolic="YES" id="Vbi-Fg-7Tk"/>
                                     <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerX" secondItem="EsY-HP-3up" secondAttribute="centerX" id="ekU-lJ-4en"/>
                                     <constraint firstItem="51V-2Y-Fl1" firstAttribute="leading" secondItem="EsY-HP-3up" secondAttribute="leading" constant="8" id="prO-Ac-JTZ"/>
                                     <constraint firstAttribute="height" constant="60" id="whw-8Y-EbN"/>
@@ -246,6 +248,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="button-close" width="44" height="44"/>
         <image name="icon-grid" width="25" height="25"/>
         <image name="icon-photo" width="44" height="36"/>
     </resources>
