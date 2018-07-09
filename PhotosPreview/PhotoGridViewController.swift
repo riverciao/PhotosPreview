@@ -68,7 +68,8 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         if cell.tag != 0 {
             imageManager.cancelImageRequest(cell.tag)
         }
-        cell.tag = imageManager.requsetImage(for: asset, targetSize: cell.bounds.size, resultHandler: { (image) in
+        let size = CGSize(width: cell.bounds.width * 2, height: cell.bounds.height * 2)
+        cell.tag = imageManager.requsetImage(for: asset, targetSize: size, resultHandler: { (image) in
             cell.imageView.image = image
         })
         return cell
