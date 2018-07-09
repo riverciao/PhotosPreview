@@ -13,6 +13,8 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
     var assets = [PHAsset]()
     var imageManager = ImageAPIManager()
+    
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
@@ -57,6 +59,9 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         albumTableView.delegate = self
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -88,11 +93,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let headerSize = CGSize(
-            width: collectionView.bounds.width,
-            height: view.bounds.height - collectionView.bounds.height
-        )
-        return headerSize
+        return headerView.bounds.size
     }
     
     // MARK: UICollectionViewDelegate
@@ -132,14 +133,14 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     private func openAlbumView() {
         albumTableView.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: 0.3) {
-            self.albumTableView.frame.origin.y = self.collectionView.frame.minY
+            self.albumTableView.frame.origin.y = self.headerView.frame.maxY
         }
     }
     
     /// Animate to close the albumTableView
     private func closeAlbumView() {
         UIView.animate(withDuration: 0.3) {
-            self.albumTableView.frame.origin.y = self.collectionView.frame.maxY
+            self.albumTableView.frame.origin.y = self.view.frame.maxY
         }
     }
 }

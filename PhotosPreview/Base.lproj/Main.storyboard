@@ -146,20 +146,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51V-2Y-Fl1">
-                                <rect key="frame" x="8" y="20" width="39" height="30"/>
-                                <state key="normal" title="Close">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-EC-Qvm">
-                                <rect key="frame" x="153" y="20" width="69" height="30"/>
-                                <state key="normal" title="All Photos">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wk6-d3-uJ6">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ln-Ie-2VO">
                                 <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wk6-d3-uJ6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="4ae-H5-PrV">
                                     <size key="itemSize" width="50" height="50"/>
@@ -189,22 +181,49 @@
                                 <rect key="frame" x="0.0" y="667" width="375" height="607"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EsY-HP-3up">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51V-2Y-Fl1">
+                                        <rect key="frame" x="8" y="8" width="39" height="30"/>
+                                        <state key="normal" title="Close">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-EC-Qvm">
+                                        <rect key="frame" x="153" y="8" width="69" height="30"/>
+                                        <state key="normal" title="All Photos">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="51V-2Y-Fl1" firstAttribute="top" secondItem="EsY-HP-3up" secondAttribute="top" constant="8" id="0sW-Lu-XyM"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="51V-2Y-Fl1" secondAttribute="trailing" constant="20" symbolic="YES" id="Vbi-Fg-7Tk"/>
+                                    <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerX" secondItem="EsY-HP-3up" secondAttribute="centerX" id="ekU-lJ-4en"/>
+                                    <constraint firstItem="51V-2Y-Fl1" firstAttribute="leading" secondItem="EsY-HP-3up" secondAttribute="leading" constant="8" id="prO-Ac-JTZ"/>
+                                    <constraint firstItem="B1j-EC-Qvm" firstAttribute="top" secondItem="51V-2Y-Fl1" secondAttribute="top" id="uGv-Ce-b2q"/>
+                                    <constraint firstAttribute="height" constant="60" id="whw-8Y-EbN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="itP-Mf-vLq" firstAttribute="leading" secondItem="wk6-d3-uJ6" secondAttribute="leading" id="3Q7-qI-enV"/>
                             <constraint firstItem="FdX-MS-7jN" firstAttribute="bottom" secondItem="wk6-d3-uJ6" secondAttribute="bottom" id="9vd-TF-HmK"/>
-                            <constraint firstItem="wk6-d3-uJ6" firstAttribute="top" secondItem="51V-2Y-Fl1" secondAttribute="bottom" constant="10" id="B9g-jj-63D"/>
-                            <constraint firstItem="51V-2Y-Fl1" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="LfN-wn-umx"/>
+                            <constraint firstItem="6ln-Ie-2VO" firstAttribute="top" secondItem="EsY-HP-3up" secondAttribute="bottom" id="MFh-Nh-YZH"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="MRk-e0-zZs"/>
+                            <constraint firstItem="FdX-MS-7jN" firstAttribute="trailing" secondItem="6ln-Ie-2VO" secondAttribute="trailing" id="Mup-bE-OFW"/>
+                            <constraint firstItem="EsY-HP-3up" firstAttribute="top" secondItem="KVd-O1-JUE" secondAttribute="top" id="PmJ-7j-LUc"/>
                             <constraint firstItem="FdX-MS-7jN" firstAttribute="trailing" secondItem="wk6-d3-uJ6" secondAttribute="trailing" id="Pzl-nf-6eQ"/>
-                            <constraint firstItem="itP-Mf-vLq" firstAttribute="height" secondItem="wk6-d3-uJ6" secondAttribute="height" id="Q3q-Ke-l8M"/>
-                            <constraint firstItem="B1j-EC-Qvm" firstAttribute="centerX" secondItem="KVd-O1-JUE" secondAttribute="centerX" id="bfU-Q1-0Il"/>
-                            <constraint firstItem="B1j-EC-Qvm" firstAttribute="top" secondItem="FdX-MS-7jN" secondAttribute="top" id="bzs-Lp-jCP"/>
+                            <constraint firstItem="FdX-MS-7jN" firstAttribute="trailing" secondItem="EsY-HP-3up" secondAttribute="trailing" id="T4s-SR-Nqj"/>
+                            <constraint firstItem="itP-Mf-vLq" firstAttribute="height" secondItem="6ln-Ie-2VO" secondAttribute="height" id="Zue-CJ-BdM"/>
                             <constraint firstItem="itP-Mf-vLq" firstAttribute="trailing" secondItem="wk6-d3-uJ6" secondAttribute="trailing" id="f7C-lT-CkH"/>
-                            <constraint firstItem="51V-2Y-Fl1" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" constant="8" id="hOM-0v-jgj"/>
-                            <constraint firstItem="B1j-EC-Qvm" firstAttribute="leading" secondItem="51V-2Y-Fl1" secondAttribute="trailing" priority="750" constant="106" id="pXz-pb-Zbe"/>
-                            <constraint firstItem="itP-Mf-vLq" firstAttribute="top" secondItem="wk6-d3-uJ6" secondAttribute="bottom" id="roA-F0-edv"/>
+                            <constraint firstItem="FdX-MS-7jN" firstAttribute="bottom" secondItem="6ln-Ie-2VO" secondAttribute="bottom" id="ifZ-Vi-Gh1"/>
+                            <constraint firstItem="6ln-Ie-2VO" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="lwc-Qf-zjc"/>
+                            <constraint firstItem="itP-Mf-vLq" firstAttribute="top" secondItem="KVd-O1-JUE" secondAttribute="bottom" id="roA-F0-edv"/>
+                            <constraint firstItem="EsY-HP-3up" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="wCy-BY-Fyq"/>
+                            <constraint firstItem="wk6-d3-uJ6" firstAttribute="top" secondItem="EsY-HP-3up" secondAttribute="top" id="wh3-qe-p6r"/>
                             <constraint firstItem="wk6-d3-uJ6" firstAttribute="leading" secondItem="FdX-MS-7jN" secondAttribute="leading" id="zZr-Mc-4MU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FdX-MS-7jN"/>
@@ -214,6 +233,7 @@
                         <outlet property="albumTableView" destination="itP-Mf-vLq" id="nlF-1e-WsT"/>
                         <outlet property="closeButton" destination="51V-2Y-Fl1" id="wdM-VS-vhe"/>
                         <outlet property="collectionView" destination="wk6-d3-uJ6" id="XQo-Dc-Qyo"/>
+                        <outlet property="headerView" destination="EsY-HP-3up" id="tXd-Xz-f5V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3bt-9V-ClA" userLabel="First Responder" sceneMemberID="firstResponder"/>
