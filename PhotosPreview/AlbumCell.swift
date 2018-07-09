@@ -19,6 +19,10 @@ class AlbumCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        selectionStyle = .none
+        backgroundColor = .clear
+        albumNameLabel.textColor = .white
+        albumAssetNumberLabel.textColor = .white
         let image = #imageLiteral(resourceName: "icon-photo").withRenderingMode(.alwaysTemplate)
         albumImageView.image = image
         albumImageView.tintColor = .unselectButtonTintColor

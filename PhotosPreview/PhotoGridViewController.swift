@@ -25,7 +25,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         setup()
     }
-    
+
     // MARK: Setup
     
     private func setup() {
@@ -47,9 +47,11 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
             UINib(nibName: AlbumCell.identifier, bundle: nil),
             forCellReuseIdentifier: AlbumCell.identifier
         )
+        albumTableView.addDarkBlurBackground()
         albumTableView.dataSource = self
         albumTableView.delegate = self
     }
+    
 
     // MARK: UICollectionViewDataSource
 
@@ -131,7 +133,6 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
-        cell.selectionStyle = .none
         let assetCollection = imageManager.assetCollections[indexPath.row]
         cell.albumNameLabel.text = assetCollection.localizedTitle
         cell.albumAssetNumberLabel.text = String(assetCollection.photosCount)
