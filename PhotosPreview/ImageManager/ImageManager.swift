@@ -99,6 +99,15 @@ class ImageAPIManager: ImageManager {
         return assetCollection
     }
     
+    /// Result in the lastest image in collection.
+    func latestThumbnailImage(in collection: PHAssetCollection, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
+        let assets = PHAsset.fetchAssets(in: collection, options: nil)
+        guard let lastAsset = assets.lastObject else { return }
+        requsetImage(for: lastAsset, targetSize: targetSize) { (image) in
+            resultHandler(image)
+        }
+    }
+    
     func cancelImageRequest(_ requestIDNumber: Int) {
         manager.cancelImageRequest(PHImageRequestID(requestIDNumber))
     }
