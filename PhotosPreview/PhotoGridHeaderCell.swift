@@ -14,7 +14,6 @@ class PhotoGridHeaderCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         self.backgroundColor = .clear
     }
 }

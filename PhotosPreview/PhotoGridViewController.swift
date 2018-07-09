@@ -134,7 +134,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         albumTableView.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: 0.3) {
             self.albumTableView.frame.origin.y = self.headerView.frame.maxY
-            self.headerView.backgroundColor = .black
+            self.headerView.backgroundColor = .photoGridHeaderViewOpenedColor
         }
     }
     
@@ -142,7 +142,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     private func closeAlbumView() {
         UIView.animate(withDuration: 0.3) {
             self.albumTableView.frame.origin.y = self.view.frame.maxY
-            self.headerView.backgroundColor = .clear
+            self.headerView.backgroundColor = .photoGridHeaderViewClosedColor
         }
     }
 }

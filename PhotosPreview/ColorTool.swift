@@ -20,5 +20,7 @@ extension UIColor {
     static let unselectButtonBackgroundColor = UIColor.white
     static let unselectButtonTintColor = UIColor.lightGray
     static let albumTextColor = UIColor.white
+    static let photoGridHeaderViewOpenedColor = UIColor.black
+    static let photoGridHeaderViewClosedColor = UIColor.clear
 }
 
