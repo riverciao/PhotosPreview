@@ -40,9 +40,7 @@ class PreviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        if let cameraRollAssetCollection =  imageManager.cameraRollAssetCollection() {
-            imageManager.fetchAssets(in: cameraRollAssetCollection)
-        }
+        imageManager.fetchAssetsInCameraRoll()
     }
     
     override func viewWillAppear(_ animated: Bool) {

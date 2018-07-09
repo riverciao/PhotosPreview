@@ -20,6 +20,9 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var albumTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let cameraRollCollection = imageManager.cameraRollAssetCollection() {
+            imageManager.fetchAssets(in: cameraRollCollection)
+        }
         setup()
     }
     
@@ -56,12 +59,12 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageManager.numberOfAssets()
+        return imageManager.assetsInColletion.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = imageManager.asset(at: indexPath)
+        let asset = imageManager.assetsInColletion[indexPath.row]
         if cell.tag != 0 {
             imageManager.cancelImageRequest(cell.tag)
         }
@@ -74,7 +77,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = imageManager.asset(at: indexPath)
+        let asset = imageManager.assetsInColletion[indexPath.row]
         NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
@@ -96,20 +99,27 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     
     @objc private func selectAlbum(_ sender: UIButton) {
         if !isAlbumSelected {
-            // Animate to open the albumTableView
-            albumTableView.translatesAutoresizingMaskIntoConstraints = true
-            UIView.animate(withDuration: 0.3) {
-                self.albumTableView.frame.origin.y = self.collectionView.frame.minY
-            }
+            openAlbumView()
             isAlbumSelected = true
         } else {
-            // Animate to close the albumTableView
-            UIView.animate(withDuration: 0.3) {
-                self.albumTableView.frame.origin.y = self.collectionView.frame.maxY
-            }
+            closeAlbumView()
             isAlbumSelected = false
         }
-        
+    }
+    
+    /// Animate to open the albumTableView
+    private func openAlbumView() {
+        albumTableView.translatesAutoresizingMaskIntoConstraints = true
+        UIView.animate(withDuration: 0.3) {
+            self.albumTableView.frame.origin.y = self.collectionView.frame.minY
+        }
+    }
+    
+    /// Animate to close the albumTableView
+    private func closeAlbumView() {
+        UIView.animate(withDuration: 0.3) {
+            self.albumTableView.frame.origin.y = self.collectionView.frame.maxY
+        }
     }
 }
 
@@ -120,6 +130,7 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
+        cell.selectionStyle = .none
         let assetCollection = imageManager.assetCollections[indexPath.row]
         cell.albumNameLabel.text = assetCollection.localizedTitle
         cell.albumAssetNumberLabel.text = String(assetCollection.photosCount)
@@ -128,5 +139,13 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let colletcion = imageManager.assetCollections[indexPath.row]
+        imageManager.fetchAssets(in: colletcion)
+        collectionView.reloadData()
+        isAlbumSelected = false
+        closeAlbumView()
     }
 }
