@@ -35,6 +35,10 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
             UINib(nibName: PhotoGridCell.identifier, bundle: nil),
             forCellWithReuseIdentifier: PhotoGridCell.identifier
         )
+        collectionView.register(
+            UINib(nibName: PhotoGridHeaderCell.identifier, bundle: nil),
+            forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+            withReuseIdentifier: PhotoGridHeaderCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -76,6 +80,19 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
             cell.imageView.image = image
         })
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoGridHeaderCell.identifier, for: indexPath)
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let headerSize = CGSize(
+            width: collectionView.bounds.width,
+            height: view.bounds.height - collectionView.bounds.height
+        )
+        return headerSize
     }
     
     // MARK: UICollectionViewDelegate
