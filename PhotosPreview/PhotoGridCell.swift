@@ -19,6 +19,7 @@ class PhotoGridCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
     }
 
 }

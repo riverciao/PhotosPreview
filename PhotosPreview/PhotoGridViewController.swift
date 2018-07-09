@@ -48,6 +48,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
             forCellReuseIdentifier: AlbumCell.identifier
         )
         albumTableView.addDarkBlurBackground()
+        albumTableView.separatorInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         albumTableView.dataSource = self
         albumTableView.delegate = self
     }
@@ -144,7 +145,7 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 106
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -19,5 +19,6 @@ extension UIColor {
     static let selectedButtonTintColor = UIColor.white
     static let unselectButtonBackgroundColor = UIColor.white
     static let unselectButtonTintColor = UIColor.lightGray
+    static let albumTextColor = UIColor.white
 }
 
