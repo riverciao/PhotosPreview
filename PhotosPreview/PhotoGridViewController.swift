@@ -24,6 +24,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         super.viewDidLoad()
         if let cameraRollCollection = imageManager.cameraRollAssetCollection() {
             imageManager.fetchAssets(in: cameraRollCollection)
+            albumButton.setTitle(cameraRollCollection.localizedTitle, for: .normal)
         }
         setup()
     }
@@ -46,13 +47,23 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         
         // MARK: CloseButton
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
-        closeButton.addShadow(shadowColor: .black, shadowOffset: CGSize(width: 0.5, height: 0.5), opacity: 1.0, shadowRadius: 1)
+        closeButton.addShadow(
+            shadowColor: .black,
+            shadowOffset: CGSize(width: 0.5, height: 0.5),
+            opacity: 1.0,
+            shadowRadius: 1
+        )
         
         // MARK: AlbumButton
         albumButton.addTarget(self, action: #selector(selectAlbum), for: .touchUpInside)
         albumButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         albumButton.titleLabel?.numberOfLines = 0
-        albumButton.titleLabel?.addShadow(shadowColor: .black, shadowOffset: CGSize(width: 0.5, height: 0.5), opacity: 1.0, shadowRadius: 1)
+        albumButton.titleLabel?.addShadow(
+            shadowColor: .black,
+            shadowOffset: CGSize(width: 0.5, height: 0.5),
+            opacity: 1.0,
+            shadowRadius: 1
+        )
         
         // MARK: AlbumTableView
         albumTableView.register(
