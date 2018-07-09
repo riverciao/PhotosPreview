@@ -57,7 +57,6 @@
                 <outlet property="albumAssetNumberLabel" destination="w0G-xo-2pm" id="FCU-7F-yis"/>
                 <outlet property="albumImageView" destination="6bO-PL-9zo" id="aGv-0v-I03"/>
                 <outlet property="albumNameLabel" destination="Skp-Bs-uhR" id="Gse-Et-ZHw"/>
-                <outlet property="imageView" destination="6bO-PL-9zo" id="bX8-dM-dWi"/>
             </connections>
             <point key="canvasLocation" x="25" y="80.5"/>
         </tableViewCell>
