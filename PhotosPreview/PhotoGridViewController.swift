@@ -22,11 +22,9 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var albumTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        if imageManager.assetCollections.count > 0 {
-            let cameraRollCollection = imageManager.assetCollections[0]
-            imageManager.fetchAssets(in: cameraRollCollection)
-            albumButton.setTitle(cameraRollCollection.localizedTitle, for: .normal)
-        }
+        let cameraRollCollection = imageManager.album(of: .cameraRoll)
+        imageManager.fetchAssets(in: cameraRollCollection)
+        albumButton.setTitle(cameraRollCollection.localizedTitle, for: .normal)
         setup()
     }
 
