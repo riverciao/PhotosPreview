@@ -12,6 +12,11 @@ import Photos
 protocol ImageManager {
     typealias RequestIDNumber = Int
     func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
+    func fetchAssetsInCameraRoll()
+    func fetchAssets(in collection: PHAssetCollection)
+    func fetchAssetCollections()
+    
+    
 }
 
 class ImageAPIManager: ImageManager {
@@ -59,6 +64,25 @@ class ImageAPIManager: ImageManager {
         return Int(requsetID)
     }
     
+    enum Album {
+        case cameraRoll, favorites, videos, screenshots, selfies
+    }
+    
+    func fetchAlbum(of type: Album) -> PHAssetCollection {
+        switch type {
+        case .cameraRoll:
+            return systemAlbum(of: .smartAlbumUserLibrary)
+        case .favorites:
+            return systemAlbum(of: .smartAlbumFavorites)
+        case .screenshots:
+            return systemAlbum(of: .smartAlbumScreenshots)
+        case .selfies:
+            return systemAlbum(of: .smartAlbumSelfPortraits)
+        case .videos:
+            return systemAlbum(of: .smartAlbumVideos)
+        }
+    }
+    
     func fetchAssetCollections() {
         assetCollections = []
         let customAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
@@ -79,6 +103,11 @@ class ImageAPIManager: ImageManager {
                 self.assetCollections.append(object)
             }
         }
+    }
+    
+    private func systemAlbum(of subtype: PHAssetCollectionSubtype) -> PHAssetCollection {
+        let album = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: subtype, options: nil)
+        return album.object(at: 0)
     }
     
     private func systemAlbums(_ subtypes: [PHAssetCollectionSubtype]) -> [PHFetchResult<PHAssetCollection>] {
