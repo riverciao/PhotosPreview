@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'PhotosPreview'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'Messenger-like photo browser for user to preview and pick photo.'
 
   s.description      = <<-DESC
@@ -12,8 +12,8 @@ PhotosPreview is a Swift library, making Messenger-like photo browser. User can 
   s.author           = { 'Ciao Huang' => 'forwardciao@gmail.com' }
   s.source           = { :git => 'https://github.com/riverciao/PhotosPreview.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
-  s.source_files = '{PhotosPreview/*, PhotosPreview.xcodeproj}'
-  s.swift_version = '9.4.1'
+  s.ios.deployment_target = '11.0'
+  s.source_files = '{PhotosPreview/*, PhotosPreview.xcodeproj, PhotosPreview/ImageManager/*}'
+  s.swift_version = '4.0'
 
 end
