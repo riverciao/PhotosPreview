@@ -16,7 +16,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
     // MARK: Open library property
     /// Image will return in this size when image is selected. Default is the size of screen.
-    var targetSize: CGSize = UIScreen.main.bounds.size
+    public var targetSize: CGSize = UIScreen.main.bounds.size
     
     var imageManager = ImageAPIManager()
     

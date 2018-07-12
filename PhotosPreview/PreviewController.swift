@@ -155,21 +155,17 @@ class PreviewController: UIViewController, ImageManagerDelegate {
     
 
     func openPreview() {
-        if !isPreviewOpened {
-            previewView.translatesAutoresizingMaskIntoConstraints = true
-            UIView.animate(withDuration: 0.3) {
-                self.previewView.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height
-                self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height - self.previewButton.frame.height
-            }
+        previewView.translatesAutoresizingMaskIntoConstraints = true
+        UIView.animate(withDuration: 0.3) {
+            self.previewView.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height
+            self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewView.frame.height - self.previewButton.frame.height
         }
     }
     
-    @objc func closePreview(_ sender: UITapGestureRecognizer? = nil) {
-        if isPreviewOpened {
-            UIView.animate(withDuration: 0.3) {
-                self.previewView.frame.origin.y = self.view.bounds.maxY
-                self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewButton.frame.height
-            }
+    @objc func closePreview() {
+        UIView.animate(withDuration: 0.3) {
+            self.previewView.frame.origin.y = self.view.bounds.maxY
+            self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewButton.frame.height
         }
     }
     
