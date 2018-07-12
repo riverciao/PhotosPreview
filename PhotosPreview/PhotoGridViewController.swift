@@ -181,7 +181,7 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
         cell.albumNameLabel.text = album.title
         cell.albumAssetNumberLabel.text = String(album.countOfPhotos)
         let size = CGSize(width: cell.bounds.width * 2, height: cell.bounds.height * 2)
-        imageManager.latestThumbnailImage(in: album.collection, at: size) { (image) in
+        imageManager.latestThumbnailImage(in: album, at: size) { (image) in
             cell.albumImageView.image = image
         }
         return cell
