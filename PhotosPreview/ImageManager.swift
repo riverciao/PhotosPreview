@@ -25,10 +25,12 @@ class ImageAPIManager: ImageManager {
     var assetsInCameraRoll = [PHAsset]()
     var assetsInColletion = [PHAsset]()
     var images = [UIImage]()
-    var assetCollections = [PHAssetCollection]()
+    var assetCollections = [PHAssetCollection]() // to be replaced
+    var albums = [AlbumType]()
+    
     weak var delegate: ImageManagerDelegate?
     
-    // ready to be replace
+    // ready to be replaced
     func fetchAssets(in collection: PHAssetCollection) {
         self.assetsInColletion = []
         let assets = PHAsset.fetchAssets(in: collection, options: nil)
@@ -39,7 +41,7 @@ class ImageAPIManager: ImageManager {
     }
     
     func fetchAssets(of type: AlbumType) {
-        let collection = album(of: type)
+        let collection = type.collection
         self.assetsInColletion = []
         let assets = PHAsset.fetchAssets(in: collection, options: nil)
         assets.enumerateObjects { (object, index, stop) in
@@ -67,35 +69,41 @@ class ImageAPIManager: ImageManager {
         return Int(requsetID)
     }
     
-    enum AlbumType {
-        case cameraRoll, favorites, videos, screenshots, selfies
-    }
     
-    func album(of type: AlbumType) -> PHAssetCollection {
-        switch type {
-        case .cameraRoll:
-            return systemAlbum(of: .smartAlbumUserLibrary)
-        case .favorites:
-            return systemAlbum(of: .smartAlbumFavorites)
-        case .screenshots:
-            return systemAlbum(of: .smartAlbumScreenshots)
-        case .selfies:
-            return systemAlbum(of: .smartAlbumSelfPortraits)
-        case .videos:
-            return systemAlbum(of: .smartAlbumVideos)
-        }
-    }
+    
+//    func album(of type: AlbumType) -> PHAssetCollection {
+//        switch type {
+//        case .cameraRoll:
+//            return systemAlbum(of: .smartAlbumUserLibrary)
+//        case .favorites:
+//            return systemAlbum(of: .smartAlbumFavorites)
+//        case .screenshots:
+//            return systemAlbum(of: .smartAlbumScreenshots)
+//        case .selfies:
+//            return systemAlbum(of: .smartAlbumSelfPortraits)
+//        case .videos:
+//            return systemAlbum(of: .smartAlbumVideos)
+//        }
+//    }
     
     
     func fetchAllAlbum() {
-        assetCollections = []
-        let smartAlbums = systemAlbums(of: [.smartAlbumUserLibrary, .smartAlbumFavorites, .smartAlbumVideos, .smartAlbumScreenshots, .smartAlbumSelfPortraits])
-        assetCollections.append(contentsOf: smartAlbums)
+//        assetCollections = []
+        albums = []
+        let smartAlbums: [AlbumType] = [.cameraRoll, .favorites, .videos, .screenshots, .selfies]
+        for album in smartAlbums {
+            if album.collection.photosCount > 0 {
+                albums.append(album)
+            }
+        }
+//        let smartAlbums = systemAlbums(of: [.smartAlbumUserLibrary, .smartAlbumFavorites, .smartAlbumVideos, .smartAlbumScreenshots, .smartAlbumSelfPortraits])
+//        assetCollections.append(contentsOf: smartAlbums)
         
         let customAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
         customAlbums.enumerateObjects { (object, index, stop) in
             if object.photosCount > 0 {
-                self.assetCollections.append(object)
+                self.albums.append(AlbumType.custom(index: index))
+//                self.assetCollections.append(object)
             }
         }
     }
@@ -130,6 +138,8 @@ class ImageAPIManager: ImageManager {
         manager.cancelImageRequest(PHImageRequestID(requestIDNumber))
     }
     
+    // MARK: DataSource
+    
     func asset(at indexPath: IndexPath) -> PHAsset {
         return assetsInColletion[indexPath.row]
     }
@@ -148,5 +158,38 @@ extension PHAssetCollection {
     var photosCount: Int {
         let result = PHAsset.fetchAssets(in: self, options: nil)
         return result.count
+    }
+}
+
+enum AlbumType {
+    case cameraRoll, favorites, videos, screenshots, selfies, custom(index: Int)
+}
+
+extension AlbumType {
+    var title: String? {
+        return collection.localizedTitle
+    }
+    
+    var collection: PHAssetCollection {
+        switch self {
+        case .cameraRoll:
+            let albumResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
+            return albumResult.object(at: 0)
+        case .favorites:
+            let albumResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: nil)
+            return albumResult.object(at: 0)
+        case .screenshots:
+            let albumResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil)
+            return albumResult.object(at: 0)
+        case .selfies:
+            let albumResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: nil)
+            return albumResult.object(at: 0)
+        case .videos:
+            let albumResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: nil)
+            return albumResult.object(at: 0)
+        case .custom(let index):
+            let albumResults = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
+            return albumResults.object(at: index)
+        }
     }
 }
