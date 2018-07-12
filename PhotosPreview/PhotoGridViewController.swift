@@ -44,6 +44,9 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         let albumType: AlbumType = .cameraRoll
         imageManager.fetchAssets(in: albumType)
         albumButton.setTitle(albumType.title, for: .normal)
+        
+        // fetch all albums for album selection
+        imageManager.fetchAllAlbums()
     }
     
     private func setup() {
