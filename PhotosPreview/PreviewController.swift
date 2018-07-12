@@ -28,7 +28,7 @@ class PreviewController: UIViewController, ImageManagerDelegate {
         }
     }
     var isPreviewOpened = false
-    @IBAction func openPreviewView(_ sender: UIButton) {
+    @IBAction func previewButtonPressed(_ sender: UIButton) {
         if !isPreviewOpened {
             openPreview()
             isPreviewOpened = true
@@ -163,6 +163,7 @@ class PreviewController: UIViewController, ImageManagerDelegate {
     }
     
     @objc func closePreview() {
+        previewView.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: 0.3) {
             self.previewView.frame.origin.y = self.view.bounds.maxY
             self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewButton.frame.height
