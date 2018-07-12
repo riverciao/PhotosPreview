@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 

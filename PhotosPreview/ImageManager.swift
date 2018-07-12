@@ -21,9 +21,9 @@ protocol ImageManagerDelegate: class {
 
 class ImageAPIManager: ImageManager {
     
-    let manager = PHImageManager.default()
-    var assetsInColletion = [PHAsset]()
-    var albums = [AlbumType]()
+    private let manager = PHImageManager.default()
+    private var assetsInColletion = [PHAsset]()
+    private var albums = [AlbumType]()
     
     weak var delegate: ImageManagerDelegate?
     
