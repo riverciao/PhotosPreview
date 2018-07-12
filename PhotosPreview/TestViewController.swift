@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestViewController: UIViewController, PhotoGridDelegate {
+class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDelegate {
     
     @IBOutlet weak var testImageView: UIImageView!
     var previewBar: PhotoPreviewBar!
@@ -32,6 +32,7 @@ class TestViewController: UIViewController, PhotoGridDelegate {
         photoGrid.delegate = self
         let frame = CGRect(x: 0, y: view.frame.maxY - 200, width: view.frame.width, height: 200)
         previewBar = PhotoPreviewBar(frame: frame)
+        previewBar.delegate = self
         manager.fetchAssets(in: .cameraRoll)
         previewBar.imageManager = manager
         view.addSubview(previewBar)
@@ -39,6 +40,10 @@ class TestViewController: UIViewController, PhotoGridDelegate {
     
     func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController) {
         self.image = image
+        testImageView.image = image
+    }
+    
+    func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar) {
         testImageView.image = image
     }
 

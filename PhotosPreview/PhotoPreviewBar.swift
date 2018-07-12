@@ -8,11 +8,19 @@
 
 import UIKit
 
+protocol PhotoPreviewBarDelegate: class {
+    func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar)
+}
+
 class PhotoPreviewBar: UIView {
     
+    public var targetSize: CGSize {
+        return self.superview!.bounds.size
+    }
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var photoGridButton: UIButton!
     var imageManager = ImageAPIManager()
+    weak var delegate: PhotoPreviewBarDelegate?
     class var identifier: String { return String(describing: self) }
     public var isOpened: Bool = false
     
@@ -93,4 +101,12 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
         return imageManager.countOfAssets()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("qq")
+        let asset = imageManager.asset(at: indexPath)
+        imageManager.requsetImage(for: asset, targetSize: targetSize) { (image) in
+            self.delegate?.didSeleteImage(image, by: self)
+        }
+        closePreviewBar(from: self.superview!)
+    }
 }
