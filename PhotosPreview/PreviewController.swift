@@ -8,7 +8,11 @@
 
 import UIKit
 
-class PreviewController: UIViewController {
+class PreviewController: UIViewController, ImageManagerDelegate {
+    
+    enum State {
+        case preparing, ready
+    }
 
     // MARK: Properties
     
@@ -18,6 +22,11 @@ class PreviewController: UIViewController {
     @IBOutlet weak var placeholderImageView: UIImageView!
     @IBOutlet weak var previewButton: UIButton!
     @IBOutlet weak var previewView: UIView!
+    var state: State = .preparing {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     var isPreviewOpened = false
     @IBAction func openPreviewView(_ sender: UIButton) {
         if !isPreviewOpened {
@@ -40,7 +49,7 @@ class PreviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        imageManager.fetchAssetsInCameraRoll()
+        imageManager.fetchAssets(of: .cameraRoll)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,6 +175,11 @@ class PreviewController: UIViewController {
                 self.previewButton.frame.origin.y = self.view.bounds.maxY - self.previewButton.frame.height
             }
         }
+    }
+    
+    // MARK: ImageManagerDelegate
+    func didGetAssetsInAlbum(by manager: ImageManager) {
+        state = .ready
     }
 }
 

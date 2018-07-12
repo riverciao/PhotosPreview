@@ -12,9 +12,11 @@ import Photos
 protocol ImageManager {
     typealias RequestIDNumber = Int
     func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
-    func fetchAssetsInCameraRoll()
-    func fetchAssets(in collection: PHAssetCollection)
     
+}
+
+protocol ImageManagerDelegate: class {
+    func didGetAssetsInAlbum(by manager: ImageManager)
 }
 
 class ImageAPIManager: ImageManager {
@@ -24,17 +26,9 @@ class ImageAPIManager: ImageManager {
     var assetsInColletion = [PHAsset]()
     var images = [UIImage]()
     var assetCollections = [PHAssetCollection]()
+    weak var delegate: ImageManagerDelegate?
     
-    func fetchAssetsInCameraRoll() {
-        guard let cameraRollColletion = cameraRollAssetCollection() else { return }
-        self.assetsInCameraRoll = []
-        let assets = PHAsset.fetchAssets(in: cameraRollColletion, options: nil)
-        assets.enumerateObjects { (object, index, stop) in
-            self.assetsInCameraRoll.append(object)
-        }
-        self.assetsInCameraRoll.reverse()
-    }
-    
+    // ready to be replace
     func fetchAssets(in collection: PHAssetCollection) {
         self.assetsInColletion = []
         let assets = PHAsset.fetchAssets(in: collection, options: nil)
@@ -42,6 +36,17 @@ class ImageAPIManager: ImageManager {
             self.assetsInColletion.append(object)
         }
         self.assetsInColletion.reverse()
+    }
+    
+    func fetchAssets(of type: AlbumType) {
+        let collection = album(of: type)
+        self.assetsInColletion = []
+        let assets = PHAsset.fetchAssets(in: collection, options: nil)
+        assets.enumerateObjects { (object, index, stop) in
+            self.assetsInColletion.append(object)
+        }
+        self.assetsInColletion.reverse()
+        delegate?.didGetAssetsInAlbum(by: self)
     }
     
     typealias RequestIDNumber = Int
@@ -112,16 +117,7 @@ class ImageAPIManager: ImageManager {
         return smartAlbums
     }
     
-    func cameraRollAssetCollection() -> PHAssetCollection? {
-        var assetCollection: PHAssetCollection?
-        let assets = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
-        assets.enumerateObjects { (object, index, stop) in
-            assetCollection = object
-        }
-        return assetCollection
-    }
-    
-    /// Result in the lastest image in collection.
+    /// Get the lastest image in collection.
     func latestThumbnailImage(in collection: PHAssetCollection, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
         let assets = PHAsset.fetchAssets(in: collection, options: nil)
         guard let lastAsset = assets.lastObject else { return }
@@ -135,11 +131,11 @@ class ImageAPIManager: ImageManager {
     }
     
     func asset(at indexPath: IndexPath) -> PHAsset {
-        return assetsInCameraRoll[indexPath.row]
+        return assetsInColletion[indexPath.row]
     }
     
     func numberOfAssets() -> Int {
-        return assetsInCameraRoll.count
+        return assetsInColletion.count
     }
     
     func asAsset(_ object: Any?) -> PHAsset? {
