@@ -20,9 +20,9 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
 //        present(photoGrid, animated: true, completion: nil)
         
         if previewBar.isOpened {
-            previewBar.closePreviewBar(from: view)
+            previewBar.close(from: view)
         } else {
-            previewBar.openPreviewBar(from: view)
+            previewBar.open(from: view)
         }
     }
     
@@ -36,11 +36,24 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
         manager.fetchAssets(in: .cameraRoll)
         previewBar.imageManager = manager
         view.addSubview(previewBar)
+        previewBar.photoGridButton.addTarget(self, action: #selector(goToPhotoGrid), for: .touchUpInside)
+    }
+    
+    @objc func goToPhotoGrid() {
+        present(photoGrid, animated: true, completion: nil)
     }
     
     func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController) {
         self.image = image
         testImageView.image = image
+    }
+    
+    func controllerDidDismissed() {
+//        previewBar.close(from: view)
+    }
+    
+    func controllerWillDismiss() {
+        previewBar.close(from: view)
     }
     
     func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar) {

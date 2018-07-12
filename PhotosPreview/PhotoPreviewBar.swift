@@ -39,7 +39,6 @@ class PhotoPreviewBar: UIView {
         view.frame = bounds
         self.addSubview(view)
         collectionView.backgroundColor = .yellow
-        photoGridButton.addTarget(self, action: #selector(haha), for: .touchUpInside)
         
         // MARK: CollectionView
         collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
@@ -57,12 +56,8 @@ class PhotoPreviewBar: UIView {
         )
     }
     
-    @objc func haha() {
-        print("23")
-    }
-    
     // MARK: Action
-    public func openPreviewBar(from superView: UIView) {
+    public func open(from superView: UIView) {
         self.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: 0.3) {
             self.frame.origin.y = superView.bounds.maxY - self.frame.height
@@ -70,7 +65,7 @@ class PhotoPreviewBar: UIView {
         isOpened = true
     }
     
-    public func closePreviewBar(from superView: UIView) {
+    public func close(from superView: UIView) {
         self.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: 0.3) {
             self.frame.origin.y = superView.bounds.maxY
@@ -102,11 +97,10 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("qq")
         let asset = imageManager.asset(at: indexPath)
         imageManager.requsetImage(for: asset, targetSize: targetSize) { (image) in
             self.delegate?.didSeleteImage(image, by: self)
         }
-        closePreviewBar(from: self.superview!)
+        close(from: self.superview!)
     }
 }

@@ -9,7 +9,17 @@
 import UIKit
 
 protocol PhotoGridDelegate: class {
+    //MARK: Required
     func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController)
+    
+    // MARK: Optional
+    func controllerWillDismiss()
+    func controllerDidDismissed()
+}
+
+extension PhotoGridDelegate {
+    func controllerWillDismiss() {}
+    func controllerDidDismissed() {}
 }
 
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -139,7 +149,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         imageManager.requsetImage(for: asset, targetSize: targetSize) { (image) in
             self.delegate?.didSelectImage(image, by: self)
         }
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        close()
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
@@ -153,8 +163,11 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
     // MARK: Action
     
-    @objc private func close(_ sender: UIButton) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
+    @objc private func close(_ sender: UIButton? = nil) {
+        self.delegate?.controllerWillDismiss()
+        presentingViewController?.dismiss(animated: true, completion: {
+            self.delegate?.controllerDidDismissed()
+        })
     }
     
     @objc private func selectAlbum(_ sender: UIButton) {
