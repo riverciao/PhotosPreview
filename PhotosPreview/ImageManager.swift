@@ -10,9 +10,20 @@ import Foundation
 import Photos
 
 protocol ImageManager {
+    
+    func fetchAssets(in album: AlbumType)
+    func fetchAllAlbums()
+    
     typealias RequestIDNumber = Int
     func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
+    func latestThumbnailImage(in album: AlbumType, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
     
+    // MARK: DataSource
+    func asset(at indexPath: IndexPath) -> PHAsset
+    func countOfAssets() -> Int
+    func asAsset(_ object: Any?) -> PHAsset?
+    func album(at indexPath: IndexPath) -> AlbumType
+    func countOfAlbums() -> Int
 }
 
 protocol ImageManagerDelegate: class {
