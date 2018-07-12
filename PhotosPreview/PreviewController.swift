@@ -49,7 +49,7 @@ class PreviewController: UIViewController, ImageManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        imageManager.fetchAssets(of: .cameraRoll)
+        imageManager.fetchAssets(in: .cameraRoll)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -188,7 +188,7 @@ extension PreviewController: UICollectionViewDataSource, UICollectionViewDelegat
     // MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageManager.numberOfAssets()
+        return imageManager.countOfAssets()
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell

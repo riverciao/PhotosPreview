@@ -22,23 +22,10 @@ protocol ImageManagerDelegate: class {
 class ImageAPIManager: ImageManager {
     
     let manager = PHImageManager.default()
-    var assetsInCameraRoll = [PHAsset]()
     var assetsInColletion = [PHAsset]()
-    var images = [UIImage]()
     var albums = [AlbumType]()
     
     weak var delegate: ImageManagerDelegate?
-    
-    func fetchAssets(of type: AlbumType) {
-        let collection = type.collection
-        self.assetsInColletion = []
-        let assets = PHAsset.fetchAssets(in: collection, options: nil)
-        assets.enumerateObjects { (object, index, stop) in
-            self.assetsInColletion.append(object)
-        }
-        self.assetsInColletion.reverse()
-        delegate?.didGetAssetsInAlbum(by: self)
-    }
     
     typealias RequestIDNumber = Int
     
@@ -58,23 +45,34 @@ class ImageAPIManager: ImageManager {
         return Int(requsetID)
     }
     
+    func fetchAssets(in album: AlbumType) {
+        let collection = album.collection
+        self.assetsInColletion = []
+        let assets = PHAsset.fetchAssets(in: collection, options: nil)
+        assets.enumerateObjects { (object, index, stop) in
+            self.assetsInColletion.append(object)
+        }
+        self.assetsInColletion.reverse()
+        delegate?.didGetAssetsInAlbum(by: self)
+    }
+    
     func fetchAllAlbums() {
         albums = []
         let smartAlbums: [AlbumType] = [.cameraRoll, .favorites, .videos, .screenshots, .selfies]
         for album in smartAlbums {
-            if album.collection.photosCount > 0 {
+            if album.countOfPhotos > 0 {
                 albums.append(album)
             }
         }
         
         let customAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
         customAlbums.enumerateObjects { (object, index, stop) in
-            if object.photosCount > 0 {
+            if object.countOfPhotos > 0 {
                 self.albums.append(AlbumType.custom(index: index))
             }
         }
     }
-        
+    
     /// Get the lastest image in collection.
     func latestThumbnailImage(in collection: PHAssetCollection, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
         let assets = PHAsset.fetchAssets(in: collection, options: nil)
@@ -94,7 +92,7 @@ class ImageAPIManager: ImageManager {
         return assetsInColletion[indexPath.row]
     }
     
-    func numberOfAssets() -> Int {
+    func countOfAssets() -> Int {
         return assetsInColletion.count
     }
     
@@ -102,10 +100,18 @@ class ImageAPIManager: ImageManager {
         guard let asset = object as? PHAsset else { return nil }
         return asset
     }
+    
+    func album(at indexPath: IndexPath) -> AlbumType {
+        return albums[indexPath.row]
+    }
+    
+    func countOfAlbums() -> Int {
+        return albums.count
+    }
 }
 
 extension PHAssetCollection {
-    var photosCount: Int {
+    var countOfPhotos: Int {
         let result = PHAsset.fetchAssets(in: self, options: nil)
         return result.count
     }
@@ -118,6 +124,10 @@ enum AlbumType {
 extension AlbumType {
     var title: String? {
         return collection.localizedTitle
+    }
+    
+    var countOfPhotos: Int {
+        return collection.countOfPhotos
     }
     
     var collection: PHAssetCollection {

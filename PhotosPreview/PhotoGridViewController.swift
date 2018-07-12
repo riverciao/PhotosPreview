@@ -35,7 +35,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     private func fetchAlbum() {
         // fetch assets in CameraRoll album and set album title
         let albumType: AlbumType = .cameraRoll
-        imageManager.fetchAssets(of: albumType)
+        imageManager.fetchAssets(in: albumType)
         albumButton.setTitle(albumType.title, for: .normal)
     }
     
@@ -96,12 +96,12 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageManager.assetsInColletion.count
+        return imageManager.countOfAssets()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = imageManager.assetsInColletion[indexPath.row]
+        let asset = imageManager.asset(at: indexPath)
         if cell.tag != 0 {
             imageManager.cancelImageRequest(cell.tag)
         }
@@ -124,7 +124,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = imageManager.assetsInColletion[indexPath.row]
+        let asset = imageManager.asset(at: indexPath)
         NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
@@ -174,14 +174,14 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
 
 extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageManager.albums.count
+        return imageManager.countOfAlbums()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
-        let album = imageManager.albums[indexPath.row]
+        let album = imageManager.album(at: indexPath)
         cell.albumNameLabel.text = album.title
-        cell.albumAssetNumberLabel.text = String(album.collection.photosCount)
+        cell.albumAssetNumberLabel.text = String(album.countOfPhotos)
         let size = CGSize(width: cell.bounds.width * 2, height: cell.bounds.height * 2)
         imageManager.latestThumbnailImage(in: album.collection, at: size) { (image) in
             cell.albumImageView.image = image
@@ -194,8 +194,8 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let album = imageManager.albums[indexPath.row]
-        imageManager.fetchAssets(of: album)
+        let album = imageManager.album(at: indexPath)
+        imageManager.fetchAssets(in: album)
         collectionView.reloadData()
         albumButton.setTitle(album.title, for: .normal)
         isAlbumSelected = false
