@@ -151,7 +151,7 @@ class PreviewController: UIViewController, ImageManagerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToPhotoGrid" {
             if let photoGridViewController = segue.destination as? PhotoGridViewController {
-                imageManager.fetchAllAlbum()
+                imageManager.fetchAllAlbums()
                 photoGridViewController.imageManager = imageManager
             }
         }

@@ -25,20 +25,9 @@ class ImageAPIManager: ImageManager {
     var assetsInCameraRoll = [PHAsset]()
     var assetsInColletion = [PHAsset]()
     var images = [UIImage]()
-    var assetCollections = [PHAssetCollection]() // to be replaced
     var albums = [AlbumType]()
     
     weak var delegate: ImageManagerDelegate?
-    
-    // ready to be replaced
-    func fetchAssets(in collection: PHAssetCollection) {
-        self.assetsInColletion = []
-        let assets = PHAsset.fetchAssets(in: collection, options: nil)
-        assets.enumerateObjects { (object, index, stop) in
-            self.assetsInColletion.append(object)
-        }
-        self.assetsInColletion.reverse()
-    }
     
     func fetchAssets(of type: AlbumType) {
         let collection = type.collection
@@ -69,26 +58,7 @@ class ImageAPIManager: ImageManager {
         return Int(requsetID)
     }
     
-    
-    
-//    func album(of type: AlbumType) -> PHAssetCollection {
-//        switch type {
-//        case .cameraRoll:
-//            return systemAlbum(of: .smartAlbumUserLibrary)
-//        case .favorites:
-//            return systemAlbum(of: .smartAlbumFavorites)
-//        case .screenshots:
-//            return systemAlbum(of: .smartAlbumScreenshots)
-//        case .selfies:
-//            return systemAlbum(of: .smartAlbumSelfPortraits)
-//        case .videos:
-//            return systemAlbum(of: .smartAlbumVideos)
-//        }
-//    }
-    
-    
-    func fetchAllAlbum() {
-//        assetCollections = []
+    func fetchAllAlbums() {
         albums = []
         let smartAlbums: [AlbumType] = [.cameraRoll, .favorites, .videos, .screenshots, .selfies]
         for album in smartAlbums {
@@ -96,35 +66,15 @@ class ImageAPIManager: ImageManager {
                 albums.append(album)
             }
         }
-//        let smartAlbums = systemAlbums(of: [.smartAlbumUserLibrary, .smartAlbumFavorites, .smartAlbumVideos, .smartAlbumScreenshots, .smartAlbumSelfPortraits])
-//        assetCollections.append(contentsOf: smartAlbums)
         
         let customAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
         customAlbums.enumerateObjects { (object, index, stop) in
             if object.photosCount > 0 {
                 self.albums.append(AlbumType.custom(index: index))
-//                self.assetCollections.append(object)
             }
         }
     }
-    
-    private func systemAlbum(of subtype: PHAssetCollectionSubtype) -> PHAssetCollection {
-        let albumResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: subtype, options: nil)
-        return albumResult.object(at: 0)
-    }
-    
-    private func systemAlbums(of subtypes: [PHAssetCollectionSubtype]) -> [PHAssetCollection] {
-        var smartAlbums = [PHAssetCollection]()
-        for subtype in subtypes {
-            let albumResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: subtype, options: nil)
-            let album = albumResult.object(at: 0)
-            if album.photosCount > 0 {
-                smartAlbums.append(album)
-            }
-        }
-        return smartAlbums
-    }
-    
+        
     /// Get the lastest image in collection.
     func latestThumbnailImage(in collection: PHAssetCollection, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) {
         let assets = PHAsset.fetchAssets(in: collection, options: nil)
