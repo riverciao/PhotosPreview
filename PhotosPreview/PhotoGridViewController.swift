@@ -8,10 +8,19 @@
 
 import UIKit
 
+protocol PhotoGridDelegate: class {
+    func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController)
+}
+
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
+    // MARK: Open library property
+    /// Image will return in this size when image is selected. Default is the size of screen.
+    var targetSize: CGSize = UIScreen.main.bounds.size
+    
     var imageManager = ImageAPIManager()
     
+    weak var delegate: PhotoGridDelegate?
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
@@ -124,6 +133,9 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = imageManager.asset(at: indexPath)
         NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
+        imageManager.requsetImage(for: asset, targetSize: targetSize) { (image) in
+            self.delegate?.didSelectImage(image, by: self)
+        }
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

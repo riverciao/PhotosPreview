@@ -32,32 +32,14 @@ protocol ImageManagerDelegate: class {
 
 public class ImageAPIManager: ImageManager {
     
+    // MARK: Property
     private let manager = PHImageManager.default()
     private var assetsInColletion = [PHAsset]()
     private var albums = [AlbumType]()
     
     weak var delegate: ImageManagerDelegate?
     
-    public typealias RequestIDNumber = Int
-    
-    /// Request image for specific asset, return high qualidied UIImage in resultHandler.
-    @discardableResult
-    public func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber {
-        let requsetID = manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: nil) { (image, info) in
-            guard
-                let image = image,
-                let info = info,
-                let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
-                else { return }
-            // when manager.requestImage return low qualified image, do not accept it as result. Later manager.requestImage will return a high qualified image
-            
-            if !isLowQualified {
-                resultHandler(image)
-            }
-        }
-        return Int(requsetID)
-    }
-    
+    // MARK: FetchData
     /// Fetch assets in specific album and get asset in method asset(at: IndexPath).
     public func fetchAssets(in album: AlbumType) {
         self.assetsInColletion = []
@@ -68,7 +50,7 @@ public class ImageAPIManager: ImageManager {
         }
         // reverse the array to get lastest asset at first index
         self.assetsInColletion.reverse()
-        delegate?.didGetAssetsInAlbum(by: self)
+        self.delegate?.didGetAssetsInAlbum(by: self)
     }
     
     /// Fetch albums including smart albums: CameraRoll, Favorites, Videos, Selfies when more than one photo is in the album. Also fetch albums that user created.
@@ -89,6 +71,26 @@ public class ImageAPIManager: ImageManager {
                 self.albums.append(AlbumType.custom(index: index))
             }
         }
+    }
+    
+    public typealias RequestIDNumber = Int
+    
+    /// Request image for specific asset, return high qualidied UIImage in resultHandler.
+    @discardableResult
+    public func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber {
+        let requsetID = manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: nil) { (image, info) in
+            guard
+                let image = image,
+                let info = info,
+                let isLowQualified = info[PHImageResultIsDegradedKey] as? Bool
+                else { return }
+            // when manager.requestImage return low qualified image, do not accept it as result. Later manager.requestImage will return a high qualified image
+            
+            if !isLowQualified {
+                resultHandler(image)
+            }
+        }
+        return Int(requsetID)
     }
     
     /// Get the lastest image in collection.

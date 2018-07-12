@@ -11,6 +11,7 @@
 		5F14773020F33D6B00C07E91 /* PhotoGridHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14772E20F33D6B00C07E91 /* PhotoGridHeaderCell.swift */; };
 		5F14773120F33D6B00C07E91 /* PhotoGridHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F14772F20F33D6B00C07E91 /* PhotoGridHeaderCell.xib */; };
 		5F14773320F5E55400C07E91 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773220F5E55400C07E91 /* ImageManager.swift */; };
+		5F14773520F7288600C07E91 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773420F7288600C07E91 /* TestViewController.swift */; };
 		5F1B3B2F20E0D823007C1D7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B2E20E0D823007C1D7A /* AppDelegate.swift */; };
 		5F1B3B3120E0D823007C1D7A /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B3020E0D823007C1D7A /* PreviewController.swift */; };
 		5F1B3B3420E0D823007C1D7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3B3220E0D823007C1D7A /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 		5F14772E20F33D6B00C07E91 /* PhotoGridHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGridHeaderCell.swift; sourceTree = "<group>"; };
 		5F14772F20F33D6B00C07E91 /* PhotoGridHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGridHeaderCell.xib; sourceTree = "<group>"; };
 		5F14773220F5E55400C07E91 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		5F14773420F7288600C07E91 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		5F1B3B2B20E0D823007C1D7A /* PhotosPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotosPreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1B3B2E20E0D823007C1D7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F1B3B3020E0D823007C1D7A /* PreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
@@ -77,17 +79,18 @@
 			isa = PBXGroup;
 			children = (
 				5F1B3B2E20E0D823007C1D7A /* AppDelegate.swift */,
+				5F14773420F7288600C07E91 /* TestViewController.swift */,
 				5F14773220F5E55400C07E91 /* ImageManager.swift */,
 				5F1B3B3020E0D823007C1D7A /* PreviewController.swift */,
 				5F1B3B4020E0D889007C1D7A /* PhotoGridViewController.swift */,
 				5F14772E20F33D6B00C07E91 /* PhotoGridHeaderCell.swift */,
 				5F14772F20F33D6B00C07E91 /* PhotoGridHeaderCell.xib */,
-				5F1B3B3220E0D823007C1D7A /* Main.storyboard */,
 				5F1B3B4220E0DA6C007C1D7A /* PhotoGridCell.swift */,
 				5F1B3B4320E0DA6C007C1D7A /* PhotoGridCell.xib */,
 				5F1B3B5220ECD195007C1D7A /* AlbumCell.swift */,
 				5F1B3B5320ECD195007C1D7A /* AlbumCell.xib */,
 				5F1B3B3520E0D826007C1D7A /* Assets.xcassets */,
+				5F1B3B3220E0D823007C1D7A /* Main.storyboard */,
 				5F1B3B3720E0D826007C1D7A /* LaunchScreen.storyboard */,
 				5F1B3B3A20E0D826007C1D7A /* Info.plist */,
 				5F1B3B4B20E5FD4C007C1D7A /* ColorTool.swift */,
@@ -173,6 +176,7 @@
 			files = (
 				5F1B3B4120E0D889007C1D7A /* PhotoGridViewController.swift in Sources */,
 				5F1B3B3120E0D823007C1D7A /* PreviewController.swift in Sources */,
+				5F14773520F7288600C07E91 /* TestViewController.swift in Sources */,
 				5F1B3B5420ECD195007C1D7A /* AlbumCell.swift in Sources */,
 				5F1B3B4420E0DA6C007C1D7A /* PhotoGridCell.swift in Sources */,
 				5F14773020F33D6B00C07E91 /* PhotoGridHeaderCell.swift in Sources */,

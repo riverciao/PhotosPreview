@@ -49,6 +49,7 @@ class PreviewController: UIViewController, ImageManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        imageManager.delegate = self
         imageManager.fetchAssets(in: .cameraRoll)
     }
     
@@ -97,10 +98,6 @@ class PreviewController: UIViewController, ImageManagerDelegate {
         // MARK: ImageView
         imagePlaceholderImageView.image = #imageLiteral(resourceName: "icon-photo").withRenderingMode(.alwaysTemplate)
         imagePlaceholderImageView.tintColor = .white
-        
-        // MARK: TapGesture
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(closePreviewView))
-//        view.addGestureRecognizer(tap)
         
         // MARK: Notification
         NotificationCenter.default.addObserver(self, selector: #selector(loadImage), name: Notification.Name("image"), object: nil)

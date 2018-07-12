@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kwl-f5-RMB">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -138,10 +138,50 @@
             </objects>
             <point key="canvasLocation" x="149.59999999999999" y="115.59220389805098"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="B2x-xC-Cb2">
+            <objects>
+                <viewController id="Kwl-f5-RMB" customClass="TestViewController" customModule="PhotosPreview" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w3z-bA-9An">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7q-01-Im3">
+                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="ButtonPressed:" destination="Kwl-f5-RMB" eventType="touchUpInside" id="B2Z-iY-LXV"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SYf-D2-Jxd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="v0e-eL-zYB"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="F7q-01-Im3" firstAttribute="centerY" secondItem="w3z-bA-9An" secondAttribute="centerY" id="4yb-9h-GIe"/>
+                            <constraint firstItem="SYf-D2-Jxd" firstAttribute="leading" secondItem="3YP-b6-SDb" secondAttribute="leading" id="5ci-mC-n3q"/>
+                            <constraint firstItem="3YP-b6-SDb" firstAttribute="trailing" secondItem="SYf-D2-Jxd" secondAttribute="trailing" id="CWR-57-ESK"/>
+                            <constraint firstItem="F7q-01-Im3" firstAttribute="centerX" secondItem="w3z-bA-9An" secondAttribute="centerX" id="XIf-my-Sfe"/>
+                            <constraint firstItem="SYf-D2-Jxd" firstAttribute="top" secondItem="w3z-bA-9An" secondAttribute="top" id="ag5-4i-s2z"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3YP-b6-SDb"/>
+                    </view>
+                    <connections>
+                        <outlet property="testImageView" destination="SYf-D2-Jxd" id="xc9-Lg-elY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uOg-zK-NIx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-970" y="127"/>
+        </scene>
         <!--Photo Grid View Controller-->
         <scene sceneID="FTU-b9-9Uk">
             <objects>
-                <viewController id="xoo-kD-9B2" customClass="PhotoGridViewController" customModule="PhotosPreview" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotoGridViewController" id="xoo-kD-9B2" customClass="PhotoGridViewController" customModule="PhotosPreview" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KVd-O1-JUE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
