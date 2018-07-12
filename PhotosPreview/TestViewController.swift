@@ -13,6 +13,7 @@ class TestViewController: UIViewController, PhotoGridDelegate {
     @IBOutlet weak var testImageView: UIImageView!
     var previewBar: PhotoPreviewBar!
     var image: UIImage? = nil
+    let manager = ImageAPIManager()
     let photoGrid = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoGridViewController") as! PhotoGridViewController
     
     @IBAction func ButtonPressed(_ sender: UIButton) {
@@ -31,7 +32,8 @@ class TestViewController: UIViewController, PhotoGridDelegate {
         photoGrid.delegate = self
         let frame = CGRect(x: 0, y: view.frame.maxY - 200, width: view.frame.width, height: 200)
         previewBar = PhotoPreviewBar(frame: frame)
-            
+        manager.fetchAssets(in: .cameraRoll)
+        previewBar.imageManager = manager
         view.addSubview(previewBar)
     }
     

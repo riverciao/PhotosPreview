@@ -12,6 +12,7 @@ class PhotoPreviewBar: UIView {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var photoGridButton: UIButton!
+    var imageManager = ImageAPIManager()
     class var identifier: String { return String(describing: self) }
     public var isOpened: Bool = false
     
@@ -80,11 +81,16 @@ extension PhotoPreviewBar {
 extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
+        let asset = imageManager.asset(at: indexPath)
+        let size = cell.bounds.size
+        imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+            cell.imageView.image = image
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return imageManager.countOfAssets()
     }
     
 }
