@@ -11,7 +11,6 @@ import Photos
 
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    var assets = [PHAsset]()
     var imageManager = ImageAPIManager()
     
     @IBOutlet weak var headerView: UIView!
