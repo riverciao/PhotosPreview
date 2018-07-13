@@ -59,5 +59,23 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
     func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar) {
         testImageView.image = image
     }
+    
+    // MARK: PreviewBarDelegate
+    
+    func previewBarWillOpen() {
+        print("preview bar will open")
+    }
+    
+    func previewBarDidOpen() {
+        print("preview bar did open")
+    }
+    
+    func previewBarWillClose() {
+        print("preview bar will close")
+    }
+    
+    func previewBarDidClose() {
+        print("preview bar did close")
+    }
 
 }

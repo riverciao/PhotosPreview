@@ -9,7 +9,21 @@
 import UIKit
 
 protocol PhotoPreviewBarDelegate: class {
+    // MARK: Required
     func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar)
+    
+    // MARK: Optional
+    func previewBarWillOpen()
+    func previewBarDidOpen()
+    func previewBarWillClose()
+    func previewBarDidClose()
+}
+
+extension PhotoPreviewBarDelegate {
+    func previewBarWillOpen() {}
+    func previewBarDidOpen() {}
+    func previewBarWillClose() {}
+    func previewBarDidClose() {}
 }
 
 class PhotoPreviewBar: UIView {
@@ -21,6 +35,11 @@ class PhotoPreviewBar: UIView {
     public var verticalEdgeInset: CGFloat = 0
     public var minimumLineSpacing: CGFloat = 2
     public var minimumInteritemSpacing: CGFloat = 0
+    public var barBackgroundColor: UIColor = .clear {
+        didSet {
+            collectionView.backgroundColor = barBackgroundColor
+        }
+    }
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var photoGridButton: UIButton!
@@ -40,17 +59,18 @@ class PhotoPreviewBar: UIView {
     }
     
     private func setup() {
-        let view = loadNib()
-        view.frame = bounds
-        self.addSubview(view)
-        collectionView.backgroundColor = .yellow
+        let photoPreviewBar = loadNib()
+        photoPreviewBar.frame = bounds
+        self.addSubview(photoPreviewBar)
         
         // MARK: CollectionView
         collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInsetAdjustmentBehavior = .never
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        }
         
         // MARK: Button
         photoGridButton.setupButtonUI(
@@ -62,20 +82,25 @@ class PhotoPreviewBar: UIView {
     }
     
     // MARK: Action
+    
     public func open(from superView: UIView) {
+        delegate?.previewBarWillOpen()
         self.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: 0.3) {
             self.frame.origin.y = superView.bounds.maxY - self.frame.height
         }
         isOpened = true
+        delegate?.previewBarDidOpen()
     }
     
     public func close(from superView: UIView) {
+        delegate?.previewBarWillClose()
         self.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: 0.3) {
             self.frame.origin.y = superView.bounds.maxY
         }
         isOpened = false
+        delegate?.previewBarDidClose()
     }
 }
 
@@ -87,6 +112,9 @@ extension PhotoPreviewBar {
 }
 
 extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    // MARK: ColletionViewDataSource
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = imageManager.asset(at: indexPath)
@@ -101,6 +129,8 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
         return imageManager.countOfAssets()
     }
     
+    // MARK: CollectionViewDelegate
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = imageManager.asset(at: indexPath)
         imageManager.requsetImage(for: asset, targetSize: targetSize) { (image) in
@@ -109,7 +139,7 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
         close(from: self.superview!)
     }
     
-    // MARK: Layout
+    // MARK: CollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = collectionView.bounds.height - verticalEdgeInset * 2
