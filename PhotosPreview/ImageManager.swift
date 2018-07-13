@@ -146,5 +146,3 @@ extension PHAssetCollection {
         return result.count
     }
 }
-
-

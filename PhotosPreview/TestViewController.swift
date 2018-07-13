@@ -57,7 +57,6 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
     }
     
     func photoGridDidDismissed() {
-//        previewBar.close(from: view)
     }
     
     func photoGridWillDismiss() {
