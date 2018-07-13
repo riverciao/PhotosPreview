@@ -13,13 +13,19 @@ protocol PhotoGridDelegate: class {
     func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController)
     
     // MARK: Optional
-    func controllerWillDismiss()
-    func controllerDidDismissed()
+    func photoGridViewDidLoad()
+    func photoGridViewWillApear()
+    func photoGridViewDidApear()
+    func photoGridWillDismiss()
+    func photoGridDidDismissed()
 }
 
 extension PhotoGridDelegate {
-    func controllerWillDismiss() {}
-    func controllerDidDismissed() {}
+    func photoGridViewDidLoad() {}
+    func photoGridViewWillApear() {}
+    func photoGridViewDidApear() {}
+    func photoGridWillDismiss() {}
+    func photoGridDidDismissed() {}
 }
 
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -40,11 +46,17 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        delegate?.photoGridViewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchAlbum()
+        delegate?.photoGridViewWillApear()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        delegate?.photoGridViewDidApear()
     }
 
     // MARK: Setup
@@ -164,9 +176,9 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: Action
     
     @objc private func close(_ sender: UIButton? = nil) {
-        self.delegate?.controllerWillDismiss()
+        self.delegate?.photoGridWillDismiss()
         presentingViewController?.dismiss(animated: true, completion: {
-            self.delegate?.controllerDidDismissed()
+            self.delegate?.photoGridDidDismissed()
         })
     }
     

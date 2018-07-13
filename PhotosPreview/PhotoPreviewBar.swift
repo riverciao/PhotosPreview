@@ -29,11 +29,7 @@ extension PhotoPreviewBarDelegate {
 class PhotoPreviewBar: UIView {
     
     // MARK: Public Properties
-    
-    public var targetSize: CGSize {
-        return self.superview!.bounds.size
-    }
-    
+
     /// Left edge inset and right edge inset of collection view. Default value is 0.
     public var horizontalEdgeInset: CGFloat = 0
     
@@ -161,7 +157,7 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = imageManager.asset(at: indexPath)
-        imageManager.requsetImage(for: asset, targetSize: targetSize) { (image) in
+        imageManager.requsetImage(for: asset) { (image) in
             self.delegate?.didSeleteImage(image, by: self)
         }
         close(from: self.superview!)

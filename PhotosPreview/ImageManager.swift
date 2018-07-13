@@ -15,7 +15,7 @@ protocol ImageManager {
     func fetchAllAlbums()
     
     typealias RequestIDNumber = Int
-    func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
+    func requsetImage(for asset: PHAsset, targetSize: CGSize?, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
     func latestThumbnailImage(in album: AlbumType, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
     
     // MARK: DataSource
@@ -32,7 +32,15 @@ protocol ImageManagerDelegate: class {
 
 public class ImageAPIManager: ImageManager {
     
-    // MARK: Property
+    // MARK: Public property
+    
+    /// Request image at this size. It is recommended to set 'imageSize' at least double of the imageView size that image will be assigned into. Default value is double of UIScreen size.
+    public var imageSize: CGSize = CGSize(
+        width: UIScreen.main.bounds.width * 2,
+        height: UIScreen.main.bounds.height * 2
+    )
+    
+    // MARK: Private property
     private let manager = PHImageManager.default()
     private var assetsInColletion = [PHAsset]()
     private var albums = [AlbumType]()
@@ -77,8 +85,10 @@ public class ImageAPIManager: ImageManager {
     
     /// Request image for specific asset, return high qualidied UIImage in resultHandler.
     @discardableResult
-    public func requsetImage(for asset: PHAsset, targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber {
-        let requsetID = manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: nil) { (image, info) in
+    public func requsetImage(for asset: PHAsset, targetSize: CGSize? = nil, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber {
+        // Request image at this size. If both targetSize and displaySize are not set, default displaySize is double size of UIScreen.
+        let size = targetSize ?? imageSize
+        let requsetID = manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: nil) { (image, info) in
             guard
                 let image = image,
                 let info = info,

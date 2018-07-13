@@ -17,8 +17,6 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
     let photoGrid = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoGridViewController") as! PhotoGridViewController
     
     @IBAction func ButtonPressed(_ sender: UIButton) {
-//        present(photoGrid, animated: true, completion: nil)
-        
         if previewBar.isOpened {
             previewBar.close(from: view)
         } else {
@@ -30,14 +28,14 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
         super.viewDidLoad()
         photoGrid.targetSize = UIScreen.main.bounds.size
         photoGrid.delegate = self
-        let frame = CGRect(x: 0, y: view.frame.maxY - 200, width: view.frame.width, height: 200)
+        let frame = CGRect(x: 0, y: view.frame.maxY, width: view.frame.width, height: 200)
         previewBar = PhotoPreviewBar(frame: frame)
         previewBar.delegate = self
         manager.fetchAssets(in: .cameraRoll)
         previewBar.imageManager = manager
         view.addSubview(previewBar)
         previewBar.photoGridButton.addTarget(self, action: #selector(goToPhotoGrid), for: .touchUpInside)
-        previewBar.aspectRatio = 0.6
+        previewBar.aspectRatio = 1
     }
     
     @objc func goToPhotoGrid() {
@@ -49,11 +47,11 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
         testImageView.image = image
     }
     
-    func controllerDidDismissed() {
+    func photoGridDidDismissed() {
 //        previewBar.close(from: view)
     }
     
-    func controllerWillDismiss() {
+    func photoGridWillDismiss() {
         previewBar.close(from: view)
     }
     
