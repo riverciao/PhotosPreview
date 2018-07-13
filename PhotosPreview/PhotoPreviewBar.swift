@@ -28,13 +28,31 @@ extension PhotoPreviewBarDelegate {
 
 class PhotoPreviewBar: UIView {
     
+    // MARK: Public Properties
+    
     public var targetSize: CGSize {
         return self.superview!.bounds.size
     }
+    
+    /// Left edge inset and right edge inset of collection view. Default value is 0.
     public var horizontalEdgeInset: CGFloat = 0
+    
+    /// Top edge inset and bottom edge inset of collection view. Default value is 0.
     public var verticalEdgeInset: CGFloat = 0
+    
+    /// MinimumLineSpacing of collection view flow layout. Default value is 2.
     public var minimumLineSpacing: CGFloat = 2
+    
+    /// MinimumInteritemSpacing of collection view flow layout. Default value is 0.
     public var minimumInteritemSpacing: CGFloat = 0
+    
+    /// The aspect ratio of preview bar cell. Default value is 1.0.
+    public var aspectRatio: CGFloat = 1
+    
+    /// The image size in the preview bar cell. If it is not set, the default value would be 2 times of the cell size.
+    public var cellImageSize: CGSize?
+    
+    /// The backgraound color of colletion view. Default value is UIColor.clear.
     public var barBackgroundColor: UIColor = .clear {
         didSet {
             collectionView.backgroundColor = barBackgroundColor
@@ -118,9 +136,19 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = imageManager.asset(at: indexPath)
-        let size = cell.bounds.size
-        imageManager.requsetImage(for: asset, targetSize: size) { (image) in
-            cell.imageView.image = image
+        if cell.tag != 0 { imageManager.cancelImageRequest(cell.tag) }
+        
+        // Request image size at 'cellImageSize'. If it is not set, the default value would be 2 times of cell size.
+        if let size = cellImageSize {
+            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+                cell.imageView.image = image
+            }
+        } else {
+            let cellSize = cell.bounds.size
+            let size = CGSize(width: cellSize.width * 2, height: cellSize.height * 2)
+            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+                cell.imageView.image = image
+            }
         }
         return cell
     }
@@ -143,7 +171,7 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = collectionView.bounds.height - verticalEdgeInset * 2
-        let width = height
+        let width = height * aspectRatio
         return CGSize(width: width, height: height)
     }
     

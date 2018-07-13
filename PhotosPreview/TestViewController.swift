@@ -37,6 +37,7 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
         previewBar.imageManager = manager
         view.addSubview(previewBar)
         previewBar.photoGridButton.addTarget(self, action: #selector(goToPhotoGrid), for: .touchUpInside)
+        previewBar.aspectRatio = 0.6
     }
     
     @objc func goToPhotoGrid() {
