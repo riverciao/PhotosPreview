@@ -29,7 +29,7 @@ extension PhotoPreviewBarDelegate {
 class PhotoPreviewBar: UIView {
     
     // MARK: Public Properties
-
+    
     /// Left edge inset and right edge inset of collection view. Default value is 0.
     public var horizontalEdgeInset: CGFloat = 0
     

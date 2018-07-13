@@ -26,8 +26,17 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photoGrid.targetSize = UIScreen.main.bounds.size
+        
         photoGrid.delegate = self
+        photoGrid.numberOfCellPerRow = 3
+        photoGrid.aspectRatio = 1
+//        photoGrid.verticalEdgeInset = 100
+//        photoGrid.horizontalEdgeInset = 10
+        photoGrid.minimumLineSpacing = 4
+        photoGrid.minimumInteritemSpacing = 4
+        
+        
+        // MARK : PreviewBar
         let frame = CGRect(x: 0, y: view.frame.maxY, width: view.frame.width, height: 200)
         previewBar = PhotoPreviewBar(frame: frame)
         previewBar.delegate = self

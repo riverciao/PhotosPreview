@@ -30,19 +30,44 @@ extension PhotoGridDelegate {
 
 class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    // MARK: Open library property
-    /// Image will return in this size when image is selected. Default is the size of screen.
-    public var targetSize: CGSize = UIScreen.main.bounds.size
+    // MARK: Public Property
+    
+    /// Number of cell per row. Default value is 3. Automatically recount the cell size with 'numberOfCellPerRow', edge inset, and minimumInteritemSpacing.
+    public var numberOfCellPerRow: CGFloat = 3
+    
+    /// Left edge inset and right edge inset of collection view. Default value is 0.
+    public var horizontalEdgeInset: CGFloat = 0
+    
+    /// Top edge inset and bottom edge inset of collection view. Default value is 0.
+    public var verticalEdgeInset: CGFloat = 0
+    
+    /// MinimumLineSpacing of collection view flow layout. Default value is 4.
+    public var minimumLineSpacing: CGFloat = 4
+    
+    /// MinimumInteritemSpacing of collection view flow layout. Default value is 4.
+    public var minimumInteritemSpacing: CGFloat = 4
+    
+    /// The aspect ratio of photo grid cell. Default value is 1.0.
+    public var aspectRatio: CGFloat = 1
+    
+    /// The image size in the photo grid cell. If it is not set, the default value would be 2 times of the cell size.
+    public var cellImageSize: CGSize?
+    
+    /// The backgraound color of colletion view. Default value is black.
+    public var backgroundColor: UIColor = .black
+    
+    // MARK: Private property
     
     var imageManager = ImageAPIManager()
+    private var isAlbumSelected = false
     
     weak var delegate: PhotoGridDelegate?
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
-    var isAlbumSelected = false
     @IBOutlet weak var albumTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -84,6 +109,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
             withReuseIdentifier: PhotoGridHeaderCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = backgroundColor
         
         // MARK: CloseButton
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
@@ -134,13 +160,20 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = imageManager.asset(at: indexPath)
-        if cell.tag != 0 {
-            imageManager.cancelImageRequest(cell.tag)
+        if cell.tag != 0 { imageManager.cancelImageRequest(cell.tag) }
+        
+        // Request image size at 'cellImageSize'. If it is not set, the default value would be 2 times of cell size.
+        if let size = cellImageSize {
+            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+                cell.imageView.image = image
+            }
+        } else {
+            let cellSize = cell.bounds.size
+            let size = CGSize(width: cellSize.width * 2, height: cellSize.height * 2)
+            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+                cell.imageView.image = image
+            }
         }
-        let size = CGSize(width: cell.bounds.width * 2, height: cell.bounds.height * 2)
-        cell.tag = imageManager.requsetImage(for: asset, targetSize: size, resultHandler: { (image) in
-            cell.imageView.image = image
-        })
         return cell
     }
     
@@ -149,16 +182,12 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
         return headerView
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return headerView.bounds.size
-    }
-    
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = imageManager.asset(at: indexPath)
         NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
-        imageManager.requsetImage(for: asset, targetSize: targetSize) { (image) in
+        imageManager.requsetImage(for: asset) { (image) in
             self.delegate?.didSelectImage(image, by: self)
         }
         close()
@@ -166,11 +195,32 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     
     // MARK: UICollectionViewDelegateFlowLayout
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return headerView.bounds.size
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenWidth = UIScreen.main.bounds.width
-        let width = screenWidth / 3
-        let height = width
+        let countOfInteritemSpacing = numberOfCellPerRow - 1
+        let width = (
+            screenWidth
+            - horizontalEdgeInset * 2
+            - minimumInteritemSpacing * countOfInteritemSpacing
+            ) / numberOfCellPerRow
+        let height = width / aspectRatio
         return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: verticalEdgeInset, left: horizontalEdgeInset, bottom: verticalEdgeInset, right: horizontalEdgeInset)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return minimumLineSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return minimumInteritemSpacing
     }
 
     // MARK: Action
@@ -185,10 +235,8 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     @objc private func selectAlbum(_ sender: UIButton) {
         if !isAlbumSelected {
             openAlbumView()
-            isAlbumSelected = true
         } else {
             closeAlbumView()
-            isAlbumSelected = false
         }
     }
     
@@ -199,6 +247,7 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
             self.albumTableView.frame.origin.y = self.headerView.frame.maxY
             self.headerView.backgroundColor = .photoGridHeaderViewOpenedColor
         }
+        isAlbumSelected = true
     }
     
     /// Animate to close the albumTableView
@@ -207,25 +256,39 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
             self.albumTableView.frame.origin.y = self.view.frame.maxY
             self.headerView.backgroundColor = .photoGridHeaderViewClosedColor
         }
+        isAlbumSelected = false
     }
 }
 
+// MARK: AlbumTableView Delegate
+
 extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: TableViewDataSource
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageManager.countOfAlbums()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: AlbumCell.identifier,
+            for: indexPath) as! AlbumCell
         let album = imageManager.album(at: indexPath)
         cell.albumNameLabel.text = album.title
         cell.albumAssetNumberLabel.text = String(album.countOfPhotos)
-        let size = CGSize(width: cell.bounds.width * 2, height: cell.bounds.height * 2)
+        
+        let size = CGSize(
+            width: cell.bounds.width * 2,
+            height: cell.bounds.height * 2
+        )
         imageManager.latestThumbnailImage(in: album, at: size) { (image) in
             cell.albumImageView.image = image
         }
         return cell
     }
+    
+    // MARK: TableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 106
@@ -234,9 +297,8 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let album = imageManager.album(at: indexPath)
         imageManager.fetchAssets(in: album)
-        collectionView.reloadData()
         albumButton.setTitle(album.title, for: .normal)
-        isAlbumSelected = false
+        collectionView.reloadData()
         closeAlbumView()
     }
 }
