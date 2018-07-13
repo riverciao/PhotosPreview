@@ -17,6 +17,11 @@ class PhotoPreviewBar: UIView {
     public var targetSize: CGSize {
         return self.superview!.bounds.size
     }
+    public var horizontalEdgeInset: CGFloat = 0
+    public var verticalEdgeInset: CGFloat = 0
+    public var minimumLineSpacing: CGFloat = 2
+    public var minimumInteritemSpacing: CGFloat = 0
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var photoGridButton: UIButton!
     var imageManager = ImageAPIManager()
@@ -102,5 +107,25 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
             self.delegate?.didSeleteImage(image, by: self)
         }
         close(from: self.superview!)
+    }
+    
+    // MARK: Layout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.bounds.height - verticalEdgeInset * 2
+        let width = height
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: verticalEdgeInset, left: horizontalEdgeInset, bottom: verticalEdgeInset, right: horizontalEdgeInset)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return minimumLineSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return minimumInteritemSpacing
     }
 }
