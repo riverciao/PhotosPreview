@@ -14,7 +14,7 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
     var previewBar: PhotoPreviewBar!
     var image: UIImage? = nil
     let manager = ImageAPIManager()
-    let photoGrid = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoGridViewController") as! PhotoGridViewController
+    let photoGrid = UIStoryboard(name: "PhotosPreview", bundle: nil).instantiateViewController(withIdentifier: "PhotoGridViewController") as! PhotoGridViewController
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         if previewBar.isOpened {
