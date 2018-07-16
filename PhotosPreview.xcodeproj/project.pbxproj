@@ -11,7 +11,6 @@
 		5F14773020F33D6B00C07E91 /* PhotoGridHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14772E20F33D6B00C07E91 /* PhotoGridHeaderCell.swift */; };
 		5F14773120F33D6B00C07E91 /* PhotoGridHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F14772F20F33D6B00C07E91 /* PhotoGridHeaderCell.xib */; };
 		5F14773320F5E55400C07E91 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773220F5E55400C07E91 /* ImageManager.swift */; };
-		5F14773520F7288600C07E91 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773420F7288600C07E91 /* TestViewController.swift */; };
 		5F14773720F7462A00C07E91 /* PhotoPreviewBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773620F7462A00C07E91 /* PhotoPreviewBar.swift */; };
 		5F14773920F7464600C07E91 /* PhotoPreviewBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F14773820F7464600C07E91 /* PhotoPreviewBar.xib */; };
 		5F14773B20F89B3400C07E91 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773A20F89B3400C07E91 /* AlbumType.swift */; };
@@ -34,7 +33,6 @@
 		5F14772E20F33D6B00C07E91 /* PhotoGridHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGridHeaderCell.swift; sourceTree = "<group>"; };
 		5F14772F20F33D6B00C07E91 /* PhotoGridHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGridHeaderCell.xib; sourceTree = "<group>"; };
 		5F14773220F5E55400C07E91 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
-		5F14773420F7288600C07E91 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		5F14773620F7462A00C07E91 /* PhotoPreviewBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewBar.swift; sourceTree = "<group>"; };
 		5F14773820F7464600C07E91 /* PhotoPreviewBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoPreviewBar.xib; sourceTree = "<group>"; };
 		5F14773A20F89B3400C07E91 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				5F1B3B2E20E0D823007C1D7A /* AppDelegate.swift */,
-				5F14773420F7288600C07E91 /* TestViewController.swift */,
 				5F14773220F5E55400C07E91 /* ImageManager.swift */,
 				5F14773A20F89B3400C07E91 /* AlbumType.swift */,
 				5F14773620F7462A00C07E91 /* PhotoPreviewBar.swift */,
@@ -186,7 +183,6 @@
 			files = (
 				5F1B3B4120E0D889007C1D7A /* PhotoGridViewController.swift in Sources */,
 				5F14773720F7462A00C07E91 /* PhotoPreviewBar.swift in Sources */,
-				5F14773520F7288600C07E91 /* TestViewController.swift in Sources */,
 				5F1B3B5420ECD195007C1D7A /* AlbumCell.swift in Sources */,
 				5F1B3B4420E0DA6C007C1D7A /* PhotoGridCell.swift in Sources */,
 				5F14773020F33D6B00C07E91 /* PhotoGridHeaderCell.swift in Sources */,
