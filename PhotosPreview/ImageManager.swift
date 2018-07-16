@@ -34,11 +34,16 @@ public class ImageAPIManager: ImageManager {
     
     // MARK: Public property
     
-    /// Request image at this size. It is recommended to set 'imageSize' at least double of the imageView size that image will be assigned into. Default value is double of UIScreen size.
-    public var imageSize: CGSize = CGSize(
-        width: UIScreen.main.bounds.width * 2,
-        height: UIScreen.main.bounds.height * 2
-    )
+    /// Request image at this size. It is recommended to set 'imageSize' at least double of the imageView size that image will be assigned into. Default value is UIScreen scale times of UIScreen size.
+    public lazy var imageSize: CGSize = {
+        let screenSize = UIScreen.main.bounds.size
+        let scale = UIScreen.main.scale
+        return CGSize(
+            width: screenSize.width * scale,
+            height: screenSize.height * scale
+        )
+    }()
+    
     
     // MARK: Private property
     private let manager = PHCachingImageManager()
@@ -58,8 +63,7 @@ public class ImageAPIManager: ImageManager {
         }
         // reverse the array to get lastest asset at first index
         assetsInColletion.reverse()
-        let size = CGSize(width: 400, height: 400)
-        manager.startCachingImages(for: assetsInColletion, targetSize: size, contentMode: .aspectFit, options: nil)
+        manager.startCachingImages(for: assetsInColletion, targetSize: imageSize, contentMode: .aspectFit, options: nil)
         delegate?.didGetAssetsInAlbum(by: self)
     }
     

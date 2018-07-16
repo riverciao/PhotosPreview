@@ -50,12 +50,12 @@ class PhotoPreviewBar: UIView {
     /// The aspect ratio of preview bar cell. Default value is 1.0.
     public var aspectRatio: CGFloat = 1
     
-    /// The image size in the preview bar cell. If it is not set, the default value would be 2 times of the cell size.
-    public var thumbnailSize: CGSize {
+    /// The image size in the preview bar cell. If it is not set, the default value would be UIScreen scale times of the cell size.
+    public lazy var thumbnailSize: CGSize = {
         let cellSize = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
         let scale = UIScreen.main.scale
         return CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
-    }
+    }()
     
     /// The backgraound color of colletion view. Default value is UIColor.clear.
     public var barBackgroundColor: UIColor = .clear {
