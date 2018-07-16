@@ -41,7 +41,7 @@ public class ImageAPIManager: ImageManager {
     )
     
     // MARK: Private property
-    private let manager = PHImageManager.default()
+    private let manager = PHCachingImageManager()
     private var assetsInColletion = [PHAsset]()
     private var albums = [AlbumType]()
     
@@ -57,8 +57,10 @@ public class ImageAPIManager: ImageManager {
             self.assetsInColletion.append(object)
         }
         // reverse the array to get lastest asset at first index
-        self.assetsInColletion.reverse()
-        self.delegate?.didGetAssetsInAlbum(by: self)
+        assetsInColletion.reverse()
+        let size = CGSize(width: 400, height: 400)
+        manager.startCachingImages(for: assetsInColletion, targetSize: size, contentMode: .aspectFit, options: nil)
+        delegate?.didGetAssetsInAlbum(by: self)
     }
     
     /// Fetch albums including smart albums: CameraRoll, Favorites, Videos, Selfies when more than one photo is in the album. Also fetch albums that user created.

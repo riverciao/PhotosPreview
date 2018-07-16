@@ -51,7 +51,11 @@ class PhotoPreviewBar: UIView {
     public var aspectRatio: CGFloat = 1
     
     /// The image size in the preview bar cell. If it is not set, the default value would be 2 times of the cell size.
-    public var cellImageSize: CGSize?
+    public var thumbnailSize: CGSize {
+        let cellSize = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
+        let scale = UIScreen.main.scale
+        return CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
+    }
     
     /// The backgraound color of colletion view. Default value is UIColor.clear.
     public var barBackgroundColor: UIColor = .clear {
@@ -146,24 +150,16 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = imageManager.asset(at: indexPath)
-       
-        if cell.tag != 0 {
-            imageManager.cancelImageRequest(cell.tag)
+
+        cell.representedAssetIdentifier = asset.localIdentifier
+        imageManager.requsetImage(for: asset, targetSize: thumbnailSize) { (image) in
+            // The cell may have been recycled by the time this handler gets called;
+            // set the cell's thumbnail image only if it's still showing the same asset.
+            if cell.representedAssetIdentifier == asset.localIdentifier {
+                cell.imageView.image = image
+            }
         }
         
-        // Request image size at 'cellImageSize'. If it is not set, the default value would be 2 times of cell size.
-        if let size = cellImageSize {
-            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
-                cell.imageView.image = image
-            }
-        } else {
-            let cellSize = cell.bounds.size
-            let size = CGSize(width: cellSize.width * 2, height: cellSize.height * 2)
-            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
-                cell.imageView.image = image
-            }
-            print(cell.tag)
-        }
         return cell
     }
     

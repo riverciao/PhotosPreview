@@ -13,7 +13,7 @@ class PhotoGridCell: UICollectionViewCell {
     class var identifier: String {
         return String(describing: self)
     }
-    
+    var representedAssetIdentifier: String!
     @IBOutlet weak var imageView: UIImageView!
     
     override func awakeFromNib() {

@@ -35,16 +35,15 @@ class TestViewController: UIViewController, PhotoGridDelegate, PhotoPreviewBarDe
         photoGrid.minimumLineSpacing = 4
         photoGrid.minimumInteritemSpacing = 4
         
+        manager.fetchAssets(in: .cameraRoll)
         
         // MARK : PreviewBar
         let frame = CGRect(x: 0, y: view.frame.maxY, width: view.frame.width, height: 200)
         previewBar = PhotoPreviewBar(frame: frame)
         previewBar.delegate = self
-        manager.fetchAssets(in: .cameraRoll)
         previewBar.imageManager = manager
         view.addSubview(previewBar)
         previewBar.photoGridButton.addTarget(self, action: #selector(goToPhotoGrid), for: .touchUpInside)
-        previewBar.aspectRatio = 1
     }
     
     @objc func goToPhotoGrid() {
