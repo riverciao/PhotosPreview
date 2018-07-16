@@ -53,7 +53,7 @@ public class ImageAPIManager: ImageManager {
     weak var delegate: ImageManagerDelegate?
     
     // MARK: FetchData
-    /// Fetch assets in specific album and get asset in method asset(at: IndexPath).
+    /// Fetch assets in specific album and cache them. Can get asset by method asset(at: IndexPath) after fetching assets.
     public func fetchAssets(in album: AlbumType) {
         self.assetsInColletion = []
         let collection = album.collection
