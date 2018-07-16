@@ -102,6 +102,7 @@ class PhotoPreviewBar: UIView {
         collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = barBackgroundColor
         collectionView.showsHorizontalScrollIndicator = false
         if #available(iOS 11.0, *) {
             collectionView.contentInsetAdjustmentBehavior = .never
