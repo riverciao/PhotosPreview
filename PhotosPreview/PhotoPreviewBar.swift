@@ -57,7 +57,7 @@ class PhotoPreviewBar: UIView {
         return CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
     }()
     
-    /// The time interval of opening and closing preview bar.
+    /// The time interval of opening and closing preview bar animation.
     public var animationDuration: TimeInterval = 0.3
     
     /// The backgraound color of colletion view. Default value is UIColor.clear.
