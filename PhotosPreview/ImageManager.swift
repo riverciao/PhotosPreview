@@ -21,7 +21,6 @@ protocol ImageManager {
     // MARK: DataSource
     func asset(at indexPath: IndexPath) -> PHAsset
     func countOfAssets() -> Int
-    func asAsset(_ object: Any?) -> PHAsset?
     func album(at indexPath: IndexPath) -> AlbumType
     func countOfAlbums() -> Int
 }
@@ -125,16 +124,11 @@ public class ImageAPIManager: ImageManager {
     // MARK: DataSource
     
     public func asset(at indexPath: IndexPath) -> PHAsset {
-        return assetsInColletion[indexPath.row]
+        return assetsInColletion[indexPath.item]
     }
     
     public func countOfAssets() -> Int {
         return assetsInColletion.count
-    }
-    
-    public func asAsset(_ object: Any?) -> PHAsset? {
-        guard let asset = object as? PHAsset else { return nil }
-        return asset
     }
     
     public func album(at indexPath: IndexPath) -> AlbumType {

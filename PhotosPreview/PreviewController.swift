@@ -111,15 +111,15 @@ class PreviewController: UIViewController, ImageManagerDelegate {
     
     @objc private func loadImage(_ sender: Notification) {
         let size = CGSize(width: displayImageView.bounds.width * 2, height: displayImageView.bounds.height * 2)
-        if let asset = imageManager.asAsset(sender.object) {
-            imageManager.requsetImage(for: asset, targetSize: size) { (image) in
-                self.displayImageView.image = image
-                self.placeholderImageView.image = nil
-                self.closePreview()
-                self.isPreviewOpened = false
-                self.updateUI()
-            }
-        }
+//        if let asset = imageManager.asAsset(sender.object) {
+//            imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+//                self.displayImageView.image = image
+//                self.placeholderImageView.image = nil
+//                self.closePreview()
+//                self.isPreviewOpened = false
+//                self.updateUI()
+//            }
+//        }
     }
     
     private func updateMinimumZoomScaleForSize() {
