@@ -57,6 +57,9 @@ class PhotoPreviewBar: UIView {
         return CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
     }()
     
+    /// The time interval of opening and closing preview bar.
+    public var animationDuration: TimeInterval = 0.3
+    
     /// The backgraound color of colletion view. Default value is UIColor.clear.
     public var barBackgroundColor: UIColor = .clear {
         didSet {
@@ -118,7 +121,7 @@ class PhotoPreviewBar: UIView {
     public func open(from superView: UIView) {
         delegate?.previewBarWillOpen()
         self.translatesAutoresizingMaskIntoConstraints = true
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: animationDuration) {
             self.frame.origin.y = superView.bounds.maxY - self.frame.height
         }
         isOpened = true
@@ -128,7 +131,7 @@ class PhotoPreviewBar: UIView {
     public func close(from superView: UIView) {
         delegate?.previewBarWillClose()
         self.translatesAutoresizingMaskIntoConstraints = true
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: animationDuration) {
             self.frame.origin.y = superView.bounds.maxY
         }
         isOpened = false
