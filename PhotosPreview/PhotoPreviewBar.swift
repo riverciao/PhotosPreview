@@ -28,6 +28,11 @@ extension PhotoPreviewBarDelegate {
 
 class PhotoPreviewBar: UIView {
     
+    // MARK: State
+    enum State {
+        case preparing, ready
+    }
+    
     // MARK: Public Properties
     
     /// Left edge inset and right edge inset of collection view. Default value is 0.
@@ -55,12 +60,18 @@ class PhotoPreviewBar: UIView {
         }
     }
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var photoGridButton: UIButton!
     var imageManager = ImageAPIManager()
     weak var delegate: PhotoPreviewBarDelegate?
-    class var identifier: String { return String(describing: self) }
+    private var state: State = .preparing {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     public var isOpened: Bool = false
+    class var identifier: String { return String(describing: self) }
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var photoGridButton: UIButton!
+   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,6 +87,9 @@ class PhotoPreviewBar: UIView {
         let photoPreviewBar = loadNib()
         photoPreviewBar.frame = bounds
         self.addSubview(photoPreviewBar)
+        
+        // MARK: ImageManager
+        imageManager.delegate = self
         
         // MARK: CollectionView
         collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
@@ -132,7 +146,10 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = imageManager.asset(at: indexPath)
-        if cell.tag != 0 { imageManager.cancelImageRequest(cell.tag) }
+       
+        if cell.tag != 0 {
+            imageManager.cancelImageRequest(cell.tag)
+        }
         
         // Request image size at 'cellImageSize'. If it is not set, the default value would be 2 times of cell size.
         if let size = cellImageSize {
@@ -145,6 +162,7 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
             cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
                 cell.imageView.image = image
             }
+            print(cell.tag)
         }
         return cell
     }
@@ -181,5 +199,11 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return minimumInteritemSpacing
+    }
+}
+
+extension PhotoPreviewBar: ImageManagerDelegate {
+    func didGetAssetsInAlbum(by manager: ImageManager) {
+        state = .ready
     }
 }
