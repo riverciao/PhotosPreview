@@ -40,7 +40,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" image="icon-grid">
+                    <state key="normal">
                         <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
@@ -59,7 +59,4 @@
             <point key="canvasLocation" x="68.5" y="28.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="icon-grid" width="25" height="25"/>
-    </resources>
 </document>

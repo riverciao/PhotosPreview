@@ -114,6 +114,7 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
         collectionView.backgroundColor = backgroundColor
         
         // MARK: CloseButton
+        closeButton.setImage(ImageHelper.image("button-close"), for: .normal)
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         closeButton.addShadow(
             shadowColor: .black,

@@ -110,7 +110,7 @@ public class PhotoPreviewBar: UIView {
         
         // MARK: Button
         photoGridButton.setupButtonUI(
-            with: #imageLiteral(resourceName: "icon-grid"),
+            with: ImageHelper.image("icon-grid"),
             backgroundColor: .photoGridButtonBackgroundColor,
             tintColor: .photoGridButtonTintColor,
             conerRadius: photoGridButton.bounds.width / 2

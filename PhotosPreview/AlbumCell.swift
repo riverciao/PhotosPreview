@@ -25,7 +25,8 @@ class AlbumCell: UITableViewCell {
         albumAssetNumberLabel.textColor = .albumTextColor
         albumImageView.contentMode = .scaleAspectFill
         albumImageView.clipsToBounds = true
-        let image = #imageLiteral(resourceName: "icon-photo").withRenderingMode(.alwaysTemplate)
+        let image = ImageHelper.image("icon-photo")
+            .withRenderingMode(.alwaysTemplate)
         albumImageView.image = image
         albumImageView.tintColor = .unselectButtonTintColor
     }
