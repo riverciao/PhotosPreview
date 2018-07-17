@@ -10,12 +10,12 @@ import UIKit
 
 class ImageHelper {
     private class var identifier: String { return String(describing: self)}
-    private static var bundle: Bundle {
-        let bundle = Bundle(for: ImageHelper.self)
-        return Bundle(url: bundle.url(forResource: ImageHelper.identifier, withExtension: "bundle")!)!
-    }
-    
     static func image(_ name: String) -> UIImage {
-        return UIImage.init(named: name, in: bundle, compatibleWith: nil)!
+        let podBundle = Bundle(for: ImageHelper.self)
+        if let url = podBundle.url(forResource: ImageHelper.identifier, withExtension: "bundle") {
+            let bundle = Bundle(url: url)
+            return UIImage(named: name, in: bundle, compatibleWith: nil)!
+        }
+        return UIImage()
     }
 }
