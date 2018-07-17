@@ -67,8 +67,8 @@ public class PhotoPreviewBar: UIView {
         }
     }
     
-    var imageManager = ImageAPIManager()
-    weak var delegate: PhotoPreviewBarDelegate?
+    public var imageManager = ImageAPIManager()
+    public weak var delegate: PhotoPreviewBarDelegate?
     private var state: State = .preparing {
         didSet {
             collectionView.reloadData()
@@ -77,7 +77,7 @@ public class PhotoPreviewBar: UIView {
     public var isOpened: Bool = false
     class var identifier: String { return String(describing: self) }
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var photoGridButton: UIButton!
+    @IBOutlet public weak var photoGridButton: UIButton!
    
     
     public override init(frame: CGRect) {

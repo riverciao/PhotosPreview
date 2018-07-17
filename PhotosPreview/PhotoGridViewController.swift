@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PhotoGridDelegate: class {
+public protocol PhotoGridDelegate: class {
     //MARK: Required
     func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController)
     
@@ -58,10 +58,10 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     
     // MARK: Private property
     
-    var imageManager = ImageAPIManager()
+    private var imageManager = ImageAPIManager()
     private var isAlbumSelected = false
     
-    weak var delegate: PhotoGridDelegate?
+    public weak var delegate: PhotoGridDelegate?
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
