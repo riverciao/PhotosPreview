@@ -9,9 +9,10 @@
 import UIKit
 
 class ImageHelper {
+    private class var identifier: String { return String(describing: self)}
     private static var bundle: Bundle {
         let bundle = Bundle(for: ImageHelper.self)
-        return bundle
+        return Bundle(url: bundle.url(forResource: ImageHelper.identifier, withExtension: "bundle")!)!
     }
     
     static func image(_ name: String) -> UIImage {
