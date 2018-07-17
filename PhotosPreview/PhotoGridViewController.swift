@@ -68,6 +68,8 @@ class PhotoGridViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var albumButton: UIButton!
     @IBOutlet weak var albumTableView: UITableView!
     
+    // MARK: View life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
