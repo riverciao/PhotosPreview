@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'PhotosPreview'
-  s.version          = '1.2.1'
+  s.version          = '1.2.2'
   s.summary          = 'Messenger-like photo browser for user to preview and pick photo.'
 
   s.description      = <<-DESC

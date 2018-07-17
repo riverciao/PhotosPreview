@@ -48,8 +48,10 @@ public class ImageAPIManager: ImageManager {
     private let manager = PHCachingImageManager()
     private var assetsInColletion = [PHAsset]()
     private var albums = [AlbumType]()
-    
     weak var delegate: ImageManagerDelegate?
+    
+    // MARK: Init
+    public init() {}
     
     // MARK: FetchData
     /// Fetch assets in specific album and cache them. Can get asset by method asset(at: IndexPath) after fetching assets.

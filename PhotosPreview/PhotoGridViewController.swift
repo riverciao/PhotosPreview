@@ -20,7 +20,7 @@ public protocol PhotoGridDelegate: class {
     func photoGridDidDismissed()
 }
 
-extension PhotoGridDelegate {
+public extension PhotoGridDelegate {
     func photoGridViewDidLoad() {}
     func photoGridViewWillApear() {}
     func photoGridViewDidApear() {}
