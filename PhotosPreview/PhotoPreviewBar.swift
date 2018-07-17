@@ -142,7 +142,8 @@ public class PhotoPreviewBar: UIView {
 
 extension PhotoPreviewBar {
     func loadNib() -> UIView {
-        let view = Bundle.main.loadNibNamed(PhotoPreviewBar.identifier, owner: self, options: nil)?.first as! UIView
+        let bundle = Bundle(for: PhotoPreviewBar.classForCoder())
+        let view = UINib(nibName: PhotoPreviewBar.identifier, bundle: bundle).instantiate(withOwner: self, options: nil).first as! UIView
         return view
     }
 }
