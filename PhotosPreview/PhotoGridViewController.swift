@@ -102,13 +102,17 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
         
         // MARK: CollectionView
         collectionView.register(
-            UINib(nibName: PhotoGridCell.identifier, bundle: nil),
+            UINib(nibName: PhotoPreviewBar.identifier,
+                  bundle: Bundle(for: PhotoGridCell.classForCoder())),
             forCellWithReuseIdentifier: PhotoGridCell.identifier
         )
+        
         collectionView.register(
-            UINib(nibName: PhotoGridHeaderCell.identifier, bundle: nil),
+            UINib(nibName: PhotoGridHeaderCell.identifier,
+                  bundle: Bundle(for: PhotoGridHeaderCell.classForCoder())),
             forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
-            withReuseIdentifier: PhotoGridHeaderCell.identifier)
+            withReuseIdentifier: PhotoGridHeaderCell.identifier
+        )
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = backgroundColor
@@ -136,7 +140,8 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
         
         // MARK: AlbumTableView
         albumTableView.register(
-            UINib(nibName: AlbumCell.identifier, bundle: nil),
+            UINib(nibName: AlbumCell.identifier,
+                  bundle: Bundle(for: AlbumCell.classForCoder())),
             forCellReuseIdentifier: AlbumCell.identifier
         )
         albumTableView.addDarkBlurBackground()
