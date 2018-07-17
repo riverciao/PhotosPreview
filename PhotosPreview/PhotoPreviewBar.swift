@@ -99,7 +99,10 @@ public class PhotoPreviewBar: UIView {
         imageManager.delegate = self
         
         // MARK: CollectionView
-        collectionView.register(UINib(nibName: PhotoGridCell.identifier, bundle: nil), forCellWithReuseIdentifier: PhotoGridCell.identifier)
+        collectionView.register(
+            UINib(nibName: PhotoGridCell.identifier,
+                  bundle: Bundle(for: PhotoGridCell.classForCoder())),
+            forCellWithReuseIdentifier: PhotoGridCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = barBackgroundColor
