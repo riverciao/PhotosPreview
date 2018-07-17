@@ -102,7 +102,7 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
         
         // MARK: CollectionView
         collectionView.register(
-            UINib(nibName: PhotoPreviewBar.identifier,
+            UINib(nibName: PhotoGridCell.identifier,
                   bundle: Bundle(for: PhotoGridCell.classForCoder())),
             forCellWithReuseIdentifier: PhotoGridCell.identifier
         )
