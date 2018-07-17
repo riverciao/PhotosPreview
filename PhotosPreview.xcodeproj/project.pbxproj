@@ -17,6 +17,7 @@
 		5F14773D20F89D2400C07E91 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773C20F89D2400C07E91 /* ImageCacher.swift */; };
 		5F14774520FCA3E100C07E91 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F14774420FCA3E100C07E91 /* Default-568h@2x.png */; };
 		5F14774B20FCAFB800C07E91 /* PhotosPreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F14774A20FCAFB800C07E91 /* PhotosPreview.storyboard */; };
+		5F14774D20FD8ED400C07E91 /* PhotoGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F14774C20FD8ED400C07E91 /* PhotoGridViewController.xib */; };
 		5F1B3B2F20E0D823007C1D7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B2E20E0D823007C1D7A /* AppDelegate.swift */; };
 		5F1B3B3620E0D826007C1D7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3B3520E0D826007C1D7A /* Assets.xcassets */; };
 		5F1B3B4120E0D889007C1D7A /* PhotoGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4020E0D889007C1D7A /* PhotoGridViewController.swift */; };
@@ -39,6 +40,7 @@
 		5F14773C20F89D2400C07E91 /* ImageCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
 		5F14774420FCA3E100C07E91 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5F14774A20FCAFB800C07E91 /* PhotosPreview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotosPreview.storyboard; sourceTree = "<group>"; };
+		5F14774C20FD8ED400C07E91 /* PhotoGridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGridViewController.xib; sourceTree = "<group>"; };
 		5F1B3B2B20E0D823007C1D7A /* PhotosPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotosPreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1B3B2E20E0D823007C1D7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F1B3B3520E0D826007C1D7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,13 +91,14 @@
 				5F14773620F7462A00C07E91 /* PhotoPreviewBar.swift */,
 				5F14773820F7464600C07E91 /* PhotoPreviewBar.xib */,
 				5F1B3B4020E0D889007C1D7A /* PhotoGridViewController.swift */,
+				5F14774C20FD8ED400C07E91 /* PhotoGridViewController.xib */,
+				5F14774A20FCAFB800C07E91 /* PhotosPreview.storyboard */,
 				5F14772E20F33D6B00C07E91 /* PhotoGridHeaderCell.swift */,
 				5F14772F20F33D6B00C07E91 /* PhotoGridHeaderCell.xib */,
 				5F1B3B4220E0DA6C007C1D7A /* PhotoGridCell.swift */,
 				5F1B3B4320E0DA6C007C1D7A /* PhotoGridCell.xib */,
 				5F1B3B5220ECD195007C1D7A /* AlbumCell.swift */,
 				5F1B3B5320ECD195007C1D7A /* AlbumCell.xib */,
-				5F14774A20FCAFB800C07E91 /* PhotosPreview.storyboard */,
 				5F1B3B3520E0D826007C1D7A /* Assets.xcassets */,
 				5F1B3B3A20E0D826007C1D7A /* Info.plist */,
 				5F1B3B4B20E5FD4C007C1D7A /* ColorTool.swift */,
@@ -167,6 +170,7 @@
 				5F1B3B3620E0D826007C1D7A /* Assets.xcassets in Resources */,
 				5F14773920F7464600C07E91 /* PhotoPreviewBar.xib in Resources */,
 				5F1B3B5520ECD195007C1D7A /* AlbumCell.xib in Resources */,
+				5F14774D20FD8ED400C07E91 /* PhotoGridViewController.xib in Resources */,
 				5F14774B20FCAFB800C07E91 /* PhotosPreview.storyboard in Resources */,
 				5F1B3B4520E0DA6C007C1D7A /* PhotoGridCell.xib in Resources */,
 				5F14774520FCA3E100C07E91 /* Default-568h@2x.png in Resources */,
