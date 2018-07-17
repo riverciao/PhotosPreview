@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PhotoPreviewBarDelegate: class {
+public protocol PhotoPreviewBarDelegate: class {
     // MARK: Required
     func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar)
     
@@ -26,7 +26,7 @@ extension PhotoPreviewBarDelegate {
     func previewBarDidClose() {}
 }
 
-class PhotoPreviewBar: UIView {
+public class PhotoPreviewBar: UIView {
     
     // MARK: State
     enum State {
@@ -80,12 +80,12 @@ class PhotoPreviewBar: UIView {
     @IBOutlet weak var photoGridButton: UIButton!
    
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -151,7 +151,7 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     
     // MARK: ColletionViewDataSource
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = imageManager.asset(at: indexPath)
 
@@ -167,13 +167,13 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageManager.countOfAssets()
     }
     
     // MARK: CollectionViewDelegate
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = imageManager.asset(at: indexPath)
         imageManager.requsetImage(for: asset) { (image) in
             self.delegate?.didSeleteImage(image, by: self)
@@ -183,21 +183,21 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     
     // MARK: CollectionViewDelegateFlowLayout
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = collectionView.bounds.height - verticalEdgeInset * 2
         let width = height * aspectRatio
         return CGSize(width: width, height: height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: verticalEdgeInset, left: horizontalEdgeInset, bottom: verticalEdgeInset, right: horizontalEdgeInset)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return minimumLineSpacing
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return minimumInteritemSpacing
     }
 }
