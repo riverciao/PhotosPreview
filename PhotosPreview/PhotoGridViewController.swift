@@ -32,6 +32,9 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
 
     // MARK: Public Property
     
+    /// Use nibName to init PhotoGridViewController
+    public class var nibName: String { return String(describing: self) }
+    
     /// Number of cell per row. Default value is 3. Automatically recount the cell size with 'numberOfCellPerRow', edge inset, and minimumInteritemSpacing.
     public var numberOfCellPerRow: CGFloat = 3
     
@@ -67,6 +70,16 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
     @IBOutlet weak var albumTableView: UITableView!
+    
+    // MARK: Init
+    
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: View life cycle
     
