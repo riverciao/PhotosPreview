@@ -1,5 +1,5 @@
 //
-//  ImageManager.swift
+//  PhotosManager.swift
 //  PhotosPreview
 //
 //  Created by riverciao on 2018/7/3.
@@ -9,11 +9,11 @@
 import Foundation
 import Photos
 
-protocol ImageManager {
+protocol PhotosManager {
     
+    // MARK: Fetch data and request image from Asset
     func fetchAssets(in album: AlbumType)
     func fetchAllAlbums()
-    
     typealias RequestIDNumber = Int
     func requsetImage(for asset: PHAsset, targetSize: CGSize?, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
     func latestThumbnailImage(in album: AlbumType, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
@@ -25,11 +25,11 @@ protocol ImageManager {
     func countOfAlbums() -> Int
 }
 
-protocol ImageManagerDelegate: class {
-    func didGetAssetsInAlbum(by manager: ImageManager)
+protocol PhotoProviderDelegate: class {
+    func didGetAssetsInAlbum(by manager: PhotosManager)
 }
 
-public class ImageAPIManager: ImageManager {
+public class PhotoProvider: PhotosManager {
     
     // MARK: Public property
     
@@ -43,12 +43,11 @@ public class ImageAPIManager: ImageManager {
         )
     }()
     
-    
     // MARK: Private property
     private let manager = PHCachingImageManager()
     private var assetsInColletion = [PHAsset]()
     private var albums = [AlbumType]()
-    weak var delegate: ImageManagerDelegate?
+    weak var delegate: PhotoProviderDelegate?
     
     // MARK: Init
     public init() {}

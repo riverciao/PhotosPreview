@@ -67,7 +67,7 @@ public class PhotoPreviewBar: UIView {
         }
     }
     
-    public var imageManager = ImageAPIManager()
+    public var photoProvider = PhotoProvider()
     public weak var delegate: PhotoPreviewBarDelegate?
     private var state: State = .preparing {
         didSet {
@@ -95,8 +95,8 @@ public class PhotoPreviewBar: UIView {
         photoPreviewBar.frame = bounds
         self.addSubview(photoPreviewBar)
         
-        // MARK: ImageManager
-        imageManager.delegate = self
+        // MARK: PhotoProvider
+        photoProvider.delegate = self
         
         // MARK: CollectionView
         collectionView.register(
@@ -157,10 +157,10 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = imageManager.asset(at: indexPath)
+        let asset = photoProvider.asset(at: indexPath)
 
         cell.representedAssetIdentifier = asset.localIdentifier
-        imageManager.requsetImage(for: asset, targetSize: thumbnailSize) { (image) in
+        photoProvider.requsetImage(for: asset, targetSize: thumbnailSize) { (image) in
             // The cell may have been recycled by the time this handler gets called;
             // set the cell's thumbnail image only if it's still showing the same asset.
             if cell.representedAssetIdentifier == asset.localIdentifier {
@@ -172,14 +172,14 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageManager.countOfAssets()
+        return photoProvider.countOfAssets()
     }
     
     // MARK: CollectionViewDelegate
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = imageManager.asset(at: indexPath)
-        imageManager.requsetImage(for: asset) { (image) in
+        let asset = photoProvider.asset(at: indexPath)
+        photoProvider.requsetImage(for: asset) { (image) in
             self.delegate?.didSeleteImage(image, by: self)
         }
         close(from: self.superview!)
@@ -206,8 +206,8 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
     }
 }
 
-extension PhotoPreviewBar: ImageManagerDelegate {
-    func didGetAssetsInAlbum(by manager: ImageManager) {
+extension PhotoPreviewBar: PhotoProviderDelegate {
+    func didGetAssetsInAlbum(by manager: PhotosManager) {
         state = .ready
     }
 }

@@ -61,7 +61,7 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     
     // MARK: Private property
     
-    private var imageManager = ImageAPIManager()
+    private var photoProvider = PhotoProvider()
     private var isAlbumSelected = false
     
     public weak var delegate: PhotoGridDelegate?
@@ -104,11 +104,11 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     private func fetchAlbum() {
         // fetch assets in CameraRoll album and set album title
         let albumType: AlbumType = .cameraRoll
-        imageManager.fetchAssets(in: albumType)
+        photoProvider.fetchAssets(in: albumType)
         albumButton.setTitle(albumType.title, for: .normal)
         
         // fetch all albums for album selection
-        imageManager.fetchAllAlbums()
+        photoProvider.fetchAllAlbums()
     }
     
     private func setup() {
@@ -175,23 +175,23 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
 
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageManager.countOfAssets()
+        return photoProvider.countOfAssets()
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
-        let asset = imageManager.asset(at: indexPath)
-        if cell.tag != 0 { imageManager.cancelImageRequest(cell.tag) }
+        let asset = photoProvider.asset(at: indexPath)
+        if cell.tag != 0 { photoProvider.cancelImageRequest(cell.tag) }
         
         // Request image size at 'cellImageSize'. If it is not set, the default value would be 2 times of cell size.
         if let size = cellImageSize {
-            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+            cell.tag = photoProvider.requsetImage(for: asset, targetSize: size) { (image) in
                 cell.imageView.image = image
             }
         } else {
             let cellSize = cell.bounds.size
             let size = CGSize(width: cellSize.width * 2, height: cellSize.height * 2)
-            cell.tag = imageManager.requsetImage(for: asset, targetSize: size) { (image) in
+            cell.tag = photoProvider.requsetImage(for: asset, targetSize: size) { (image) in
                 cell.imageView.image = image
             }
         }
@@ -206,9 +206,9 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     // MARK: UICollectionViewDelegate
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let asset = imageManager.asset(at: indexPath)
+        let asset = photoProvider.asset(at: indexPath)
         NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
-        imageManager.requsetImage(for: asset) { (image) in
+        photoProvider.requsetImage(for: asset) { (image) in
             self.delegate?.didSelectImage(image, by: self)
         }
         close()
@@ -288,14 +288,14 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: TableViewDataSource
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageManager.countOfAlbums()
+        return photoProvider.countOfAlbums()
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: AlbumCell.identifier,
             for: indexPath) as! AlbumCell
-        let album = imageManager.album(at: indexPath)
+        let album = photoProvider.album(at: indexPath)
         cell.albumNameLabel.text = album.title
         cell.albumAssetNumberLabel.text = String(album.countOfPhotos)
         
@@ -303,7 +303,7 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
             width: cell.bounds.width * 2,
             height: cell.bounds.height * 2
         )
-        imageManager.latestThumbnailImage(in: album, at: size) { (image) in
+        photoProvider.latestThumbnailImage(in: album, at: size) { (image) in
             cell.albumImageView.image = image
         }
         return cell
@@ -316,8 +316,8 @@ extension PhotoGridViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let album = imageManager.album(at: indexPath)
-        imageManager.fetchAssets(in: album)
+        let album = photoProvider.album(at: indexPath)
+        photoProvider.fetchAssets(in: album)
         albumButton.setTitle(album.title, for: .normal)
         collectionView.reloadData()
         closeAlbumView()
