@@ -28,6 +28,7 @@ protocol PhotoProviderDelegate: class {
     func didGetAssetsInAlbum(by manager: PhotosManager)
 }
 
+/// Provide photo in Photos library.
 public class PhotoProvider: PhotosManager {
     
     // MARK: Public property
