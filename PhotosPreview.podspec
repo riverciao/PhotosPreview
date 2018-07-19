@@ -14,7 +14,7 @@ PhotosPreview is a Swift library, making Messenger-like photo browser. User can 
 
   s.ios.deployment_target = '10.0'
   s.source_files = '{PhotosPreview/*, PhotosPreview.xcodeproj}'
-  s.resource_bundles = {'PhotosPreview' => ['*.bundle']}
+  s.resource_bundles = {'PhotosPreview' => ['PhotosPreview/*.bundle']}
   s.swift_version = '4.0'
 
 end
