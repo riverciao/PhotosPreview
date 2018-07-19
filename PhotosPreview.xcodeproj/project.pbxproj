@@ -16,7 +16,6 @@
 		5F14773B20F89B3400C07E91 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14773A20F89B3400C07E91 /* AlbumType.swift */; };
 		5F14774D20FD8ED400C07E91 /* PhotoGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F14774C20FD8ED400C07E91 /* PhotoGridViewController.xib */; };
 		5F14777320FDEF9D00C07E91 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14777220FDEF9D00C07E91 /* ImageHelper.swift */; };
-		5F1B3B3620E0D826007C1D7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3B3520E0D826007C1D7A /* Assets.xcassets */; };
 		5F1B3B4120E0D889007C1D7A /* PhotoGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4020E0D889007C1D7A /* PhotoGridViewController.swift */; };
 		5F1B3B4420E0DA6C007C1D7A /* PhotoGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4220E0DA6C007C1D7A /* PhotoGridCell.swift */; };
 		5F1B3B4520E0DA6C007C1D7A /* PhotoGridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3B4320E0DA6C007C1D7A /* PhotoGridCell.xib */; };
@@ -37,7 +36,6 @@
 		5F14774C20FD8ED400C07E91 /* PhotoGridViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGridViewController.xib; sourceTree = "<group>"; };
 		5F14777220FDEF9D00C07E91 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		5F1B3B2B20E0D823007C1D7A /* PhotosPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotosPreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F1B3B3520E0D826007C1D7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F1B3B4020E0D889007C1D7A /* PhotoGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGridViewController.swift; sourceTree = "<group>"; };
 		5F1B3B4220E0DA6C007C1D7A /* PhotoGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGridCell.swift; sourceTree = "<group>"; };
 		5F1B3B4320E0DA6C007C1D7A /* PhotoGridCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGridCell.xib; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 				5F1B3B4320E0DA6C007C1D7A /* PhotoGridCell.xib */,
 				5F1B3B5220ECD195007C1D7A /* AlbumCell.swift */,
 				5F1B3B5320ECD195007C1D7A /* AlbumCell.xib */,
-				5F1B3B3520E0D826007C1D7A /* Assets.xcassets */,
 				5F1B3B4B20E5FD4C007C1D7A /* ColorTool.swift */,
 				5F14777220FDEF9D00C07E91 /* ImageHelper.swift */,
 				5F1B3B4D20E602AD007C1D7A /* UIButtonExtensions.swift */,
@@ -156,7 +153,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F1B3B3620E0D826007C1D7A /* Assets.xcassets in Resources */,
 				5F14773920F7464600C07E91 /* PhotoPreviewBar.xib in Resources */,
 				5F1B3B5520ECD195007C1D7A /* AlbumCell.xib in Resources */,
 				5F14774D20FD8ED400C07E91 /* PhotoGridViewController.xib in Resources */,
