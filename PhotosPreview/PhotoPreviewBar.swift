@@ -161,13 +161,12 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
 
         cell.representedAssetIdentifier = asset.localIdentifier
         photoProvider.requsetImage(for: asset, targetSize: thumbnailSize) { (image) in
-            // The cell may have been recycled by the time this handler gets called;
+            // The cell may have been recycled by the time this handler gets called
             // set the cell's thumbnail image only if it's still showing the same asset.
             if cell.representedAssetIdentifier == asset.localIdentifier {
                 cell.imageView.image = image
             }
         }
-        
         return cell
     }
     

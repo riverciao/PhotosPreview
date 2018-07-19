@@ -53,8 +53,12 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     /// The aspect ratio of photo grid cell. Default value is 1.0.
     public var aspectRatio: CGFloat = 1
     
-    /// The image size in the photo grid cell. If it is not set, the default value would be 2 times of the cell size.
-    public var cellImageSize: CGSize?
+    /// The image size in the photo grid cell. If it is not set, the default value would be UIScreen scale times of the cell size.
+    public lazy var thumbnailSize: CGSize = {
+        let cellSize = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
+        let scale = UIScreen.main.scale
+        return CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
+    }()
     
     /// The backgraound color of colletion view. Default value is black.
     public var backgroundColor: UIColor = .black
@@ -181,17 +185,13 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = photoProvider.asset(at: indexPath)
-        if cell.tag != 0 { photoProvider.cancelImageRequest(cell.tag) }
         
-        // Request image size at 'cellImageSize'. If it is not set, the default value would be 2 times of cell size.
-        if let size = cellImageSize {
-            cell.tag = photoProvider.requsetImage(for: asset, targetSize: size) { (image) in
-                cell.imageView.image = image
-            }
-        } else {
-            let cellSize = cell.bounds.size
-            let size = CGSize(width: cellSize.width * 2, height: cellSize.height * 2)
-            cell.tag = photoProvider.requsetImage(for: asset, targetSize: size) { (image) in
+        // Request image size at 'cellImageSize'. If it is not set, the default value would be UIScreen scale times of cell size.
+        cell.representedAssetIdentifier = asset.localIdentifier
+        photoProvider.requsetImage(for: asset, targetSize: thumbnailSize) { (image) in
+            // The cell may have been recycled by the time this handler gets called
+            // set the cell's thumbnail image only if it's still showing the same asset.
+            if cell.representedAssetIdentifier == asset.localIdentifier {
                 cell.imageView.image = image
             }
         }
@@ -207,7 +207,6 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = photoProvider.asset(at: indexPath)
-        NotificationCenter.default.post(name: Notification.Name("image"), object: asset)
         photoProvider.requsetImage(for: asset) { (image) in
             self.delegate?.didSelectImage(image, by: self)
         }

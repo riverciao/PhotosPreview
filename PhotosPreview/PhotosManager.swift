@@ -14,8 +14,7 @@ protocol PhotosManager {
     // MARK: Fetch data and request image from Asset
     func fetchAssets(in album: AlbumType)
     func fetchAllAlbums()
-    typealias RequestIDNumber = Int
-    func requsetImage(for asset: PHAsset, targetSize: CGSize?, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber
+    func requsetImage(for asset: PHAsset, targetSize: CGSize?, resultHandler: @escaping (UIImage) -> Void)
     func latestThumbnailImage(in album: AlbumType, at targetSize: CGSize, resultHandler: @escaping (UIImage) -> Void)
     
     // MARK: DataSource
@@ -87,14 +86,11 @@ public class PhotoProvider: PhotosManager {
         }
     }
     
-    public typealias RequestIDNumber = Int
-    
     /// Request image for specific asset, return high qualidied UIImage in resultHandler.
-    @discardableResult
-    public func requsetImage(for asset: PHAsset, targetSize: CGSize? = nil, resultHandler: @escaping (UIImage) -> Void) -> RequestIDNumber {
+    public func requsetImage(for asset: PHAsset, targetSize: CGSize? = nil, resultHandler: @escaping (UIImage) -> Void) {
         // Request image at this size. If both targetSize and displaySize are not set, default displaySize is double size of UIScreen.
         let size = targetSize ?? imageSize
-        let requsetID = manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: nil) { (image, info) in
+        manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: nil) { (image, info) in
             guard
                 let image = image,
                 let info = info,
@@ -106,7 +102,6 @@ public class PhotoProvider: PhotosManager {
                 resultHandler(image)
             }
         }
-        return Int(requsetID)
     }
     
     /// Get the lastest image in collection.
