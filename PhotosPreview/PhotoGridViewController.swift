@@ -55,7 +55,6 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     
     /// The image size in the photo grid cell. If it is not set, the default value would be UIScreen scale times of the cell size.
     public lazy var thumbnailSize: CGSize = {
-        let cellSize = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
         let scale = UIScreen.main.scale
         return CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
     }()
@@ -67,6 +66,9 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
     
     private var photoProvider = PhotoProvider()
     private var isAlbumSelected = false
+    private lazy var cellSize: CGSize = {
+       return (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize
+    }()
     
     public weak var delegate: PhotoGridDelegate?
     @IBOutlet weak var headerView: UIView!
@@ -186,7 +188,7 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoGridCell.identifier, for: indexPath) as! PhotoGridCell
         let asset = photoProvider.asset(at: indexPath)
         
-        // Request image size at 'cellImageSize'. If it is not set, the default value would be UIScreen scale times of cell size.
+        // Request image size at 'thumbnailSize'. If it is not set, the default value would be UIScreen scale times of cell size.
         cell.representedAssetIdentifier = asset.localIdentifier
         photoProvider.requsetImage(for: asset, targetSize: thumbnailSize) { (image) in
             // The cell may have been recycled by the time this handler gets called
@@ -228,7 +230,9 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
             - minimumInteritemSpacing * countOfInteritemSpacing
             ) / numberOfCellPerRow
         let height = width / aspectRatio
-        return CGSize(width: width, height: height)
+        let size = CGSize(width: width, height: height)
+        cellSize = size
+        return size
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
