@@ -112,6 +112,7 @@ public class PhotoGridViewController: UIViewController, UICollectionViewDataSour
         let albumType: AlbumType = .cameraRoll
         photoProvider.fetchAssets(in: albumType)
         albumButton.setTitle(albumType.title, for: .normal)
+        collectionView.reloadData()
         
         // fetch all albums for album selection
         photoProvider.fetchAllAlbums()
