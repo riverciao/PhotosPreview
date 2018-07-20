@@ -1,0 +1,6 @@
+framework module PhotosPreview {
+  umbrella header "PhotosPreview-umbrella.h"
+
+  export *
+  module * { export * }
+}
