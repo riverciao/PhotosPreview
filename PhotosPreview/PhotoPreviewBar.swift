@@ -19,7 +19,7 @@ public protocol PhotoPreviewBarDelegate: class {
     func previewBarDidClose()
 }
 
-extension PhotoPreviewBarDelegate {
+public extension PhotoPreviewBarDelegate {
     func previewBarWillOpen() {}
     func previewBarDidOpen() {}
     func previewBarWillClose() {}
