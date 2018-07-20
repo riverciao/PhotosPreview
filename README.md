@@ -19,7 +19,7 @@
 
 #### Manual installation
 
-Download and drop the 'PhotosPreview' folder into your XCode project.
+Download and drop the 'PhotosPreview' folder into your Xcode project.
 
 #### [Cocoapods](http://cocoapods.org)
 
@@ -31,7 +31,7 @@ pod 'PhotosPreview'
 ```
 
 ## Quick Start
-Import PhotosPreview ```import PhotosPreview``` then use the following codes and give PhotoGridDelegate to the view controller.  
+Import PhotosPreview ```import PhotosPreview``` then use the following codes and give `PhotoGridDelegate` to the view controller.  
 
 ```Swift
 let photoGridViewController = PhotoGridViewController(nibName: PhotoGridViewController.nibName, bundle: Bundle(for: PhotoGridViewController.self))
@@ -42,8 +42,36 @@ self.presentViewController(photoGridViewController, animated: true, completion: 
 Then you can get the image selected in PhotoGridController in PhotoGridDelegate method below.
 
 ```Swift
-func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar) {
+func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController) {
     // Do something with the image
+}
+```
+
+#### Using PhotoPreviewBar
+Conform `PhotoPreviewBarDelegate` to the view controller and add the following code.
+```Swift
+// Setup PhotoPreviewBar
+let frame = CGRect(x: 0, y: view.frame.maxY, width: view.frame.width, height: 150)
+let previewBar = PhotoPreviewBar(frame: frame)
+view.addSubview(previewBar)
+previewBar.delegate = self
+
+// Setup PhotoProvider
+let photoProvider = PhotoProvider()
+// can select a smart album to display in the preview bar
+photoProvider.fetchAssets(in: .cameraRoll) 
+previewBar.photoProvider = photoProvider
+```
+
+And set up when to open the preview bar.
+```Swift
+// Setup PhotoPreviewBar
+func previewButtonPressed() {
+    if previewBar.isOpened {
+        previewBar.close(from: view) // will close to the bottom of this view
+    } else {
+        previewBar.open(from: view) // will open from the bottom of this view
+    }
 }
 ```
 
