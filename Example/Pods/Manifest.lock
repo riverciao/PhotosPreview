@@ -1,0 +1,16 @@
+PODS:
+  - PhotosPreview (1.3.6)
+
+DEPENDENCIES:
+  - PhotosPreview
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PhotosPreview
+
+SPEC CHECKSUMS:
+  PhotosPreview: 4ddc34ff3207e2222da4346eac4e93e75596f596
+
+PODFILE CHECKSUM: 46709924785e8aa027cca4d9b7c2bc6c35c06feb
+
+COCOAPODS: 1.5.3
