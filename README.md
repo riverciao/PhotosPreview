@@ -7,7 +7,7 @@
 ## Preview
 <img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo1.gif" width="200">  <img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo2.gif" width="200">  <img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo3.png" width="200">
 
-<img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo4.png" width="200">  <img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo5.png" width="200">
+<img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo4.png" width="200">  <img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo5.png" width="200">  <img src="https://github.com/riverciao/PhotosPreview/blob/master/ScreenShot/demo6.png" width="200">
 
 ## Features
 - [x] UIImagePickerController alternative
@@ -31,7 +31,21 @@ pod 'PhotosPreview'
 ```
 
 ## Quick Start
+Import PhotosPreview ```import PhotosPreview``` then use the following codes and give PhotoGridDelegate to the view controller.  
 
+```Swift
+let photoGridViewController = PhotoGridViewController(nibName: PhotoGridViewController.nibName, bundle: Bundle(for: PhotoGridViewController.self))
+photoGridViewController.delegate = self
+self.presentViewController(photoGridViewController, animated: true, completion: nil)
+```
+
+Then you can get the image selected in PhotoGridController in PhotoGridDelegate method below.
+
+```Swift
+func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar) {
+    // Do something with the image
+}
+```
 
 
 ## Author
