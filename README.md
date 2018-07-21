@@ -127,7 +127,7 @@ self.presentViewController(photoGridViewController, animated: true, completion: 
 
 #### Properties
 Declared in `PhotoGridViewController`.
-| Property | Type | Description | Default | 
+| Property | Type | Description | Default |
 |---|---|---|---|
 |**`numberOfCellPerRow `**|CGFloat|Number of cell per row.|3|
 |**`minimumInteritemSpacing `**|CGFloat|MinimumInteritemSpacing of collection view flow layout.|4|
