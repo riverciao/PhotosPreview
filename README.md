@@ -135,10 +135,11 @@ Declared in `PhotoGridViewController`.
 |**`horizontalEdgeInset `**|CGFloat|Left edge inset and right edge inset of collection view.|0|
 |**`verticalEdgeInset `**|CGFloat|Top edge inset and bottom edge inset of collection view.|0| 
 |**`aspectRatio `**|CGFloat|The aspect ratio of photo grid cell.|1|
-|**`thumbnailSize `**|CGSize|The image size in the photo grid cell.|UIScreen.main.scale * <CellSize>|
+|**`thumbnailSize `**|CGSize|The image size in the photo grid cell.|UIScreen.main.scale * <CellSize> |
 |**`backgroundColor `**|UIColor|The backgraound color of colletion view.|black|
 
 Declared in `PhotoPreviewBar`.
+
 | Property | Type | Description | Default
 |---|---|---|---|
 |**`minimumLineSpacing `**|CGFloat|MinimumLineSpacing of collection view flow layout.|2|
