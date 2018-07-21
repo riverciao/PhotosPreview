@@ -126,6 +126,7 @@ self.presentViewController(photoGridViewController, animated: true, completion: 
 ```
 
 #### Properties
+Declared in `PhotoGridViewController`.
 
 | Property | Type | Description | Default |
 |---|---|---|---|
