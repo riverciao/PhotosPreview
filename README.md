@@ -126,13 +126,15 @@ self.presentViewController(photoGridViewController, animated: true, completion: 
 ```
 
 #### Properties
-| Prop | Type | Description | Default |
-|---|---|---|---|
-|**`numberOfCellPerRow `**|CGFloat|Number of cell per row.|`3`|
-|**`minimumInteritemSpacing `**|CGFloat|MinimumInteritemSpacing of collection view flow layout.|`4`|
-|**`aspectRatio `**|CGFloat|The aspect ratio of photo grid cell.|`1`|
-|**`thumbnailSize `**|CGSize|The image size in the photo grid cell.|`UIScreen.main.scale * <cellSize>`|
-|**`backgroundColor `**|UIColor|The backgraound color of colletion view.|`black`|
+| Property | Type | Description | Default | Declared in
+|---|---|---|---|---|
+|**`numberOfCellPerRow `**|CGFloat|Number of cell per row.|`3`| `PhotoGridViewController`|
+|**`minimumInteritemSpacing `**|CGFloat|MinimumInteritemSpacing of collection view flow layout.|`4`| `PhotoGridViewController`|
+|**`horizontalEdgeInset `**|CGFloat|Left edge inset and right edge inset of collection view.|`0`| `PhotoGridViewController`|
+|**`verticalEdgeInset `**|CGFloat|Top edge inset and bottom edge inset of collection view.|`0`| `PhotoGridViewController`|
+|**`aspectRatio `**|CGFloat|The aspect ratio of photo grid cell.|`1`| `PhotoGridViewController`|
+|**`thumbnailSize `**|CGSize|The image size in the photo grid cell.|`UIScreen.main.scale * <CellSize>`| `PhotoGridViewController`|
+|**`backgroundColor `**|UIColor|The backgraound color of colletion view.|`black`| `PhotoGridViewController`|
 
 
 ## Author
