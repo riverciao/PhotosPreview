@@ -138,7 +138,7 @@ Declared in `PhotoGridViewController`.
 |**`backgroundColor `**|UIColor|The backgraound color of colletion view.|black|
 
 Declared in `PhotoPreviewBar`.
-| Property | Type | Description | Default | 
+| Property | Type | Description | Default
 |---|---|---|---|
 |**`minimumLineSpacing `**|CGFloat|MinimumLineSpacing of collection view flow layout.|2|
 |**`minimumInteritemSpacing `**|CGFloat|MinimumInteritemSpacing of collection view flow layout.|0|
