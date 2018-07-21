@@ -103,11 +103,37 @@ func photoGridDidDismissed()
 func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar)
 
 // Optional
-func previewBarWillOpen() // before the animation of opening preview bar
-func previewBarDidOpen() // after the animation of opening preview bar
-func previewBarWillClose() // before the animation of closing preview bar
-func previewBarDidClose() // after the animation of closing preview bar
+// called before the animation of opening preview bar
+func previewBarWillOpen() 
+// called after the animation of opening preview bar
+func previewBarDidOpen() 
+// called before the animation of closing preview bar
+func previewBarWillClose() 
+// called after the animation of closing preview bar
+func previewBarDidClose() 
 ```
+
+#### How to customize
+```Swift
+let photoGridViewController = PhotoGridViewController(nibName: PhotoGridViewController.nibName, bundle: Bundle(for: PhotoGridViewController.self))
+photoGridViewController.delegate = self
+// ...
+photoGridViewController.numberOfCellPerRow = 2
+photoGridViewController.minimumLineSpacing = 1
+photoGridViewController.aspectRatio = 0.6
+// ...
+self.presentViewController(photoGridViewController, animated: true, completion: nil)
+```
+
+#### Properties
+| Prop | Type | Description | Default |
+|---|---|---|---|
+|**`numberOfCellPerRow `**|CGFloat|Number of cell per row.|`3`|
+|**`minimumInteritemSpacing `**|CGFloat|MinimumInteritemSpacing of collection view flow layout.|`4`|
+|**`aspectRatio `**|CGFloat|The aspect ratio of photo grid cell.|`1`|
+|**`thumbnailSize `**|CGSize|The image size in the photo grid cell.|`UIScreen.main.scale * <cellSize>`|
+|**`backgroundColor `**|UIColor|The backgraound color of colletion view.|`black`|
+
 
 ## Author
 Ciao Huang 
