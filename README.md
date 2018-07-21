@@ -48,7 +48,7 @@ func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController) {
 ```
 
 #### Using PhotoPreviewBar
-Conform `PhotoPreviewBarDelegate` to the view controller and add the following code.
+`PhotoPreviewBar` is a collection view which can be opened and closed from the bottom of view controller. Conform `PhotoPreviewBarDelegate` to the view controller and add the following code.
 ```Swift
 // Setup PhotoPreviewBar
 let frame = CGRect(x: 0, y: view.frame.maxY, width: view.frame.width, height: 150)
@@ -63,7 +63,7 @@ photoProvider.fetchAssets(in: .cameraRoll)
 previewBar.photoProvider = photoProvider
 ```
 
-And set up when to open the preview bar.
+And set up when to open the preview bar. For example, create a function triggered when a button is pressed.
 ```Swift
 // Setup PhotoPreviewBar
 func previewButtonPressed() {
@@ -74,7 +74,40 @@ func previewButtonPressed() {
     }
 }
 ```
+You can get the image selected from the `PhotoPreviewBarDelegate` method as well.
+```Swift
+func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar) {
+    // Do something with the image
+}
+```
+`PhotoPreviewBar` is designed with a button for presenting the `PhotoGridViewController`. If you want to open `PhotoGridViewController` by this default button, just add target to  `previewBar.photoGridButton`, and present `PhotoGridViewController`. If you don't need this button, just set `isHidden` to true.
 
+
+#### Delegate methods
+`PhotoGridDelegate`  for using `PhotoGridViewController`.
+```Swift
+// Required
+func didSelectImage(_ image: UIImage, by controller: PhotoGridViewController)
+
+// Optional
+func photoGridViewDidLoad()
+func photoGridViewWillApear()
+func photoGridViewDidApear()
+func photoGridWillDismiss()
+func photoGridDidDismissed()
+```
+
+`PhotoPreviewBarDelegate` for using `PhotoPreviewBar`.
+```Swift
+// Required
+func didSeleteImage(_ image: UIImage, by previewBar: PhotoPreviewBar)
+
+// Optional
+func previewBarWillOpen() // before the animation of opening preview bar
+func previewBarDidOpen() // after the animation of opening preview bar
+func previewBarWillClose() // before the animation of closing preview bar
+func previewBarDidClose() // after the animation of closing preview bar
+```
 
 ## Author
 Ciao Huang 
