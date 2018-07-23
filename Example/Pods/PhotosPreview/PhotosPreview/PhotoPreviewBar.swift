@@ -122,21 +122,21 @@ public class PhotoPreviewBar: UIView {
     
     // MARK: Action
     
-    public func open(from superView: UIView) {
+    public func open() {
         delegate?.previewBarWillOpen()
         self.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: animationDuration) {
-            self.frame.origin.y = superView.bounds.maxY - self.frame.height
+            self.frame.origin.y = self.superview!.bounds.maxY - self.frame.height
         }
         isOpened = true
         delegate?.previewBarDidOpen()
     }
     
-    public func close(from superView: UIView) {
+    public func close() {
         delegate?.previewBarWillClose()
         self.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: animationDuration) {
-            self.frame.origin.y = superView.bounds.maxY
+            self.frame.origin.y = self.superview!.bounds.maxY
         }
         isOpened = false
         delegate?.previewBarDidClose()
@@ -181,7 +181,7 @@ extension PhotoPreviewBar: UICollectionViewDelegate, UICollectionViewDataSource,
         photoProvider.requsetImage(for: asset) { (image) in
             self.delegate?.didSeleteImage(image, by: self)
         }
-        close(from: self.superview!)
+        close()
     }
     
     // MARK: CollectionViewDelegateFlowLayout

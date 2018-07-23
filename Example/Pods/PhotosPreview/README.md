@@ -68,9 +68,9 @@ And set up when to open the preview bar. For example, create a function triggere
 // Setup PhotoPreviewBar
 func previewButtonPressed() {
     if previewBar.isOpened {
-        previewBar.close() // close PhotoPreviewBar to the bottom of superview
+        previewBar.close(from: view) // will close to the bottom of this view
     } else {
-        previewBar.open() // open PhotoPreviewBar from the bottom of superview
+        previewBar.open(from: view) // will open from the bottom of this view
     }
 }
 ```

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,7 +62,7 @@
 		1AD65E35A3233FBE6F2EFDEB3D43D114 /* Pods-Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Example-dummy.m"; sourceTree = "<group>"; };
 		1D8344C9D1DA5042A71CEBF313700D0A /* PhotoGridViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotoGridViewController.swift; path = PhotosPreview/PhotoGridViewController.swift; sourceTree = "<group>"; };
 		25A37D4D536CC5988A439441117C41F4 /* Pods-Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Example.modulemap"; sourceTree = "<group>"; };
-		2A96608002A734B93A1D8C39B691E596 /* PhotosPreview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PhotosPreview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A96608002A734B93A1D8C39B691E596 /* PhotosPreview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PhotosPreview.framework; path = PhotosPreview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31CEB470C1919BE74BA74DA747CEF2A1 /* PhotoPreviewBar.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = PhotoPreviewBar.xib; path = PhotosPreview/PhotoPreviewBar.xib; sourceTree = "<group>"; };
 		35ED1D621E169A6C8A484D0C058C0AF2 /* PhotosPreview-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PhotosPreview-dummy.m"; sourceTree = "<group>"; };
 		3ADE9E5655579DB0F79DC9C80758673C /* Pods-Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -78,13 +78,13 @@
 		7DB6497BE6C5FC586E87B4D70B1106E3 /* button-close.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "button-close.png"; path = "PhotosPreview/Assets/button-close.png"; sourceTree = "<group>"; };
 		8E794B93F2EC7449A25DB06F53429313 /* PhotosPreview-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PhotosPreview-prefix.pch"; sourceTree = "<group>"; };
 		910F35824DEB8434CFE2907A2BD7F72F /* PhotoGridHeaderCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = PhotoGridHeaderCell.xib; path = PhotosPreview/PhotoGridHeaderCell.xib; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		97E8A8CD61DF0E00C6B3E28F49A9BF28 /* AlbumCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = AlbumCell.xib; path = PhotosPreview/AlbumCell.xib; sourceTree = "<group>"; };
 		994B7E0CDE7DA2FE9CBDB17BAB24F229 /* AlbumType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumType.swift; path = PhotosPreview/AlbumType.swift; sourceTree = "<group>"; };
 		9F10E3613FC843B0368862BA9845E053 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A79AC23D5A157FED70D9C53D844B2319 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
-		A7C259393C47755E24F70401860EB0FF /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB650118165169C0015F016FA5337394 /* PhotosPreview.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotosPreview.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7C259393C47755E24F70401860EB0FF /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Example.framework; path = "Pods-Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB650118165169C0015F016FA5337394 /* PhotosPreview.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PhotosPreview.bundle; path = "PhotosPreview-PhotosPreview.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00B9ADE5644B8B503D8CE950C0AF57 /* PhotosPreview.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PhotosPreview.modulemap; sourceTree = "<group>"; };
 		CFAFDB5379692E2A32EF2E58760A5382 /* ResourceBundle-PhotosPreview-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-PhotosPreview-Info.plist"; sourceTree = "<group>"; };
 		D0B06BF4C80F958132A729CD70D386D1 /* PhotoGridViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = PhotoGridViewController.xib; path = PhotosPreview/PhotoGridViewController.xib; sourceTree = "<group>"; };
@@ -145,6 +145,7 @@
 				203A01D3D5D0B6F0A93831AE9AC81FCB /* Resources */,
 				5CFD9F8701B5C26D75F7C7FBC9D8BB3E /* Support Files */,
 			);
+			name = PhotosPreview;
 			path = PhotosPreview;
 			sourceTree = "<group>";
 		};
@@ -327,7 +328,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -445,7 +446,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-Example/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-Example/Pods-Example.modulemap";
 				OTHER_LDFLAGS = "";
@@ -497,7 +502,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-Example/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-Example/Pods-Example.modulemap";
 				OTHER_LDFLAGS = "";
@@ -648,7 +657,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -671,7 +679,11 @@
 				INFOPLIST_FILE = "Target Support Files/PhotosPreview/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/PhotosPreview/PhotosPreview.modulemap";
 				PRODUCT_MODULE_NAME = PhotosPreview;
 				PRODUCT_NAME = PhotosPreview;
@@ -704,7 +716,11 @@
 				INFOPLIST_FILE = "Target Support Files/PhotosPreview/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/PhotosPreview/PhotosPreview.modulemap";
 				PRODUCT_MODULE_NAME = PhotosPreview;
 				PRODUCT_NAME = PhotosPreview;
