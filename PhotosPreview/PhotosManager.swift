@@ -87,7 +87,7 @@ public class PhotoProvider: PhotosManager {
         }
     }
     
-    /// Request image for specific asset, return high qualidied UIImage in resultHandler.
+    /// Request image for specific asset, return high qualified UIImage in resultHandler.
     public func requsetImage(for asset: PHAsset, targetSize: CGSize? = nil, resultHandler: @escaping (UIImage) -> Void) {
         // Request image at this size. If both targetSize and displaySize are not set, default displaySize is double size of UIScreen.
         let size = targetSize ?? imageSize
