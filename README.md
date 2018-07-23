@@ -21,7 +21,7 @@
 
 Download and drop the 'PhotosPreview' folder into your Xcode project.
 
-#### [Cocoapods](http://cocoapods.org)
+#### Using [Cocoapods](http://cocoapods.org)
 
 Add `pod 'PhotosPreview'` to your `Podfile` and run `pod install`.
 
@@ -36,7 +36,7 @@ Import PhotosPreview ```import PhotosPreview``` then use the following codes and
 ```Swift
 let photoGridViewController = PhotoGridViewController(nibName: PhotoGridViewController.nibName, bundle: Bundle(for: PhotoGridViewController.self))
 photoGridViewController.delegate = self
-self.presentViewController(photoGridViewController, animated: true, completion: nil)
+self.present(photoGridViewController, animated: true, completion: nil)
 ```
 
 Then you can get the image selected in PhotoGridController in PhotoGridDelegate method below.
